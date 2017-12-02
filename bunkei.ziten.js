@@ -17,10 +17,7 @@ var dict;
 // var scrolling = false;
 var sitvff = "center"; /* scrollIntoView */
 
-version = store.get("ajaxVersion", version);
-
-const sameVersion = storedVersion == version;
-const sameFont    = storedFont    == font;
+const sameFont = storedFont == font;
 const cacheAvailable = 'caches' in self;
 
 /* Fake GUID */
@@ -362,46 +359,47 @@ $( document ).ready(() => {
         )
     } else {
         caches.open('bunkei').catch(() => alert('Switch to HTTPS please!'));
+        $.getScript("bunkei.ziten.version.js", function() {            
+            const sameVersion = storedVersion == version;
+            if (isAndroid || isLinux) {
+                Promise.all([getData('toc.json', sameVersion), getData('dict.json', sameVersion), getData('mincho.json', sameFont), getData('gothic.json', sameFont)]).then(
+                    (values) => {
+                        toc     = values[0];
+                        dict    = values[1];
 
-        if (isAndroid || isLinux) {
-            Promise.all([getData('toc.json', sameVersion), getData('dict.json', sameVersion), getData('mincho.json', sameFont), getData('gothic.json', sameFont)]).then(
-                (values) => {
-                    toc     = values[0];
-                    dict    = values[1];
+                        sheetMincho = document.createElement('style');
+                        sheetMincho.innerHTML = "@font-face{font-family:CustomMincho;src:url(data:font/ttf;base64," + values[2].mincho + ")}";
+                        document.body.appendChild(sheetMincho);
 
-                    sheetMincho = document.createElement('style');
-                    sheetMincho.innerHTML = "@font-face{font-family:CustomMincho;src:url(data:font/ttf;base64," + values[2].mincho + ")}";
-                    document.body.appendChild(sheetMincho);
+                        sheetGothic = document.createElement('style');
+                        sheetGothic.innerHTML = "@font-face{font-family:CustomGothic;src:url(data:font/ttf;base64," + values[3].gothic + ")}";
+                        document.body.appendChild(sheetGothic);
 
-                    sheetGothic = document.createElement('style');
-                    sheetGothic.innerHTML = "@font-face{font-family:CustomGothic;src:url(data:font/ttf;base64," + values[3].gothic + ")}";
-                    document.body.appendChild(sheetGothic);
+                        dataReady();
+                        if (storedFont != font) {store.set("font", font)}
 
-                    dataReady();
-                    if (storedFont != font) {store.set("font", font)}
+                        fontLoader = new FontLoader(["CustomGothic", "CustomMincho"], {
+                            "complete": () => {
+                                $(".spinner").hide();
+                                $("#mainContent").css("visibility", "visible");
+                            }
+                        }, null);
+                        fontLoader.loadFonts();
+                    }
+                )
+            } else {
+                Promise.all([getData('toc.json', sameVersion), getData('dict.json', sameVersion)]).then(
+                    (values) => {
+                        toc   = values[0];
+                        dict  = values[1];
 
-                    fontLoader = new FontLoader(["CustomGothic", "CustomMincho"], {
-                        "complete": () => {
-                            $(".spinner").hide();
-                            $("#mainContent").css("visibility", "visible");
-                        }
-                    }, null);
-                    fontLoader.loadFonts();
-                }
-            )
-        } else {
-            Promise.all([getData('toc.json', sameVersion), getData('dict.json', sameVersion)]).then(
-                (values) => {
-                    toc   = values[0];
-                    dict  = values[1];
-
-                    dataReady();
-                    $(".spinner").hide();
-                    $("#mainContent").css("visibility", "visible");
-                }
-            )
-        }
-        if (storedVersion != version) {store.set("version", version)}
-        $.getScript("bunkei.ziten.version.js", function() {store.set("ajaxVersion", version)})
+                        dataReady();
+                        $(".spinner").hide();
+                        $("#mainContent").css("visibility", "visible");
+                    }
+                )
+            }
+            if (storedVersion != version) {store.set("version", version)}
+        });
     }
 });
