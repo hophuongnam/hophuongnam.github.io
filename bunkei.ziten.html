@@ -1,0 +1,55 @@
+<!doctype html>
+
+<html lang="ja">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no">
+
+    <title>文型辞書</title>
+    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>    
+    <script type="text/javascript" src="wanakana.min.js"></script>
+    <script type="text/javascript" src="xStore.min.js"></script>
+    <script type="text/javascript" src="delayed.min.js"></script>
+    <script type="text/javascript" src="jquery.mutationobserver.min.js"></script>
+    <script type="text/javascript" src="underscore.min.js"></script>
+    <script type="text/javascript" src="FontLoader.min.js"></script>
+    <script type="text/javascript" src="vagueTime.min.js"></script>
+    <script type="text/javascript" src="bunkei.ziten.version.js"></script>
+    <script type="text/javascript">
+        var font = 1;
+    </script>
+    <script type="text/javascript" src="bunkei.ziten.js"></script>
+
+    <link rel="stylesheet" type="text/css" href="normalize.css">
+    <link rel="stylesheet" type="text/css" href="bunkei.ziten.css">
+</head>
+<body>
+    <div id=topBar>
+        <div id=title>日本語文型辞典</div>
+        <div id=history>
+            <button id=random>&Omega;</button>
+            <button id=back disabled>&#9664;</button>
+            <button id=forward disabled>&#9654;</button>
+        </div>
+    </div>
+
+    <div id=sideBar class=transition>
+        <div id=searchBar>
+            <input autocapitalize="none" autocorrect="none" autocomplete="off" id=search type=text placeholder="探索">
+        </div>        
+        <div id=toc></div>
+        <div id=tocFooter></div>
+    </div>
+    
+    <div id=main>
+        <div id=mainContent></div>
+    </div>
+    
+    <div class="spinner">
+        <div class="double-bounce1"></div>
+        <div class="double-bounce2"></div>
+    </div>
+</body>
+</html>

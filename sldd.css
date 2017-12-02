@@ -1,0 +1,150 @@
+body {
+    font-family: Tahoma, Arial, Helvetica, Georgia, "Times New Roman", "Noto Serif", "Noto Serif CJK SC", "NotoSerifCJKsc", "Noto Sans", "Noto Sans CJK SC", "Microsoft YaHei New", "Microsoft Yahei", "微软雅黑", 宋体, SimSun, STXihei, "华文细黑", sans-serif, serif;
+}
+
+#mainContent {
+    writing-mode: vertical-rl;
+    -webkit-writing-mode: vertical-rl;
+    -ms-writing-mode: tb-rl; 
+    -moz-writing-mode: vertical-rl;
+    -ms-writing-mode: vertical-rl;    
+    line-height: 1.7em;
+    font-size: 2em;
+    letter-spacing: 3px;
+    text-align: justify;
+    visibility: hidden;
+    margin: 50px;
+}
+
+#mainContent a {
+    display: inline-block;    
+}
+
+#back {
+    float: right;
+}
+
+.tooltipser {
+    position: absolute;
+    display: inline-block;
+    visibility: hidden;
+    white-space: nowrap;
+    z-index: 99;
+}
+
+.tooltipser .tooltipsertext {
+    text-align: center;
+    padding: 5px;
+    background-color: black;
+    color: #fff;
+    border-radius: 6px;
+    position: absolute;
+    font-size: small;
+}
+
+.tooltipser .arrowRight::after {
+    content: " ";
+    position: absolute;
+    top: 50%;
+    right: 100%; 
+    margin-top: -5px;
+    border-width: 5px;
+    border-style: solid;
+    border-color: transparent black transparent transparent;
+}
+
+.tooltipser .arrowLeft::after {
+    content: " ";
+    position: absolute;
+    top: 50%;
+    left: 100%; 
+    margin-top: -5px;
+    border-width: 5px;
+    border-style: solid;
+    border-color: transparent transparent transparent black;
+}
+
+#modal {
+    display: none;
+    position: fixed;
+    z-index: 999;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow-y: hidden;
+    background-color: rgb(0,0,0);
+    background-color: rgba(0,0,0,0.4);
+}
+
+#modal-content {
+    background-color: #fefefe;
+    padding: 20px;
+    border: 1px solid #888;
+    height: 1vh;
+    overflow: auto;
+    border-radius: 8px;
+    max-height: 80vh;
+    font-family: Tahoma, Arial, Helvetica, Georgia, "Times New Roman", "Noto Serif", "Noto Serif CJK SC", "Noto Sans", "Noto Sans CJK SC", "Microsoft YaHei New", "Microsoft Yahei", "微软雅黑", 宋体, SimSun, STXihei, "华文细黑", serif, sans-serif;
+}
+
+#modal-content a {
+    color: darkblue;
+    cursor: pointer;
+}
+
+/* spinner */
+.spinner {
+    width: 40px;
+    height: 40px;    
+    top: 50%;
+    left: 50%;
+    position: fixed;
+    transform: translate(-50%,-50%);
+}
+
+.double-bounce1, .double-bounce2 {
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    background-color: #333;
+    opacity: 0.6;
+    position: absolute;
+    top: 0;
+    left: 0;
+    -webkit-animation: sk-bounce 2.0s infinite ease-in-out;
+    animation: sk-bounce 2.0s infinite ease-in-out;
+}
+
+.double-bounce2 {
+    -webkit-animation-delay: -1.0s;
+    animation-delay: -1.0s;
+}
+
+@-webkit-keyframes sk-bounce {
+    0%, 100% { -webkit-transform: scale(0.0) }
+    50% { -webkit-transform: scale(1.0) }
+}
+
+@keyframes sk-bounce {
+    0%, 100% { 
+        transform: scale(0.0);
+        -webkit-transform: scale(0.0);
+    } 50% { 
+        transform: scale(1.0);
+        -webkit-transform: scale(1.0);
+    }
+}
+/* spinner */
+
+@media all and (min-width: 960px) {
+  body {font-size: 16px;}
+}
+
+@media all and (max-width: 959px) and (min-width: 600px) {
+  body {font-size: 14px;}
+}
+
+@media all and (max-width: 599px) and (min-width: 320px) {
+  body {font-size: 12px;}
+}
