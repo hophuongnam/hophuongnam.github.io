@@ -16,7 +16,7 @@ var toc;
 var dict;
 // var scrolling = false;
 var sitvff = "center"; /* scrollIntoView */
-var remoteDBConfig = store.get("pouchdbRemoteDB");
+var remoteDBConfig = store.get("pouchdbRemoteDB", 'none');
 var localDB;
 var remoteDB;
 var myID = guid();
@@ -335,6 +335,7 @@ function dataReady() {
                 closeSideBar();
                 heading = $(this).attr('id');
                 displayNewContent(heading);
+                updateDB();
             });
             $('#mainContent ruby').not("#mainContent strong ruby").click(function() {
                 rt = $(this).find('rt');
@@ -366,7 +367,7 @@ function dataReady() {
     });
 
     localDB = new PouchDB('bunkei');
-    if (remoteDBConfig) {        
+    if (remoteDBConfig != "none") {        
         remoteDB = new PouchDB(remoteDBConfig);
         localDB.sync(remoteDB, {
             live: true,
