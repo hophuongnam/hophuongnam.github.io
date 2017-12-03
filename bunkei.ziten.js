@@ -16,6 +16,10 @@ var toc;
 var dict;
 // var scrolling = false;
 var sitvff = "center"; /* scrollIntoView */
+var remoteDBConfig = store.get("pouchdbRemoteDB");
+var localDB;
+var remoteDB;
+var myID = guid();
 
 const sameFont = storedFont == font;
 const cacheAvailable = 'caches' in self;
@@ -119,14 +123,28 @@ function displayNewContent(heading) {
     if (backward.length > 99) {backward.shift();}
     currentHeading = heading;
     updateMainContent(heading);
-    $(window).scrollLeft($('#mainContent').get(0).scrollWidth);    
+    $(window).scrollLeft($('#mainContent').get(0).scrollWidth);
     store.set('scroll', $('#mainContent').get(0).scrollWidth);
     store.set('currentHeading', heading);
     store.set('history', backward);
 }
 
+function updateDB() {
+    localDB.get('config').catch(function(err) {
+        if (err.name === 'not_found') {
+            return {
+                _id: 'config'
+            };
+        }
+    }).then(function(doc) {
+        doc.currentHeading = currentHeading;
+        doc.myID = myID;
+        localDB.put(doc);
+    });
+}
+
 async function getData(filename, same) {
-	// same: true/false. false will delete file
+    // same: true/false. false will delete file
     var myCache;
     var dataReturn;
 
@@ -224,20 +242,16 @@ function dataReady() {
         });
     });
 
-    /*setInterval(() => {
+    /* setInterval(() => {
         if (scrolling) {
             scrolling = false;
-            store.set('scroll', $(window).scrollLeft());
-            $(".sentinel").trigger({
-                type: "scrolling",
-                windowBoundRight: $(window).scrollLeft() + document.documentElement.clientWidth
-            });
         }
-    }, 250);*/
+    }, 1000); */
 
     $("#random").click(() => {
         ran = pickRandomProperty(dict);
         displayNewContent(ran);
+        updateDB();
         if ( $("#sideBar").css('left') == "0px" ) {
             $("#search").val("");
             displayTOC(toc);
@@ -255,6 +269,7 @@ function dataReady() {
         if (forward.length == 0) {
             $('#forward').attr('disabled', 'disabled');
         }
+        updateDB();
     });
 
     $("#back").click(() => {
@@ -272,6 +287,19 @@ function dataReady() {
         if (forward.length > 0) {
             $("#forward").removeAttr('disabled');
         }
+        updateDB();
+    });
+
+    $("#tocFooter").click(function() {
+        $("#pouchdb").modal();
+        closeSideBar();
+    });
+
+    $("#pouchdbButton").click(function() {
+        if ($("#pouchdbConfig").val()) {
+            store.set("pouchdbRemoteDB", $("#pouchdbConfig").val());
+            alert("Done. Please reload.\n" + $("#pouchdbConfig").val());
+        }
     });
 
     $("#toc").mutationObserver(() => {
@@ -282,6 +310,7 @@ function dataReady() {
             closeSideBar();
             heading = $(this).attr('id');
             displayNewContent(heading);
+            updateDB();
         });
     });
 
@@ -335,6 +364,19 @@ function dataReady() {
             $("#mainContent").css("visibility", "visible");
         }, 500);
     });
+
+    localDB = new PouchDB('bunkei');
+    if (remoteDBConfig) {        
+        remoteDB = new PouchDB(remoteDBConfig);
+        localDB.sync(remoteDB, {
+            live: true,
+            retry: true
+        }).on('change', function (change) {
+            if (myID != change.change.docs[0].myID && currentHeading != change.change.docs[0].currentHeading) {
+                displayNewContent(change.change.docs[0].currentHeading);
+            }
+        })
+    }
 }
 
 $( document ).ready(() => {
