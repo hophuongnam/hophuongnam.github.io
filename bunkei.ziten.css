@@ -194,7 +194,7 @@ input::placeholder {
 }
 
 .explains {
-    display: inline-table;
+    //display: inline-table;
     text-indent: 2em;
     margin-right: 0.5em;
     margin-left: 0.5em;
