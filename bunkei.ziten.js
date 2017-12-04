@@ -355,7 +355,7 @@ function dataReady() {
                 }
                 if (elemPos < event.windowBoundRight) {
                     $("#" + $(this).data('id')).css({
-                        "box-shadow": "1px 1px 1px 1px rgba(133,133,133,0.35)",
+                        "box-shadow": "1px 1px 5px rgba(0, 0, 0, 0.3)",
                         "background-color": "#f0f0f0",
                         "color": "initial"
                     })
