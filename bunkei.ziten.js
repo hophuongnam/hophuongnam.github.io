@@ -380,7 +380,7 @@ function dataReady() {
                     $("#mainContent").fadeIn(100).fadeOut(100).fadeIn(100).fadeOut(100).fadeIn(100).fadeIn(100).fadeOut(100).fadeIn(100).fadeOut(100).fadeIn(100);
                 }
             }
-            if (change.change.docs[0]._id == "update" && change.change.docs[0].version > version) {
+            if (change.change.docs[0]._id == "update" && change.change.docs[0].version > version && cacheAvailable) {
                 version = change.change.docs[0].version;
                 storedVersion = version;
                 store.set('version', version);
