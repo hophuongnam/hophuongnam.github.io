@@ -373,8 +373,24 @@ function dataReady() {
             live: true,
             retry: true
         }).on('change', function (change) {
-            if (myID != change.change.docs[0].myID && currentHeading != change.change.docs[0].currentHeading) {
-                displayNewContent(change.change.docs[0].currentHeading);
+            if (change.change.docs[0]._id == "config") {
+                if (myID != change.change.docs[0].myID && currentHeading != change.change.docs[0].currentHeading) {
+                    displayNewContent(change.change.docs[0].currentHeading);
+                }
+            }
+            if (change.change.docs[0]._id == "update" && change.change.docs[0].version > version) {
+                version = change.change.docs[0].version;
+                storedVersion = version;
+                store.set('version', version);
+                delayed.delay(function() {
+                    Promise.all([getData('toc.json', false), getData('dict.json', false)]).then(
+                        (values) => {
+                            toc   = values[0];
+                            dict  = values[1];
+                            displayNewContent(currentHeading);
+                        }
+                    )
+                }, 60 * 1000)
             }
         })
     }
