@@ -377,6 +377,7 @@ function dataReady() {
             if (change.change.docs[0]._id == "config") {
                 if (myID != change.change.docs[0].myID && currentHeading != change.change.docs[0].currentHeading) {
                     displayNewContent(change.change.docs[0].currentHeading);
+                    $("#mainContent").fadeIn(100).fadeOut(100).fadeIn(100).fadeOut(100).fadeIn(100).fadeIn(100).fadeOut(100).fadeIn(100).fadeOut(100).fadeIn(100);
                 }
             }
             if (change.change.docs[0]._id == "update" && change.change.docs[0].version > version) {
@@ -389,6 +390,7 @@ function dataReady() {
                             toc   = values[0];
                             dict  = values[1];
                             displayNewContent(currentHeading);
+                            $("#mainContent").fadeIn(100).fadeOut(100).fadeIn(100).fadeOut(100).fadeIn(100).fadeIn(100).fadeOut(100).fadeIn(100).fadeOut(100).fadeIn(100);
                         }
                     )
                 }, 60 * 1000)
