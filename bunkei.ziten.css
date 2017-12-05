@@ -168,11 +168,7 @@ input::placeholder {
     padding-right: 0.5em;
 }
 
-.subheader {
-    font-size: 1.5em;
-}
-
-.border, .subheader {
+.border {
     -webkit-box-shadow: 1px 1px 5px rgba(0, 0, 0, 0.3);
     -moz-box-shadow: 1px 1px 5px rgba(0, 0, 0, 0.3);
     box-shadow: 1px 1px 5px rgba(0, 0, 0, 0.3);
@@ -185,16 +181,13 @@ input::placeholder {
     margin-left: 0.5em;
     margin-right: 0.5em;
     padding: 0.2em;
-}
 
-.subheader, .border{
     position: sticky;
     position: -webkit-sticky;
     right: 0;
 }
 
 .explains {
-    //display: inline-table;
     text-indent: 2em;
     margin-right: 0.5em;
     margin-left: 0.5em;

@@ -291,12 +291,13 @@ function dataReady() {
     });
 
     $("#tocFooter").click(function() {
+        $("#pouchdbConfig").val(remoteDBConfig);
         $("#pouchdb").modal();
         closeSideBar();
     });
 
     $("#pouchdbButton").click(function() {
-        if ($("#pouchdbConfig").val()) {
+        if ($("#pouchdbConfig").val() && $("#pouchdbConfig").val() != "none") {
             store.set("pouchdbRemoteDB", $("#pouchdbConfig").val());
             alert("Done. Please reload.\n" + $("#pouchdbConfig").val());
         }
@@ -323,7 +324,7 @@ function dataReady() {
         }
         var idBefore = guid();
         var myID;
-        $(".subheader, .border").each(function() {
+        $(".border").each(function() {
             myID = guid();
             $(this).attr("id", myID);
             $(this).before("<div class=sentinel data-id='" + idBefore + "'></div>");
