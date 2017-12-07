@@ -48,7 +48,7 @@ function pickRandomProperty(obj) {
 
 function displayTOC(tocToDisplay) {
     if (rebuildTOC) {
-        tocA = ""
+        var tocA = ""
         jQuery.each(tocToDisplay, function(index, value) {
             tocA = tocA + "<a id=" + value.id + ">" + value.keyword + "</a>"
         })        
@@ -59,6 +59,7 @@ function displayTOC(tocToDisplay) {
 }
 
 function doneTyping() {
+    var filter, sort;
     if ($("#search").val() == "") {
         rebuildTOC = true;
         displayTOC(toc);
@@ -98,8 +99,8 @@ function updateMainContent(item) {
     $('#mainContent').html("");
     // newContent = dict[item].replace(/ω/g, '<span class="sentenceContent">').replace(/ψ/g, '<span class="sentenceHeader" style="white-space: nowrap;">').replace(/ξ/g, '<span class="sentence">').replace(/μ/g, '<div class="heading"><span class="keyword">').replace(/φ/g, '</span>').replace(/π/g, '</div>').replace(/λ/g, '<div class="item">').replace(/θ/g, '<div class="examples">').replace(/η/g, '<span class="explains">').replace(/ζ/g, '<span class="subheader">').replace(/α/g, '<ruby>').replace(/γ/g, '<rt>').replace(/δ/g, '</rt></ruby>').replace(/＄/g, '<br>').replace(/＃/g, '<strong>').replace(/＆/g, '</strong>');
     var newContent = dict[item].replace(/＄/g, '<br>');
-    m = newContent.match(/【.+?】/g);
-    jQuery.each(m, function(index, value) {
+    var m = newContent.match(/【.+?】/g);
+    $.each(m, function(index, value) {
         keyword = value.slice(1, -1);
         hasKey = _.find(toc, function(value) {
             return value.keyword ==  keyword
