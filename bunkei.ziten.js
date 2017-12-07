@@ -97,7 +97,7 @@ function hideRT(rt) {
 function updateMainContent(item) {
     $('#mainContent').html("");
     // newContent = dict[item].replace(/ω/g, '<span class="sentenceContent">').replace(/ψ/g, '<span class="sentenceHeader" style="white-space: nowrap;">').replace(/ξ/g, '<span class="sentence">').replace(/μ/g, '<div class="heading"><span class="keyword">').replace(/φ/g, '</span>').replace(/π/g, '</div>').replace(/λ/g, '<div class="item">').replace(/θ/g, '<div class="examples">').replace(/η/g, '<span class="explains">').replace(/ζ/g, '<span class="subheader">').replace(/α/g, '<ruby>').replace(/γ/g, '<rt>').replace(/δ/g, '</rt></ruby>').replace(/＄/g, '<br>').replace(/＃/g, '<strong>').replace(/＆/g, '</strong>');
-    newContent = dict[item].replace(/＄/g, '<br>');
+    var newContent = dict[item].replace(/＄/g, '<br>');
     m = newContent.match(/【.+?】/g);
     jQuery.each(m, function(index, value) {
         keyword = value.slice(1, -1);
@@ -108,7 +108,7 @@ function updateMainContent(item) {
             re = new RegExp(value, "g");
             newContent = newContent.replace(re, "<a id=" + hasKey.id + ">" + value + "</a>")
         }
-    })
+    });
     $('#mainContent').append(newContent);
 }
 
@@ -411,8 +411,8 @@ $( document ).ready(() => {
         $("#title").css('color', 'red');
         Promise.all([$.getJSON('toc.json'), $.getJSON('dict.json')]).then(
             (values) => {
-                toc   = values[0];
-                dict  = values[1];
+                toc  = values[0];
+                dict = values[1];
 
                 dataReady();
                 $(".spinner").hide();
@@ -426,8 +426,8 @@ $( document ).ready(() => {
             if (isAndroid || isLinux) {
                 Promise.all([getData('toc.json', sameVersion), getData('dict.json', sameVersion), getData('mincho.json', sameFont), getData('gothic.json', sameFont)]).then(
                     (values) => {
-                        toc     = values[0];
-                        dict    = values[1];
+                        toc  = values[0];
+                        dict = values[1];
 
                         sheetMincho = document.createElement('style');
                         sheetMincho.innerHTML = "@font-face{font-family:CustomMincho;src:url(data:font/ttf;base64," + values[2].mincho + ")}";
@@ -439,6 +439,7 @@ $( document ).ready(() => {
 
                         dataReady();
                         if (storedFont != font) {store.set("font", font)}
+                        if (storedVersion != version) {store.set("version", dict.version)}
 
                         fontLoader = new FontLoader(["CustomGothic", "CustomMincho"], {
                             "complete": () => {
@@ -452,16 +453,16 @@ $( document ).ready(() => {
             } else {
                 Promise.all([getData('toc.json', sameVersion), getData('dict.json', sameVersion)]).then(
                     (values) => {
-                        toc   = values[0];
-                        dict  = values[1];
+                        toc  = values[0];
+                        dict = values[1];
 
                         dataReady();
                         $(".spinner").hide();
                         $("#mainContent").css("visibility", "visible");
+                        if (storedVersion != version) {store.set("version", dict.version)}
                     }
                 )
-            }
-            if (storedVersion != version) {store.set("version", version)}
+            }            
         });
     }
 });
