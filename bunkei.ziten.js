@@ -149,41 +149,47 @@ async function getData(filename, same) {
     var myCache;
     var dataReturn;
 
-    await caches.open(cacheName).then((cache) => {
-        myCache = cache
-    });
+    if (cacheAvailable) {
+        await caches.open(cacheName).then((cache) => {
+            myCache = cache
+        });
 
-    if (!same) {
-        await myCache.delete(filename);
-    }
-    
-    await myCache.match(filename)
-    .then(
-        (resp) => {
-            if (resp) {
-                return resp.json()
-            } else {
-                return myCache.add(filename)
-                .then(
-                    () => {
-                        return myCache.match(filename)
-                        .then(
-                            (resp) => {
-                                return resp.json()
-                            }
-                        )
-                    }
-                )
+        if (!same) {
+            await myCache.delete(filename);
+        }
+        
+        await myCache.match(filename)
+        .then(
+            (resp) => {
+                if (resp) {
+                    return resp.json()
+                } else {
+                    return myCache.add(filename)
+                    .then(
+                        () => {
+                            return myCache.match(filename)
+                            .then(
+                                (resp) => {
+                                    return resp.json()
+                                }
+                            )
+                        }
+                    )
+                }
             }
-        }
-    )
-    .then(
-        (data) => {
+        )
+        .then(
+            (data) => {
+                dataReturn = data
+            }
+        );
+        return dataReturn;
+    } else {
+        await $.getJSON(filename, function(data) {
             dataReturn = data
-        }
-    )
-
-    return dataReturn;
+        });
+        return dataReturn;
+    }
 }
 
 function closeSideBar() {
@@ -369,7 +375,7 @@ function dataReady() {
     });
 
     localDB = new PouchDB('bunkei');
-    if (remoteDBConfig != "none") {        
+    if (remoteDBConfig != "none") {
         remoteDB = new PouchDB(remoteDBConfig);
         localDB.sync(remoteDB, {
             live: true,
@@ -396,7 +402,19 @@ function dataReady() {
                     )
                 }, 60 * 1000)
             }
-        })
+        });
+        localDB.get('config').catch(function(err) {
+            if (err.name === 'not_found') {
+                return {
+                    _id: 'none'
+                };
+            }
+        }).then(function(doc) {
+            if (doc._id != "none" && doc.currentHeading != currentHeading) {
+                displayNewContent(doc.currentHeading);
+                $("#mainContent").fadeIn(100).fadeOut(100).fadeIn(100).fadeOut(100).fadeIn(100).fadeIn(100).fadeOut(100).fadeIn(100).fadeOut(100).fadeIn(100);
+            }
+        });
     }
 }
 
@@ -408,62 +426,52 @@ $( document ).ready(() => {
         });
         sitvff = "start"; /* scrollIntoView */
     }
-    if (!cacheAvailable) {
-        $("#title").css('color', 'red');
-        Promise.all([$.getJSON('toc.json'), $.getJSON('dict.json')]).then(
-            (values) => {
-                toc  = values[0];
-                dict = values[1];
-
-                dataReady();
-                $(".spinner").hide();
-                $("#mainContent").css("visibility", "visible");
-            }
-        )
-    } else {
+    if (cacheAvailable) {
         caches.open('bunkei').catch(() => alert('Switch to HTTPS please!'));
-        $.getScript("bunkei.ziten.version.js", function() {            
-            const sameVersion = storedVersion == version;
-            if (isAndroid || isLinux) {
-                Promise.all([getData('toc.json', sameVersion), getData('dict.json', sameVersion), getData('mincho.json', sameFont), getData('gothic.json', sameFont)]).then(
-                    (values) => {
-                        toc  = values[0];
-                        dict = values[1];
+    } else {
+        $("#title").css('color', 'red');
+    }    
+    $.getScript("bunkei.ziten.version.js", function() {
+        const sameVersion = storedVersion == version;
+        if (isAndroid || isLinux) {
+            Promise.all([getData('toc.json', sameVersion), getData('dict.json', sameVersion), getData('mincho.json', sameFont), getData('gothic.json', sameFont)]).then(
+                (values) => {
+                    toc  = values[0];
+                    dict = values[1];
 
-                        sheetMincho = document.createElement('style');
-                        sheetMincho.innerHTML = "@font-face{font-family:CustomMincho;src:url(data:font/ttf;base64," + values[2].mincho + ")}";
-                        document.body.appendChild(sheetMincho);
+                    sheetMincho = document.createElement('style');
+                    sheetMincho.innerHTML = "@font-face{font-family:CustomMincho;src:url(data:font/ttf;base64," + values[2].mincho + ")}";
+                    document.body.appendChild(sheetMincho);
 
-                        sheetGothic = document.createElement('style');
-                        sheetGothic.innerHTML = "@font-face{font-family:CustomGothic;src:url(data:font/ttf;base64," + values[3].gothic + ")}";
-                        document.body.appendChild(sheetGothic);
+                    sheetGothic = document.createElement('style');
+                    sheetGothic.innerHTML = "@font-face{font-family:CustomGothic;src:url(data:font/ttf;base64," + values[3].gothic + ")}";
+                    document.body.appendChild(sheetGothic);
 
-                        dataReady();
-                        if (storedFont != font) {store.set("font", font)}
-                        if (storedVersion != version) {store.set("version", dict.version)}
+                    dataReady();
+                    if (storedFont != font) {store.set("font", font)}
+                    if (storedVersion != version) {store.set("version", dict.version)}
 
-                        fontLoader = new FontLoader(["CustomGothic", "CustomMincho"], {
-                            "complete": () => {
-                                $(".spinner").hide();
-                                $("#mainContent").css("visibility", "visible");
-                            }
-                        }, null);
-                        fontLoader.loadFonts();
-                    }
-                )
-            } else {
-                Promise.all([getData('toc.json', sameVersion), getData('dict.json', sameVersion)]).then(
-                    (values) => {
-                        toc  = values[0];
-                        dict = values[1];
+                    fontLoader = new FontLoader(["CustomGothic", "CustomMincho"], {
+                        "complete": () => {
+                            $(".spinner").hide();
+                            $("#mainContent").css("visibility", "visible");
+                        }
+                    }, null);
+                    fontLoader.loadFonts();
+                }
+            )
+        } else {
+            Promise.all([getData('toc.json', sameVersion), getData('dict.json', sameVersion)]).then(
+                (values) => {
+                    toc  = values[0];
+                    dict = values[1];
 
-                        dataReady();
-                        $(".spinner").hide();
-                        $("#mainContent").css("visibility", "visible");
-                        if (storedVersion != version) {store.set("version", dict.version)}
-                    }
-                )
-            }            
-        });
-    }
+                    dataReady();
+                    $(".spinner").hide();
+                    $("#mainContent").css("visibility", "visible");
+                    if (storedVersion != version) {store.set("version", dict.version)}
+                }
+            )
+        }
+    });
 });
