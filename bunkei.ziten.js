@@ -448,8 +448,8 @@ $( document ).ready(() => {
                     document.body.appendChild(sheetGothic);
 
                     dataReady();
-                    if (storedFont != font) {store.set("font", font)}
-                    if (storedVersion != version) {store.set("version", dict.version)}
+                    store.set("font", font);
+                    store.set("version", dict.version);
 
                     fontLoader = new FontLoader(["CustomGothic", "CustomMincho"], {
                         "complete": () => {
@@ -469,7 +469,7 @@ $( document ).ready(() => {
                     dataReady();
                     $(".spinner").hide();
                     $("#mainContent").css("visibility", "visible");
-                    if (storedVersion != version) {store.set("version", dict.version)}
+                    store.set("version", dict.version);
                 }
             )
         }
