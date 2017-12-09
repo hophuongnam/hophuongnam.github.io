@@ -197,20 +197,15 @@ function closeSideBar() {
 
 function dataReady() {
     $.getJSON('bunkei.ziten.version.json', function(data) {
-        console.log(data)
-    });
-    /*loadjs('bunkei.ziten.version.js', {
-        success: function() {
-            if (version =! dict.version) {
-                Promise.all([getData('toc.json', false), getData('dict.json', false)]).then(
-                    (values) => {
-                        toc  = values[0];
-                        dict = values[1];
-                    }
-                )
-            }
+        if (data.version =! dict.version) {
+            Promise.all([getData('toc.json', false), getData('dict.json', false)]).then(
+                (values) => {
+                    toc  = values[0];
+                    dict = values[1];
+                }
+            )
         }
-    });*/
+    });
 
     $("#sideBar").css("top", $("#topBar").height() + 1);
 
