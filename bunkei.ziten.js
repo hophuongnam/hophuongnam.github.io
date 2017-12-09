@@ -438,7 +438,7 @@ $( document ).ready(() => {
         $("#title").css('color', 'red');
     }    
     if (isAndroid || isLinux) {
-        Promise.all([getData('toc.json'), getData('dict.json'), getData('mincho.json'), getData('gothic.json')]).then(
+        Promise.all([getData('toc.json', true), getData('dict.json', true), getData('mincho.json', true), getData('gothic.json', true)]).then(
             (values) => {
                 toc  = values[0];
                 dict = values[1];
@@ -463,7 +463,7 @@ $( document ).ready(() => {
             }
         )
     } else {
-        Promise.all([getData('toc.json'), getData('dict.json')]).then(
+        Promise.all([getData('toc.json', true), getData('dict.json', true)]).then(
             (values) => {
                 toc  = values[0];
                 dict = values[1];
