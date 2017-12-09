@@ -196,7 +196,10 @@ function closeSideBar() {
 }
 
 function dataReady() {
-    loadjs('bunkei.ziten.version.js', {
+    $.getJSON('bunkei.ziten.version.json', function(data) {
+        console.log(data)
+    });
+    /*loadjs('bunkei.ziten.version.js', {
         success: function() {
             if (version =! dict.version) {
                 Promise.all([getData('toc.json', false), getData('dict.json', false)]).then(
@@ -207,7 +210,7 @@ function dataReady() {
                 )
             }
         }
-    });
+    });*/
 
     $("#sideBar").css("top", $("#topBar").height() + 1);
 
