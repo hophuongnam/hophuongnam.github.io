@@ -10,8 +10,6 @@ var isiOS = /iPad|iPhone|iPod/.test(navigator.userAgent);
 var isLinux = /linux/i.test(navigator.userAgent);
 var isFirefox = /firefox/i.test(navigator.userAgent);
 var rebuildTOC = true;
-var storedVersion = store.get("version");
-var storedFont = store.get("font");
 var toc;
 var dict;
 // var scrolling = false;
@@ -21,7 +19,6 @@ var localDB;
 var remoteDB;
 var myID = guid();
 
-const sameFont = storedFont == font;
 const cacheAvailable = 'caches' in self;
 
 /* Fake GUID */
@@ -199,7 +196,19 @@ function closeSideBar() {
 }
 
 function dataReady() {
-    $("#tocFooter").text("Last updated " + vagueTime.get({to: version * 1000, from: Date.now()}) + ".");
+    loadjs('bunkei.ziten.version.js', {
+        success: function() {
+            if (version =! dict.version) {
+                Promise.all([getData('toc.json', false), getData('dict.json', false)]).then(
+                    (values) => {
+                        toc  = values[0];
+                        dict = values[1];
+                    }
+                )
+            }
+        }
+    });
+
     $("#sideBar").css("top", $("#topBar").height() + 1);
 
     if (isiOS) {
@@ -224,7 +233,7 @@ function dataReady() {
     }
 
     $("#title").click(() => {
-        $("#tocFooter").text("Last updated " + vagueTime.get({to: version * 1000, from: Date.now()}) + ".");
+        $("#tocFooter").text("Last updated " + vagueTime.get({to: dict.version * 1000, from: Date.now()}) + ".");
         if ( $("#sideBar").css('left') != "0px" ) {
             $("#search").val("");
             displayTOC(toc);
@@ -387,10 +396,7 @@ function dataReady() {
                     $("#mainContent").fadeIn(100).fadeOut(100).fadeIn(100).fadeOut(100).fadeIn(100).fadeIn(100).fadeOut(100).fadeIn(100).fadeOut(100).fadeIn(100);
                 }
             }
-            if (change.change.docs[0]._id == "update" && change.change.docs[0].version > version && cacheAvailable) {
-                version = change.change.docs[0].version;
-                storedVersion = version;
-                store.set('version', version);
+            if (change.change.docs[0]._id == "update" && change.change.docs[0].version > dict.version) {
                 delayed.delay(function() {
                     Promise.all([getData('toc.json', false), getData('dict.json', false)]).then(
                         (values) => {
@@ -431,47 +437,41 @@ $( document ).ready(() => {
     } else {
         $("#title").css('color', 'red');
     }    
-    $.getScript("bunkei.ziten.version.js", function() {
-        const sameVersion = storedVersion == version;
-        if (isAndroid || isLinux) {
-            Promise.all([getData('toc.json', sameVersion), getData('dict.json', sameVersion), getData('mincho.json', sameFont), getData('gothic.json', sameFont)]).then(
-                (values) => {
-                    toc  = values[0];
-                    dict = values[1];
+    if (isAndroid || isLinux) {
+        Promise.all([getData('toc.json'), getData('dict.json'), getData('mincho.json'), getData('gothic.json')]).then(
+            (values) => {
+                toc  = values[0];
+                dict = values[1];
 
-                    sheetMincho = document.createElement('style');
-                    sheetMincho.innerHTML = "@font-face{font-family:CustomMincho;src:url(data:font/ttf;base64," + values[2].mincho + ")}";
-                    document.body.appendChild(sheetMincho);
+                sheetMincho = document.createElement('style');
+                sheetMincho.innerHTML = "@font-face{font-family:CustomMincho;src:url(data:font/ttf;base64," + values[2].mincho + ")}";
+                document.body.appendChild(sheetMincho);
 
-                    sheetGothic = document.createElement('style');
-                    sheetGothic.innerHTML = "@font-face{font-family:CustomGothic;src:url(data:font/ttf;base64," + values[3].gothic + ")}";
-                    document.body.appendChild(sheetGothic);
+                sheetGothic = document.createElement('style');
+                sheetGothic.innerHTML = "@font-face{font-family:CustomGothic;src:url(data:font/ttf;base64," + values[3].gothic + ")}";
+                document.body.appendChild(sheetGothic);
 
-                    dataReady();
-                    store.set("font", font);
-                    store.set("version", dict.version);
+                dataReady();
 
-                    fontLoader = new FontLoader(["CustomGothic", "CustomMincho"], {
-                        "complete": () => {
-                            $(".spinner").hide();
-                            $("#mainContent").css("visibility", "visible");
-                        }
-                    }, null);
-                    fontLoader.loadFonts();
-                }
-            )
-        } else {
-            Promise.all([getData('toc.json', sameVersion), getData('dict.json', sameVersion)]).then(
-                (values) => {
-                    toc  = values[0];
-                    dict = values[1];
+                fontLoader = new FontLoader(["CustomGothic", "CustomMincho"], {
+                    "complete": () => {
+                        $(".spinner").hide();
+                        $("#mainContent").css("visibility", "visible");
+                    }
+                }, null);
+                fontLoader.loadFonts();
+            }
+        )
+    } else {
+        Promise.all([getData('toc.json'), getData('dict.json')]).then(
+            (values) => {
+                toc  = values[0];
+                dict = values[1];
 
-                    dataReady();
-                    $(".spinner").hide();
-                    $("#mainContent").css("visibility", "visible");
-                    store.set("version", dict.version);
-                }
-            )
-        }
-    });
+                dataReady();
+                $(".spinner").hide();
+                $("#mainContent").css("visibility", "visible");
+            }
+        )
+    }
 });
