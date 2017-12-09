@@ -204,6 +204,8 @@ function dataReady() {
                     (values) => {
                         toc  = values[0];
                         dict = values[1];
+                        displayNewContent(currentHeading);
+                        $("#mainContent").fadeIn(100).fadeOut(100).fadeIn(100).fadeOut(100).fadeIn(100).fadeIn(100).fadeOut(100).fadeIn(100).fadeOut(100).fadeIn(100);
                     }
                 )
             }
