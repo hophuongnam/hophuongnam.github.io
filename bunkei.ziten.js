@@ -198,7 +198,7 @@ function closeSideBar() {
 function dataReady() {
     $.getScript('bunkei.ziten.version.js', function() {
         delayed.delay(function() {
-            if (dataVersion =! dict.version) {
+            if (version != dict.version) {
                 Promise.all([getData('toc.json', false), getData('dict.json', false)]).then(
                     (values) => {
                         toc  = values[0];
