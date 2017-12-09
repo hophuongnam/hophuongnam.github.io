@@ -193,11 +193,13 @@ input::placeholder {
     margin-left: 0.5em;
 }
 
+/*
 .arrow {
     margin-right: 0.5em;
     margin-left: 0.5em;
     display: inline-table;
 }
+*/
 
 .examples {
     font-family : Georgia, "Times New Roman", "Palatino Linotype", CustomMincho, 'ヒラギノ明朝 ProN', 'Hiragino Mincho ProN', '游明朝', '游明朝体', 'Yu Mincho', 'ＭＳ 明朝', 'MS Mincho', HiraMinProN-W3, 'TakaoEx明朝', TakaoExMincho, 'MotoyaLCedar', 'Droid Sans Japanese', serif;
