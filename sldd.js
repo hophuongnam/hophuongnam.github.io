@@ -7,10 +7,8 @@ var scrollPos;
 var backward = [];
 var currentKeyword;
 var scrolling = false;
+var version;
 
-version = store.get("ajaxVersion", version);
-
-const sameVersion = storedVersion == version;
 const cacheAvailable = 'caches' in self;
 
 function showModal(html) {
@@ -24,7 +22,7 @@ function showModal(html) {
     }
 
     if (backward.length == 0) {
-    	$("#back").hide();
+        $("#back").hide();
     }
 
     modal_content.css("visibility", "hidden");
@@ -71,48 +69,72 @@ function s4() {
 }
 /* Fake GUID */
 
-async function getData(filename) {
+async function getData(filename, same) {
+    // same: true/false. false will delete file
     var myCache;
     var dataReturn;
 
-    await caches.open(cacheName).then((cache) => {
-        myCache = cache
-    });
+    if (cacheAvailable) {
+        await caches.open(cacheName).then((cache) => {
+            myCache = cache
+        });
 
-    if (!sameVersion) {
-        await myCache.delete(filename);
-    }
-    
-    await myCache.match(filename)
-    .then(
-        (resp) => {
-            if (resp) {
-                return resp.json()
-            } else {
-                return myCache.add(filename)
-                .then(
-                    () => {
-                        return myCache.match(filename)
-                        .then(
-                            (resp) => {
-                                return resp.json()
-                            }
-                        )
-                    }
-                )
+        if (!same) {
+            await myCache.delete(filename);
+        }
+        
+        await myCache.match(filename)
+        .then(
+            (resp) => {
+                if (resp) {
+                    return resp.json()
+                } else {
+                    return myCache.add(filename)
+                    .then(
+                        () => {
+                            return myCache.match(filename)
+                            .then(
+                                (resp) => {
+                                    return resp.json()
+                                }
+                            )
+                        }
+                    )
+                }
             }
-        }
-    )
-    .then(
-        (data) => {
+        )
+        .then(
+            (data) => {
+                dataReturn = data
+            }
+        );
+        return dataReturn;
+    } else {
+        await $.getJSON(filename, function(data) {
             dataReturn = data
-        }
-    )
-
-    return dataReturn;
+        });
+        return dataReturn;
+    }
 }
 
 function dataReady() {
+    $.getScript('sldd.version.js', function() {
+        delayed.delay(function() {
+            if (version != hanviet.version) {
+                Promise.all([getData('hanviet.json', false), getData('tudien.json', false)]).then(
+                    (values) => {
+                        hanviet = values[0];
+                        tudien  = values[1];
+
+                        dataReady();
+                        $(".spinner").remove();
+                        $("#mainContent").css("visibility", "visible");
+                    }
+                )
+            }
+        }, 1000);
+    });
+
     scrollPos = "scroll" + $('#chapter-number').data("chapter");
     if (store.get(scrollPos)) {
         $(window).scrollLeft(store.get(scrollPos));
@@ -200,32 +222,18 @@ function dataReady() {
     });
 }
 
-$( document ).ready(() => {    
-    if (!cacheAvailable) {
-        Promise.all([$.getJSON('hanviet.json'), $.getJSON('tudien.json')]).then(
-            (values) => {
-                hanviet = values[0];
-                tudien  = values[1];
+$( document ).ready(() => { 
+    if (cacheAvailable) {
+        caches.open('bunkei').catch(() => alert('Switch to HTTPS please!'));
+    }   
+    Promise.all([getData('hanviet.json', true), getData('tudien.json', true)]).then(
+        (values) => {
+            hanviet = values[0];
+            tudien  = values[1];
 
-                dataReady();
-                $(".spinner").remove();
-                $("#mainContent").css("visibility", "visible");
-            }
-        )       
-    } else {
-        caches.open('sldd').catch(() => alert('Switch to HTTPS please!'));
-
-        Promise.all([getData('hanviet.json'), getData('tudien.json')]).then(
-            (values) => {
-                hanviet = values[0];
-                tudien  = values[1];
-
-                dataReady();
-                $(".spinner").remove();
-                $("#mainContent").css("visibility", "visible");
-                if (storedVersion != version) {store.set("version", version)}
-                $.getScript("sldd.version.js", function() {store.set("ajaxVersion", version)})
-            }
-        )
-    }
+            dataReady();
+            $(".spinner").remove();
+            $("#mainContent").css("visibility", "visible");
+        }
+    )
 });
