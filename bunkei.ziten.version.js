@@ -1,1 +1,1 @@
-var version = 1512806989;
+version = 1512806989;

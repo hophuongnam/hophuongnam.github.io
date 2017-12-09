@@ -17,6 +17,7 @@ var sitvff = "center"; /* scrollIntoView */
 var remoteDBConfig = store.get("pouchdbRemoteDB", 'none');
 var localDB;
 var remoteDB;
+var version;
 var myID = guid();
 
 const cacheAvailable = 'caches' in self;
