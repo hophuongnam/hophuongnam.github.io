@@ -196,6 +196,16 @@ function closeSideBar() {
     }
 }
 
+function titleToggle() {
+    if ($(".keyword").is(":visible")) {
+        $(".keyword").hide();
+        $(".kanji").show();
+    } else {
+        $(".keyword").show();
+        $(".kanji").hide();
+    }
+}
+
 function dataReady() {
     $.getScript('bunkei.ziten.version.js', function() {
         delayed.delay(function() {
@@ -350,6 +360,11 @@ function dataReady() {
             idBefore = myID;
         });
         delayed.delay(() => {
+            if ($(".kanji").length > 0) {
+                $(".kanji, .heading .keyword").click(function() {
+                    titleToggle();
+                });
+            }
             $('#mainContent a').click(function(e) {
                 e.preventDefault();
                 closeSideBar();
