@@ -197,11 +197,11 @@ function closeSideBar() {
 }
 
 function titleToggle() {
-    if ($(".keyword").is(":visible")) {
-        $(".keyword").hide();
+    if ($(".heading .keyword").is(":visible")) {
+        $(".heading .keyword").hide();
         $(".kanji").show();
     } else {
-        $(".keyword").show();
+        $(".heading .keyword").show();
         $(".kanji").hide();
     }
 }
