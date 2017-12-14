@@ -404,40 +404,42 @@ function dataReady() {
     localDB = new PouchDB('bunkei');
     if (remoteDBConfig != "none") {
         remoteDB = new PouchDB(remoteDBConfig);
-        localDB.sync(remoteDB, {
-            live: true,
-            retry: true
-        }).on('change', function (change) {
-            if (change.change.docs[0]._id == "config") {
-                if (myID != change.change.docs[0].myID && currentHeading != change.change.docs[0].currentHeading) {
-                    displayNewContent(change.change.docs[0].currentHeading);
+        localDB.sync(remoteDB).on('complete', function(info) {
+            localDB.get('config').catch(function(err) {
+                if (err.name === 'not_found') {
+                    return {
+                        _id: 'none'
+                    };
+                }
+            }).then(function(doc) {
+                if (doc._id != "none" && doc.currentHeading != currentHeading) {
+                    displayNewContent(doc.currentHeading);
                     $("#mainContent").fadeIn(100).fadeOut(100).fadeIn(100).fadeOut(100).fadeIn(100).fadeIn(100).fadeOut(100).fadeIn(100).fadeOut(100).fadeIn(100);
                 }
-            }
-            if (change.change.docs[0]._id == "update" && change.change.docs[0].version > dict.version) {
-                delayed.delay(function() {
-                    Promise.all([getData('toc.json', false), getData('dict.json', false)]).then(
-                        (values) => {
-                            toc   = values[0];
-                            dict  = values[1];
-                            displayNewContent(currentHeading);
-                            $("#mainContent").fadeIn(100).fadeOut(100).fadeIn(100).fadeOut(100).fadeIn(100).fadeIn(100).fadeOut(100).fadeIn(100).fadeOut(100).fadeIn(100);
-                        }
-                    )
-                }, 60 * 1000)
-            }
-        });
-        localDB.get('config').catch(function(err) {
-            if (err.name === 'not_found') {
-                return {
-                    _id: 'none'
-                };
-            }
-        }).then(function(doc) {
-            if (doc._id != "none" && doc.currentHeading != currentHeading) {
-                displayNewContent(doc.currentHeading);
-                $("#mainContent").fadeIn(100).fadeOut(100).fadeIn(100).fadeOut(100).fadeIn(100).fadeIn(100).fadeOut(100).fadeIn(100).fadeOut(100).fadeIn(100);
-            }
+            });
+            localDB.sync(remoteDB, {
+                live: true,
+                retry: true
+            }).on('change', function (change) {
+                if (change.change.docs[0]._id == "config") {
+                    if (myID != change.change.docs[0].myID && currentHeading != change.change.docs[0].currentHeading) {
+                        displayNewContent(change.change.docs[0].currentHeading);
+                        $("#mainContent").fadeIn(100).fadeOut(100).fadeIn(100).fadeOut(100).fadeIn(100).fadeIn(100).fadeOut(100).fadeIn(100).fadeOut(100).fadeIn(100);
+                    }
+                }
+                if (change.change.docs[0]._id == "update" && change.change.docs[0].version > dict.version) {
+                    delayed.delay(function() {
+                        Promise.all([getData('toc.json', false), getData('dict.json', false)]).then(
+                            (values) => {
+                                toc   = values[0];
+                                dict  = values[1];
+                                displayNewContent(currentHeading);
+                                $("#mainContent").fadeIn(100).fadeOut(100).fadeIn(100).fadeOut(100).fadeIn(100).fadeIn(100).fadeOut(100).fadeIn(100).fadeOut(100).fadeIn(100);
+                            }
+                        )
+                    }, 60 * 1000)
+                }
+            });
         });
     }
 }
