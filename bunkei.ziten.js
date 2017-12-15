@@ -22,6 +22,12 @@ var myID = guid();
 
 const cacheAvailable = 'caches' in self;
 
+function getUrlVars() {
+    var vars = {};
+    window.location.search.replace(/[?&]+([^=&]+)=([^&]*)/gi, function(m,key,value) { vars[key] = value; });
+    return vars;
+}
+
 /* Fake GUID */
 function guid() {
     return s4() + s4() + '-' + s4() + '-' + s4() + '-' +
