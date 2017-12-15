@@ -361,9 +361,12 @@ function dataReady() {
         });
         delayed.delay(() => {
             if ($(".kanji").length > 0) {
+                $(".heading span").css("text-shadow", "1px 1px 2px rgba(150, 150, 150, 1)");
                 $(".kanji, .heading .keyword").click(function() {
                     titleToggle();
                 });
+            } else {
+                $(".heading span").css("text-shadow", "initial");
             }
             $('#mainContent a').click(function(e) {
                 e.preventDefault();

@@ -162,7 +162,6 @@ input::placeholder {
     padding-top: 0.2em;
     padding-bottom: 0.2em;
     font-family : 'Georgia', "Times New Roman", "Palatino Linotype", 'CustomMincho', 'ヒラギノ明朝 ProN', 'Hiragino Mincho ProN', '游明朝', '游明朝体', 'Yu Mincho', 'ＭＳ 明朝', 'MS Mincho', 'HiraMinProN-W3', 'TakaoEx明朝', 'TakaoExMincho', 'MotoyaLCedar', 'Droid Sans Japanese', serif;
-    text-shadow: 1px 1px 2px rgba(150, 150, 150, 1);
 }
 
 .kanji {
