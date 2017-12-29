@@ -12,6 +12,10 @@ body {
     padding-top: 60px;
 }
 
+img {
+    width: 1em;
+}
+
 a {
     text-decoration: none;
     cursor: pointer;
