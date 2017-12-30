@@ -14,6 +14,7 @@ body {
 
 img {
     width: 1em;
+    padding-top: 0.5em;
 }
 
 a {
@@ -177,6 +178,14 @@ input::placeholder {
 }
 
 .border {
+    margin-left: 0.5em;
+    margin-right: 0.5em;
+    position: sticky;
+    position: -webkit-sticky;
+    right: 0;
+}
+
+.border span {
     -webkit-box-shadow: 1px 1px 5px rgba(0, 0, 0, 0.3);
     -moz-box-shadow: 1px 1px 5px rgba(0, 0, 0, 0.3);
     box-shadow: 1px 1px 5px rgba(0, 0, 0, 0.3);
@@ -185,14 +194,7 @@ input::placeholder {
     border-top-right-radius: 0.2em;
     border-bottom-right-radius: 0.2em;
     border-bottom-left-radius: 0.2em;
-    display: table;
-    margin-left: 0.5em;
-    margin-right: 0.5em;
     padding: 0.2em;
-
-    position: sticky;
-    position: -webkit-sticky;
-    right: 0;
 }
 
 .explains {

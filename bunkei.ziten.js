@@ -394,18 +394,20 @@ function dataReady() {
             $(".sentinel").on('scrolling', function(event) {
                 var elemPos = $(this).offset().left;
                 if (elemPos > event.windowBoundRight) {
-                    $("#" + $(this).data('id')).css({
+                    $("#" + $(this).data('id') + " span").css({
                         "box-shadow": "initial",
                         "background-color": "transparent",
                         "color": "transparent"
-                    })
+                    });
+                    $("#" + $(this).data('id') + " img").hide();
                 }
                 if (elemPos < event.windowBoundRight) {
-                    $("#" + $(this).data('id')).css({
+                    $("#" + $(this).data('id') + " span").css({
                         "box-shadow": "1px 1px 5px rgba(0, 0, 0, 0.3)",
                         "background-color": "#f0f0f0",
                         "color": "initial"
-                    })
+                    });
+                    $("#" + $(this).data('id') + " img").show();
                 }
             });
             $(".vi").click(function() {
