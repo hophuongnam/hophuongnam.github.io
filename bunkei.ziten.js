@@ -414,6 +414,10 @@ function dataReady() {
                 $("#trans").text($(this).data("vi"));
                 $("#trans").modal();
             });
+            $(".en").click(function() {
+                $("#trans").text($(this).data("en"));
+                $("#trans").modal();
+            });
             $(".spinner").hide();
             $("#mainContent").css("visibility", "visible");
         }, 500);
