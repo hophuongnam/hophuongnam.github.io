@@ -137,6 +137,11 @@ body {
 }
 /* spinner */
 
+.vi {
+    width: 1em;
+    padding-top: 0.5em;
+}
+
 @media all and (min-width: 960px) {
   body {font-size: 16px;}
 }
