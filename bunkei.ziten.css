@@ -267,6 +267,11 @@ input::placeholder {
 }
 /* spinner */
 
+.tocKanji {
+    text-align: end;
+}
+
+/* Media Queries */
 @media screen and (max-width: 450px) {
     #sideBar {width: 100%;}
     #sideBarBackground {width: 100%;}

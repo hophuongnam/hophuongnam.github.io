@@ -57,7 +57,11 @@ function displayTOC(tocToDisplay) {
     if (rebuildTOC) {
         var tocA = ""
         jQuery.each(tocToDisplay, function(index, value) {
-            tocA = tocA + "<a id=" + value.id + ">" + value.keyword + "</a>"
+            if (value.type == "kana") {
+                tocA = tocA + "<a id=" + value.id + ">" + value.keyword + "</a>"
+            } else {
+                tocA = tocA + "<a class=tocKanji id=" + value.id + ">" + value.keyword + "</a>"
+            }
         })        
         $('#toc').html("");
         $("#toc").append(tocA);
