@@ -415,11 +415,11 @@ function dataReady() {
                 }
             });
             $(".vi").click(function() {
-                $("#trans").text($(this).data("vi"));
+                $("#trans").html($(this).data("vi"));
                 $("#trans").modal();
             });
             $(".en").click(function() {
-                $("#trans").text($(this).data("en"));
+                $("#trans").html($(this).data("en"));
                 $("#trans").modal();
             });
             $(".spinner").hide();
