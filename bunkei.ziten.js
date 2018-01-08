@@ -109,7 +109,7 @@ function hideRT(rt) {
 function updateMainContent(item) {
     $('#mainContent').html("");
     // newContent = dict[item].replace(/ω/g, '<span class="sentenceContent">').replace(/ψ/g, '<span class="sentenceHeader" style="white-space: nowrap;">').replace(/ξ/g, '<span class="sentence">').replace(/μ/g, '<div class="heading"><span class="keyword">').replace(/φ/g, '</span>').replace(/π/g, '</div>').replace(/λ/g, '<div class="item">').replace(/θ/g, '<div class="examples">').replace(/η/g, '<span class="explains">').replace(/ζ/g, '<span class="subheader">').replace(/α/g, '<ruby>').replace(/γ/g, '<rt>').replace(/δ/g, '</rt></ruby>').replace(/＄/g, '<br>').replace(/＃/g, '<strong>').replace(/＆/g, '</strong>');
-    var newContent = dict[item].replace(/＄/g, '<br>');
+    var newContent = dict[item].replace(/＄/g, '<br>').replace(/\$/g, '<br>');
     var m = newContent.match(/【.+?】/g);
     $.each(m, function(index, value) {
         keyword = value.slice(1, -1);
