@@ -236,6 +236,7 @@ function dataReady() {
     });
 
     $("#sideBar").css("top", $("#topBar").height() + 1);
+    $("#langBar").css("top", $("#topBar").height() + 1);
 
     if (isiOS) {
         $(window).resize(function() {
@@ -336,6 +337,10 @@ function dataReady() {
         $("#pouchdbConfig").val(remoteDBConfig);
         $("#pouchdb").modal();
         closeSideBar();
+    });
+
+    $("#language").click(function() {
+        $("#langBar").toggleClass("openLang");
     });
 
     $("#pouchdbButton").click(function() {

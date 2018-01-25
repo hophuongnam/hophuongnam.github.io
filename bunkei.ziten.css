@@ -78,7 +78,7 @@ sub {
     height: 50px;
 }
 
-input {
+input#search {
     width: calc(100% - 2em);
     margin: 0 auto;
     display: block;
@@ -121,6 +121,10 @@ input::placeholder {
 
 .open {
     left: 0px !important;
+}
+
+.openLang {
+    right: 0px !important;
 }
 
 .transition {
@@ -269,6 +273,18 @@ input::placeholder {
 
 .tocKanji {
     text-align: end;
+}
+
+#langBar {
+    position: fixed;
+    right: -2000px;
+    border: 1px solid #e7e7e7;
+    background-color: #f8f8f8;
+    z-index: 999;
+}
+
+label {
+    vertical-align: middle;
 }
 
 /* Media Queries */

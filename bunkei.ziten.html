@@ -22,16 +22,18 @@
 
     <link rel="stylesheet" type="text/css" href="normalize.css">
     <link rel="stylesheet" type="text/css" href="jquery.modal.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">    
     <link rel="stylesheet" type="text/css" href="bunkei.ziten.css">
 </head>
 <body>
     <div id=topBar>
         <div id=title>日本語文型辞典</div>
         <div id=history>
-            <button id=random>&Omega;</button>
-            <button id=back disabled>&#9664;</button>
-            <button id=forward disabled>&#9654;</button>
-            <button id=help>&quest;</button>
+            <button id=language><i class="fa fa-language" aria-hidden="true"></i></button>
+            <button id=random><i class="fa fa-random" aria-hidden="true"></i></button>
+            <button id=back disabled><i class="fa fa-chevron-left" aria-hidden="true"></i></button>
+            <button id=forward disabled><i class="fa fa-chevron-right" aria-hidden="true"></i></button>
+            <button id=help><i class="fa fa-question" aria-hidden="true"></i></button>
         </div>
     </div>
 
@@ -59,5 +61,13 @@
     </div>
 
     <div id=trans style="display: none; font-size: 0.7em; line-height: 1.5;"></div>
+
+    <div id=langBar class=transition style="padding: 10px;">
+        <input type="radio" id="langJP" name="rr" />
+        <label for="langJP">日本語</label>
+        <br>        
+        <input type="radio" id="langVI" name="rr" />
+        <label for="langVI">Tiếng Việt</label>
+    </div>
 </body>
 </html>
