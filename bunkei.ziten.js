@@ -19,6 +19,7 @@ var localDB;
 var remoteDB;
 var version;
 var myID = guid();
+var language;
 
 const cacheAvailable = 'caches' in self;
 
@@ -220,6 +221,18 @@ function titleToggle() {
 }
 
 function dataReady() {
+    language = store.get("language", "jp");
+    switch(language) {
+        case "jp":
+            $("#langJP").prop("checked", true);
+            break;
+        case "vi":
+            $("#langVI").prop("checked", true);
+            $("<style id=cssVI type='text/css'>.vi{display:inline}</style>").appendTo("head");
+            break;
+    }
+    store.set("language", language);
+
     $.getScript('bunkei.ziten.version.js', function() {
         delayed.delay(function() {
             if (version != dict.version) {
@@ -343,6 +356,19 @@ function dataReady() {
         $("#langBar").toggleClass("openLang");
     });
 
+    $("#langBar input[type='radio']").on('change', function() {
+        var selectedValue = $("input[name='rr']:checked").val();
+        if (selectedValue && selectedValue == "jp") {
+           $("#cssVI").remove();        
+        }
+
+        if (selectedValue && selectedValue == "vi") {
+            $("<style id=cssVI type='text/css'>.vi{display:inline}</style>").appendTo("head");
+        }
+        store.set("language", selectedValue);
+        language = selectedValue;
+    });
+
     $("#pouchdbButton").click(function() {
         if ($("#pouchdbConfig").val() && $("#pouchdbConfig").val() != "none") {
             store.set("pouchdbRemoteDB", $("#pouchdbConfig").val());
@@ -427,6 +453,7 @@ function dataReady() {
                 $("#trans").html($(this).data("en"));
                 $("#trans").modal();
             });
+
             $(".spinner").hide();
             $("#mainContent").css("visibility", "visible");
         }, 500);
