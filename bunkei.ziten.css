@@ -236,7 +236,7 @@ input::placeholder {
     position: fixed;
     transform: translate(-50%,-50%);
 }
-
+/*
 .double-bounce1, .double-bounce2 {
     width: 100%;
     height: 100%;
@@ -268,7 +268,7 @@ input::placeholder {
         transform: scale(1.0);
         -webkit-transform: scale(1.0);
     }
-}
+}*/
 /* spinner */
 
 .tocKanji {

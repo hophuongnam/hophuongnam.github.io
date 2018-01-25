@@ -15,25 +15,25 @@
     <script type="text/javascript" src="jquery.mutationobserver.min.js"></script>
     <script type="text/javascript" src="underscore.min.js"></script>
     <script type="text/javascript" src="FontLoader.min.js"></script>
-    <script type="text/javascript" src="vagueTime.min.js"></script>    
+    <script type="text/javascript" src="vagueTime.min.js"></script>
     <script type="text/javascript" src="jquery.modal.min.js"></script>
-    <script type="text/javascript" src="pouchdb.min.js"></script>    
+    <script type="text/javascript" src="pouchdb.min.js"></script>
+    <script defer src="https://use.fontawesome.com/releases/v5.0.4/js/all.js"></script>
     <script type="text/javascript" src="bunkei.ziten.js"></script>
 
     <link rel="stylesheet" type="text/css" href="normalize.css">
-    <link rel="stylesheet" type="text/css" href="jquery.modal.min.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" type="text/css" href="jquery.modal.min.css">    
     <link rel="stylesheet" type="text/css" href="bunkei.ziten.css">
 </head>
 <body>
     <div id=topBar>
         <div id=title>日本語文型辞典</div>
         <div id=history>
-            <button id=random><i class="fa fa-random" aria-hidden="true"></i></button>
-            <button id=back disabled><i class="fa fa-chevron-left" aria-hidden="true"></i></button>
-            <button id=forward disabled><i class="fa fa-chevron-right" aria-hidden="true"></i></button>
-            <button id=language><i class="fa fa-language" aria-hidden="true"></i></button>
-            <button id=help><i class="fa fa-question" aria-hidden="true"></i></button>
+            <button id=random><i class="fas fa-random" aria-hidden="true"></i></button>
+            <button id=back disabled><i class="fas fa-angle-left"></i></button>
+            <button id=forward disabled><i class="fas fa-angle-right"></i></button>
+            <button id=language><i class="fas fa-globe"></i></button>
+            <button id=help><i class="fas fa-question" aria-hidden="true"></i></button>
         </div>
     </div>
 
@@ -49,9 +49,13 @@
         <div id=mainContent></div>
     </div>
     
-    <div class="spinner">
+    <!--<div class="spinner">
         <div class="double-bounce1"></div>
         <div class="double-bounce2"></div>
+    </div>-->
+
+    <div class="fa-lg spinner">
+        <i class="fas fa-sync fa-spin"></i>
     </div>
 
     <div id=pouchdb style="display: none;">
