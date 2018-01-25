@@ -78,7 +78,7 @@ sub {
     height: 50px;
 }
 
-input#search {
+input#search, input#pouchdbConfig {
     width: calc(100% - 2em);
     margin: 0 auto;
     display: block;

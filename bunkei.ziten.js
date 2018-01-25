@@ -366,10 +366,11 @@ function dataReady() {
 
         if (selectedValue && selectedValue == "vi") {
             $("#cssJP").remove();
-            $("<style id=cssVI type='text/css'>.vi{display:inline;}</style>").appendTo("head");
+            $("<style id=cssVI type='text/css'>.vi{display:inline;}.en{display:none !important;}</style>").appendTo("head");
         }
         store.set("language", selectedValue);
         language = selectedValue;
+        $("#langBar").toggleClass("openLang");
     });
 
     $("#pouchdbButton").click(function() {
