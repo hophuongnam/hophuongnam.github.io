@@ -229,7 +229,7 @@ function dataReady() {
             break;
         case "vi":
             $("#langVI").prop("checked", true);
-            $("<style id=cssVI type='text/css'>.vi{display:inline;}</style>").appendTo("head");
+            $("<style id=cssVI type='text/css'>.vi{display:inline;}.en{display:none !important;}</style>").appendTo("head");
             break;
     }
     store.set("language", language);
