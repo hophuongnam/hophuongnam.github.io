@@ -283,10 +283,6 @@ input::placeholder {
     z-index: 999;
 }
 
-label {
-    vertical-align: middle;
-}
-
 /* Media Queries */
 @media screen and (max-width: 450px) {
     #sideBar {width: 100%;}
