@@ -283,10 +283,6 @@ input::placeholder {
     z-index: 999;
 }
 
-.vi, .en {
-    display: none;
-}
-
 /* Media Queries */
 @media screen and (max-width: 450px) {
     #sideBar {width: 100%;}

@@ -225,10 +225,11 @@ function dataReady() {
     switch(language) {
         case "jp":
             $("#langJP").prop("checked", true);
+            $("<style id=cssJP type='text/css'>.vi,.en{display:none !important;}</style>").appendTo("head");
             break;
         case "vi":
             $("#langVI").prop("checked", true);
-            $("<style id=cssVI type='text/css'>.vi{display:inline}</style>").appendTo("head");
+            $("<style id=cssVI type='text/css'>.vi{display:inline;}</style>").appendTo("head");
             break;
     }
     store.set("language", language);
@@ -359,11 +360,13 @@ function dataReady() {
     $("#langBar input[type='radio']").on('change', function() {
         var selectedValue = $("input[name='rr']:checked").val();
         if (selectedValue && selectedValue == "jp") {
-           $("#cssVI").remove();        
+           $("#cssVI").remove();
+           $("<style id=cssJP type='text/css'>.vi,.en{display:none !important;}</style>").appendTo("head");
         }
 
         if (selectedValue && selectedValue == "vi") {
-            $("<style id=cssVI type='text/css'>.vi{display:inline}</style>").appendTo("head");
+            $("#cssJP").remove();
+            $("<style id=cssVI type='text/css'>.vi{display:inline;}</style>").appendTo("head");
         }
         store.set("language", selectedValue);
         language = selectedValue;
