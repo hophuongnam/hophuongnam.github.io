@@ -226,10 +226,12 @@ function dataReady() {
         case "jp":
             $("#langJP").prop("checked", true);
             $("<style id=cssJP type='text/css'>.vi,.en{display:none !important;}</style>").appendTo("head");
+            $("#language").html("<span style='font-family:monospace;'>JP</span>");
             break;
         case "vi":
             $("#langVI").prop("checked", true);
             $("<style id=cssVI type='text/css'>.vi{display:inline;}.en{display:none !important;}</style>").appendTo("head");
+            $("#language").html("<span style='font-family:monospace;'>VI</span>");
             break;
     }
     store.set("language", language);
@@ -362,11 +364,13 @@ function dataReady() {
         if (selectedValue && selectedValue == "jp") {
            $("#cssVI").remove();
            $("<style id=cssJP type='text/css'>.vi,.en{display:none !important;}</style>").appendTo("head");
+           $("#language").html("<span style='font-family:monospace;'>JP</span>");
         }
 
         if (selectedValue && selectedValue == "vi") {
             $("#cssJP").remove();
             $("<style id=cssVI type='text/css'>.vi{display:inline;}.en{display:none !important;}</style>").appendTo("head");
+            $("#language").html("<span style='font-family:monospace;'>VI</span>");
         }
         store.set("language", selectedValue);
         language = selectedValue;
