@@ -128,11 +128,15 @@ function updateMainContent(item) {
 function displayNewContent(heading) {
     if (currentHeading) {backward.push(currentHeading)}
     if (backward.length > 0) {
-        $("#back").removeAttr('disabled');
+        // $("#back").removeAttr('disabled');
+        $('#back').css('color', '#666666');
+        $('#back').data("disabled", "false");
     }
     if (forward.length > 0) {
-        $("#forward").removeAttr('disabled');
-    }            
+        // $("#forward").removeAttr('disabled');
+        $('#forward').css('color', '#666666');
+        $('#forward').data("disabled", "false");
+    }
     if (backward.length > 99) {backward.shift();}
     currentHeading = heading;
     updateMainContent(heading);
@@ -263,7 +267,9 @@ function dataReady() {
 
     backward = store.get("history", []);
     if (backward.length > 0) {
-        $("#back").removeAttr('disabled');
+        // $("#back").removeAttr('disabled');
+        $('#back').css('color', '#666666');
+        $('#back').data("disabled", "false");
     }
 
     currentHeading = store.get('currentHeading');
@@ -319,6 +325,7 @@ function dataReady() {
     });
 
     $("#forward").click(() => {
+        if ($('#forward').data("disabled") == "true") { return }
         displayNewContent(forward.pop());
         if ( $("#sideBar").css('left') == "0px" ) {
             $("#search").val("");
@@ -326,12 +333,15 @@ function dataReady() {
             $("#" + currentHeading)[0].scrollIntoView({block: sitvff});
         }
         if (forward.length == 0) {
-            $('#forward').attr('disabled', 'disabled');
+            // $('#forward').attr('disabled', 'disabled');
+            $('#forward').css('color', '#ccc');
+            $('#forward').data("disabled", "true");
         }
         updateDB();
     });
 
     $("#back").click(() => {
+        if ($('#back').data("disabled") == "true") { return }
         displayNewContent(backward.pop());
         if ( $("#sideBar").css('left') == "0px" ) {
             $("#search").val("");
@@ -341,10 +351,14 @@ function dataReady() {
         forward.push(backward.pop());
         store.set('history', backward);
         if (backward.length == 0) {
-            $('#back').attr('disabled', 'disabled');
+            // $('#back').attr('disabled', 'disabled');
+            $('#back').css('color', '#ccc');
+            $('#back').data("disabled", "true");
         }
         if (forward.length > 0) {
-            $("#forward").removeAttr('disabled');
+            $('#forward').css('color', '#666666');
+            $('#forward').data("disabled", "false");
+            // $("#forward").removeAttr('disabled');
         }
         updateDB();
     });

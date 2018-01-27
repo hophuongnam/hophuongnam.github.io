@@ -29,18 +29,24 @@
     <div id=topBar>
         <div id=title>日本語文型辞典</div>
         <div id=history>
-            <button id=random><i class="fas fa-random"></i></button>
+            <!--<button id=random><i class="fas fa-random"></i></button>
             <button id=back disabled><i class="fas fa-angle-left"></i></button>
             <button id=forward disabled><i class="fas fa-angle-right"></i></button>            
             <button id=language><span style="font-family: monospace;">JP</span></button>
-            <button id=help><i class="fas fa-question"></i></button>
+            <button id=help><i class="fas fa-question"></i></button>-->
+            <a class=myButton id=random><i class="fas fa-random"></i></a>
+            <a class=myButton id=back data-disabled="true"><i class="fas fa-chevron-left"></i></a>
+            <a class=myButton id=forward data-disabled="true"><i class="fas fa-chevron-right"></i></a>
+            <a class=myButton id=language><span style="font-family: monospace;">JP</span></a>
+            <a class=myButton id=help><i class="fas fa-question"></i></a>            
         </div>
     </div>
 
     <div id=sideBar class=transition>
         <div id=searchBar>
-            <input autocapitalize="none" autocorrect="none" autocomplete="off" id=search type=text placeholder="検索">
+            <input autocapitalize="none" autocorrect="none" autocomplete="off" id=search type=text placeholder="検索" class="enjoy-input">
         </div>
+
         <div id=toc></div>
         <div id=tocFooter></div>
     </div>
@@ -60,7 +66,7 @@
 
     <div id=pouchdb style="display: none;">
         <p>Please enter RemoteDB detail</p>
-        <p><input id=pouchdbConfig type="text"></p>
+        <p><input id=pouchdbConfig type="text" class="enjoy-input"></p>
         <button id=pouchdbButton>Done</button>
     </div>
 
