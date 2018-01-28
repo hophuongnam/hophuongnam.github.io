@@ -225,21 +225,6 @@ function titleToggle() {
 }
 
 function dataReady() {
-    language = store.get("language", "jp");
-    switch(language) {
-        case "jp":
-            $("#langJP").prop("checked", true);
-            $("<style id=cssJP type='text/css'>.vi,.en{display:none !important;}</style>").appendTo("head");
-            $("#language").html("<span style='font-family:monospace;'>JP</span>");
-            break;
-        case "vi":
-            $("#langVI").prop("checked", true);
-            $("<style id=cssVI type='text/css'>.vi{display:inline;}.en{display:none !important;}</style>").appendTo("head");
-            $("#language").html("<span style='font-family:monospace;'>VI</span>");
-            break;
-    }
-    store.set("language", language);
-
     $.getScript('bunkei.ziten.version.js', function() {
         delayed.delay(function() {
             if (version != dict.version) {
@@ -263,14 +248,7 @@ function dataReady() {
             // Fix zoom bug on iOS
             $('#mainContent').css('height', document.documentElement.clientHeight - 120)
         });
-    }
-
-    backward = store.get("history", []);
-    if (backward.length > 0) {
-        // $("#back").removeAttr('disabled');
-        $('#back').css('color', '#666666');
-        $('#back').data("disabled", "false");
-    }
+    }    
 
     currentHeading = store.get('currentHeading');
     if (!currentHeading) {
@@ -525,6 +503,27 @@ function dataReady() {
 }
 
 $( document ).ready(() => {
+    language = store.get("language", "jp");
+    switch(language) {
+        case "jp":
+            $("#langJP").prop("checked", true);
+            $("<style id=cssJP type='text/css'>.vi,.en{display:none !important;}</style>").appendTo("head");
+            $("#language").html("<span style='font-family:monospace;'>JP</span>");
+            break;
+        case "vi":
+            $("#langVI").prop("checked", true);
+            $("<style id=cssVI type='text/css'>.vi{display:inline;}.en{display:none !important;}</style>").appendTo("head");
+            $("#language").html("<span style='font-family:monospace;'>VI</span>");
+            break;
+    }
+    store.set("language", language);
+
+    backward = store.get("history", []);
+    if (backward.length > 0) {
+        $('#back').css('color', '#666666');
+        $('#back').data("disabled", "false");
+    }
+
     if (isFirefox) {
         $("#mainContent").css({
             "overflow": "auto",
