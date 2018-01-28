@@ -208,14 +208,6 @@ input::placeholder {
     margin-left: 0.5em;
 }
 
-/*
-.arrow {
-    margin-right: 0.5em;
-    margin-left: 0.5em;
-    display: inline-table;
-}
-*/
-
 .examples {
     font-family : Georgia, "Times New Roman", "Palatino Linotype", CustomMincho, 'ヒラギノ明朝 ProN', 'Hiragino Mincho ProN', '游明朝', '游明朝体', 'Yu Mincho', 'ＭＳ 明朝', 'MS Mincho', HiraMinProN-W3, 'TakaoEx明朝', TakaoExMincho, 'MotoyaLCedar', 'Droid Sans Japanese', serif;
 }
@@ -228,7 +220,6 @@ input::placeholder {
     display: table-cell;
 }
 
-/* spinner */
 .spinner {
     width: 40px;
     height: 40px;
@@ -237,40 +228,6 @@ input::placeholder {
     position: fixed;
     transform: translate(-50%,-50%);
 }
-/*
-.double-bounce1, .double-bounce2 {
-    width: 100%;
-    height: 100%;
-    border-radius: 50%;
-    background-color: #333;
-    opacity: 0.6;
-    position: absolute;
-    top: 0;
-    left: 0;
-    -webkit-animation: sk-bounce 2.0s infinite ease-in-out;
-    animation: sk-bounce 2.0s infinite ease-in-out;
-}
-
-.double-bounce2 {
-    -webkit-animation-delay: -1.0s;
-    animation-delay: -1.0s;
-}
-
-@-webkit-keyframes sk-bounce {
-    0%, 100% { -webkit-transform: scale(0.0) }
-    50% { -webkit-transform: scale(1.0) }
-}
-
-@keyframes sk-bounce {
-    0%, 100% { 
-        transform: scale(0.0);
-        -webkit-transform: scale(0.0);
-    } 50% { 
-        transform: scale(1.0);
-        -webkit-transform: scale(1.0);
-    }
-}*/
-/* spinner */
 
 .tocKanji {
     text-align: end;
