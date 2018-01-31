@@ -288,6 +288,10 @@ input::placeholder {
     color: #ccc;
 }
 
+digit {
+    text-combine-upright: all;
+}
+
 /* Media Queries */
 @media screen and (max-width: 450px) {
     #sideBar {width: 100%;}
