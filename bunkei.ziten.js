@@ -233,14 +233,22 @@ function dataReady() {
     $.getScript('bunkei.ziten.version.js', function() {
         delayed.delay(function() {
             if (version != dict.version) {
-                Promise.all([getData('toc.json', false), getData('dict.json', false)]).then(
+                if (cacheAvailable) {
+                    caches.open(cacheName).then((cache) => {
+                        cache.delete('toc.json');
+                        cache.delete('dict.json');
+                    });
+                }
+                $("#newUpdate").show();
+                $("#newUpdate").blink();
+                /*Promise.all([getData('toc.json', false), getData('dict.json', false)]).then(
                     (values) => {
                         toc  = values[0];
                         dict = values[1];
                         displayNewContent(currentHeading);
                         $("#mainContent").fadeIn(100).fadeOut(100).fadeIn(100).fadeOut(100).fadeIn(100).fadeIn(100).fadeOut(100).fadeIn(100).fadeOut(100).fadeIn(100);
                     }
-                )
+                )*/
             }
         }, 1000);
     });

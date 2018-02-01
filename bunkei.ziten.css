@@ -293,6 +293,10 @@ digit {
     font-family: 'Open Sans Condensed', sans-serif;
 }
 
+#newUpdate {
+    display: none;
+}
+
 /* Media Queries */
 @media screen and (max-width: 450px) {
     #sideBar {width: 100%;}
