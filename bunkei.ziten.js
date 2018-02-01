@@ -408,11 +408,11 @@ function dataReady() {
             $(this).before("<div class=sentinel data-id='" + idBefore + "'></div>");
             idBefore = myID;
         });
-        /*$("digit").each(function(i, e) {
+        $("digit").each(function(i, e) {
             var fullWidth = $(e).text();
             var halfWidth = toHalfWidth(fullWidth);
             $(e).text(halfWidth);
-        });*/
+        });
         delayed.delay(() => {
             if ($(".kanji").length > 0) {
                 $(".heading span").css("text-shadow", "1px 1px 2px rgba(150, 150, 150, 1)");
