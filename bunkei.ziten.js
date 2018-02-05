@@ -474,6 +474,13 @@ function dataReady() {
 
             $(".spinner").hide();
             $("#mainContent").css("visibility", "visible");
+
+            delayed.delay(function() {
+                $(".sentinel").trigger({
+                    type: "scrolling",
+                    windowBoundRight: $(window).scrollLeft() + document.documentElement.clientWidth
+                });
+            }, 500);            
         }, 500);
     });
 
