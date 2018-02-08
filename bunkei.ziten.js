@@ -389,6 +389,13 @@ function dataReady() {
         }
     });
 
+    $("#help").click(function() {
+        if ($("#helpBox").html() == "") {
+            $("#helpBox").html("<img src='help.gif' style='width:200px;height:349px;'>");
+        }
+        $("#helpBox").modal();
+    });
+
     $("#toc").mutationObserver(() => {
         $('#toc a').click(function(e) {
         	$(".spinner").show();
