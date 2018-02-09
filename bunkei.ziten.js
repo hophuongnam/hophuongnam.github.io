@@ -391,7 +391,7 @@ function dataReady() {
 
     $("#help").click(function() {
         if ($("#helpBox").html() == "") {
-            $("#helpBox").html("<img src='help.gif' style='width:200px;height:349px;'>");
+            $("#helpBox").html("<img src='help.gif' style='width:200px;height:349px;'><br><span>Errata, bugs ... write to ho.phuong.nam@gmail.com</span>");
         }
         $("#helpBox").modal();
     });
