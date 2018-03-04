@@ -1,0 +1,338 @@
+<!doctype html>
+
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no">
+
+  <title>ハリーポッターと賢者の石</title>
+  <meta name="description" content="Harry Potter">
+  <meta name="author" content="NamHP">
+
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+  
+  <!-- Bootstrap 
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+  -->
+  
+  <link href="https://fonts.googleapis.com/css?family=Gentium+Book+Basic" rel="stylesheet">
+
+ <style>
+    /*! normalize.css v7.0.0 | MIT License | github.com/necolas/normalize.css */
+    button,hr,input{overflow:visible}audio,canvas,progress,video{display:inline-block}progress,sub,sup{vertical-align:baseline}[type=checkbox],[type=radio],legend{box-sizing:border-box;padding:0}html{line-height:1.15;-ms-text-size-adjust:100%;-webkit-text-size-adjust:100%}body{margin:0}article,aside,details,figcaption,figure,footer,header,main,menu,nav,section{display:block}h1{font-size:2em;margin:.67em 0}figure{margin:1em 40px}hr{box-sizing:content-box;height:0}code,kbd,pre,samp{font-family:monospace,monospace;font-size:1em}a{background-color:transparent;-webkit-text-decoration-skip:objects}abbr[title]{border-bottom:none;text-decoration:underline;text-decoration:underline dotted}b,strong{font-weight:bolder}dfn{font-style:italic}mark{background-color:#ff0;color:#000}small{font-size:80%}sub,sup{font-size:75%;line-height:0;position:relative}sub{bottom:-.25em}sup{top:-.5em}audio:not([controls]){display:none;height:0}img{border-style:none}svg:not(:root){overflow:hidden}button,input,optgroup,select,textarea{font-family:sans-serif;font-size:100%;line-height:1.15;margin:0}button,select{text-transform:none}[type=reset],[type=submit],button,html [type=button]{-webkit-appearance:button}[type=button]::-moz-focus-inner,[type=reset]::-moz-focus-inner,[type=submit]::-moz-focus-inner,button::-moz-focus-inner{border-style:none;padding:0}[type=button]:-moz-focusring,[type=reset]:-moz-focusring,[type=submit]:-moz-focusring,button:-moz-focusring{outline:ButtonText dotted 1px}fieldset{padding:.35em .75em .625em}legend{color:inherit;display:table;max-width:100%;white-space:normal}textarea{overflow:auto}[type=number]::-webkit-inner-spin-button,[type=number]::-webkit-outer-spin-button{height:auto}[type=search]{-webkit-appearance:textfield;outline-offset:-2px}[type=search]::-webkit-search-cancel-button,[type=search]::-webkit-search-decoration{-webkit-appearance:none}::-webkit-file-upload-button{-webkit-appearance:button;font:inherit}summary{display:list-item}[hidden],template{display:none}
+
+    body {
+    	font-family: "Gentium Book Basic", Georgia, "Times New Roman", "Palatino Linotype", YuMin, 'ヒラギノ明朝 ProN', 'Hiragino Mincho ProN', '游明朝', '游明朝体', YuMincho, 'Yu Mincho', 'ＭＳ 明朝', 'MS Mincho', HiraMinProN-W3, 'TakaoEx明朝', TakaoExMincho, 'MotoyaLCedar', 'Droid Sans Japanese', serif;
+    }
+
+    #mainContent {
+      margin: 50px 50px 50px 50px;
+      line-height: 1.7em;
+      font-size: 1.5em;
+      letter-spacing: 1px;
+      writing-mode: vertical-rl;
+      -webkit-writing-mode: vertical-rl;      
+      text-align: justify;
+      white-space: pre-wrap;
+    }	
+
+    rt {
+      visibility: hidden;
+      letter-spacing: 0px;
+      font-size: 40%;
+    }
+
+    #modal {
+      display: none;
+      position: fixed;
+      z-index: 1;
+      left: 0;
+      top: 0;
+      width: 100%;
+      height: 100%;
+      overflow-y: hidden;
+      background-color: rgb(0,0,0);
+      background-color: rgba(0,0,0,0.4);
+    }
+
+    #modal-content {
+      background-color: #fefefe;      
+      padding: 20px;
+      border: 1px solid #888;      
+      overflow: auto;
+      border-radius: 8px;
+      max-height: 80vh;
+      max-width: 60vw;      
+    }
+
+    @media all and (min-width: 960px) {
+      body {font-size: 18px;}
+    }
+ 
+    @media all and (max-width: 959px) and (min-width: 600px) {
+      body {font-size: 16px;}
+    }
+ 
+    @media all and (max-width: 599px) and (min-width: 320px) {
+      body {font-size: 12px;}
+    }
+
+    #rikaichan-window {width: 600px !important;}
+    
+    digit {
+    	text-combine-upright: all;
+	}
+  </style>
+
+  <script>
+    /* Base64.js https://www.npmjs.com/package/js-base64 */
+    !function(t){"use strict";var r,e=t.Base64;if("undefined"!=typeof module&&module.exports)try{r=require("buffer").Buffer}catch(t){}var n="ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/",o=function(t){for(var r={},e=0,n=t.length;e<n;e++)r[t.charAt(e)]=e;return r}(n),c=String.fromCharCode,u=function(t){if(t.length<2)return(r=t.charCodeAt(0))<128?t:r<2048?c(192|r>>>6)+c(128|63&r):c(224|r>>>12&15)+c(128|r>>>6&63)+c(128|63&r);var r=65536+1024*(t.charCodeAt(0)-55296)+(t.charCodeAt(1)-56320);return c(240|r>>>18&7)+c(128|r>>>12&63)+c(128|r>>>6&63)+c(128|63&r)},a=/[\uD800-\uDBFF][\uDC00-\uDFFFF]|[^\x00-\x7F]/g,i=function(t){return t.replace(a,u)},f=function(t){var r=[0,2,1][t.length%3],e=t.charCodeAt(0)<<16|(t.length>1?t.charCodeAt(1):0)<<8|(t.length>2?t.charCodeAt(2):0);return[n.charAt(e>>>18),n.charAt(e>>>12&63),r>=2?"=":n.charAt(e>>>6&63),r>=1?"=":n.charAt(63&e)].join("")},h=t.btoa?function(r){return t.btoa(r)}:function(t){return t.replace(/[\s\S]{1,3}/g,f)},d=r?function(t){return(t.constructor===r.constructor?t:new r(t)).toString("base64")}:function(t){return h(i(t))},s=function(t,r){return r?d(String(t)).replace(/[+\/]/g,function(t){return"+"==t?"-":"_"}).replace(/=/g,""):d(String(t))},g=function(t){return s(t,!0)},A=new RegExp(["[À-ß][-¿]","[à-ï][-¿]{2}","[ð-÷][-¿]{3}"].join("|"),"g"),l=function(t){switch(t.length){case 4:var r=((7&t.charCodeAt(0))<<18|(63&t.charCodeAt(1))<<12|(63&t.charCodeAt(2))<<6|63&t.charCodeAt(3))-65536;return c(55296+(r>>>10))+c(56320+(1023&r));case 3:return c((15&t.charCodeAt(0))<<12|(63&t.charCodeAt(1))<<6|63&t.charCodeAt(2));default:return c((31&t.charCodeAt(0))<<6|63&t.charCodeAt(1))}},p=function(t){return t.replace(A,l)},C=function(t){var r=t.length,e=r%4,n=(r>0?o[t.charAt(0)]<<18:0)|(r>1?o[t.charAt(1)]<<12:0)|(r>2?o[t.charAt(2)]<<6:0)|(r>3?o[t.charAt(3)]:0),u=[c(n>>>16),c(n>>>8&255),c(255&n)];return u.length-=[0,0,2,1][e],u.join("")},b=t.atob?function(r){return t.atob(r)}:function(t){return t.replace(/[\s\S]{1,4}/g,C)},B=r?function(t){return(t.constructor===r.constructor?t:new r(t,"base64")).toString()}:function(t){return p(b(t))},S=function(t){return B(String(t).replace(/[-_]/g,function(t){return"-"==t?"+":"/"}).replace(/[^A-Za-z0-9\+\/]/g,""))},v=function(){var r=t.Base64;return t.Base64=e,r};if(t.Base64={VERSION:"2.1.9",atob:b,btoa:h,fromBase64:S,toBase64:s,utob:i,encode:s,encodeURI:g,btou:p,decode:S,noConflict:v},"function"==typeof Object.defineProperty){var y=function(t){return{value:t,enumerable:!1,writable:!0,configurable:!0}};t.Base64.extendString=function(){Object.defineProperty(String.prototype,"fromBase64",y(function(){return S(this)})),Object.defineProperty(String.prototype,"toBase64",y(function(t){return s(this,t)})),Object.defineProperty(String.prototype,"toBase64URI",y(function(){return s(this,!0)}))}}t.Meteor&&(Base64=t.Base64)}(this);
+  </script>
+</head>
+
+<body>
+
+<div id="modal">
+  <div id="modal-content">
+  </div>
+</div>
+
+<!-- CONTENT BELOW -->
+<div id="mainContent">
+　　Ｊ・Ｋ・ローリング
+　　ハリーポッターと賢者の石
+　　
+　　
+　　第二章　消えたガラス
+　　The Vanishing Glass
+
+　　
+　　ダーズリー夫妻が目を覚まし、戸口の石段に赤ん坊がいるのを見つけてから、十年近くがたった。プリベット通りは少しも変わっていない。太陽は、昔と同じこぎれいな庭のむこうから昇り、ダーズリー家の玄関の真鍮の「４」の数字を照らした。その光が、はうように居間に射し込んでゆく。ダーズリー氏があの運命的なふくろうのニュースを聞いた夜から、居間はまったく変わっていなかった。ただ暖炉の上の写真だけが、長い時間の経ったことを知らせている。
+　　十年前は、ぽんぽん飾りのついた色とりどりの帽子をかぶり、ピンクのビーチボールのような顔をした赤ん坊の写真がたくさんあった……ダドリー・ダーズリーはもう赤ん坊ではない。写真には金髪の大きな男の子が写っている。初めて自転車に乗った姿、お祭りの回転木馬の上、パパとコンピュータ・ゲーム、ママに抱きしめられてキスされる姿。この部屋のどこにも、少年がもう一人この家に住んでいる気配はない。
+　　しかし、ハリー・ポッターはそこにいた。今はまだ眠っているが、もう、そう長くは寝ていられないだろう。ペチュニアおばさんが目を覚ました。おばさんのかん高い声で、一日の騒音が始まるのだ。
+　　「さあ、起きて！早く！」
+　　ハリーは驚いて目を覚ました。おばさんが部屋の戸をドンドン叩いている。
+　　「起きるんだよ！」と金切り声がした。
+　　おばさんがキッチンの方に歩いていく音、それからフライパンをコンロにかける音がした。
+　　仰向けになったままで、ハリーは今まで見ていた夢を思い出そうとしていた。いい夢だったのに……。空飛ぶオートバイが出てきたっけ。ハリーは前にも同じ夢を見たような不思議な心地がした。
+　　「まだ起きないのかい？」おばさんが戸のむこうに戻ってきて、きつい声を出した。
+　　「もうすぐだよ」
+　　「さあ、支度をおし。ベーコンの具合を見ておくれ。焦がしたら承知しないよ。今日はダドリーちゃんのお誕生日なんだから、間違いのないようにしなくちゃ」
+　　ハリーはうめいた。
+　　「何か言った？」
+　　おばさんが戸の外からかみつくように言った。
+　　「なんにも言わないよ。なんにも……」
+　　ダドリーの誕生日――なんで忘れられようか。ハリーはのろのろと起き上がり、靴下を探した。ベッドの下で見つけた靴下の片方にはりついていたクモを引きはがしてから、ハリーは靴下をはいた。クモにはもう慣れっこだ。なにしろ階段下の物置はクモだらけだったし、そこがハリーの部屋だったのだから。
+　　服を着ると、ハリーは廊下に出てキッチンに向かった。食卓はダドリーの誕生日のプレゼントの山に埋もれてほとんど見えなかった。欲しがっていた新しいコンピュータもあるようだし、二台目のテレビやレース用自転車ももちろんあった。ダドリーがなぜレース用自転車を欲しがるのか、ハリーにとってはまったくの謎だった。太って運動嫌いなのに――誰かにパンチを食らわせる運動だけは別だが……。ダドリーはハリーをお気に入りのサンドバッグにしていたが、よく空振りした。一見そうは見えなくても、ハリーはとてもすばしっこかったのだ。
+　　暗い物置に住んでいるせいか、ハリーは年の割には小柄でやせていた。その上、着るものはハリーの四倍も大きいダドリーのお古ばかりだったので、ますますやせて小さく見えた。
+　　ハリーは、膝小僧が目立つような細い脚で、細面の顔に真っ黒な髪、明るい緑色の目をしていた。丸いメガネをかけていたが、ダドリーの顔面パンチがしょっちゅう飛んでくるので、セロテープであちこち貼りつけてあった。自分の顔でたった一つ気に入っていたのは、額にうっすらと見える稲妻形の傷だ。物心ついた時から傷があった。ハリーの記憶では、ペチュニアおばさんにまっさきに聞いた質問は「どうして傷があるの」だった。
+　　「おまえの両親が自動車事故で死んだ時の傷だよ。質問は許さないよ」
+　　これがおばさんの答えだった。質問は許さない――ダーズリー家で平穏無事に暮らすための第一の規則だった。
+　　ハリーがベーコンを裏返していると、バーノンおじさんがキッチンに入ってきた。
+　　「髪をとかせ！」
+　　朝の挨拶がわりにおじさんは一喝した。
+　　だいたい週に一度、おじさんは新聞越しにハリーを上目づかいに見ながら、髪を短く切れと大声を出すのだった。同級生の男の子を全部束にしてもかなわないほど頻繁にハリーは散髪させられたが、まったくムダだった。切っても切ってもすぐ元どおりに伸びるのだ。しかもありとあらゆる方向に。
+　　ハリーが卵を焼いていると、ダドリーが母親に連れられてキッチンに入ってきた。父親そっくりだ。大きなピンクの顔で、首はほとんどなく、薄い水色の小さな目をして、たっぷりとしたブロンドの髪が、たてにも横にも大きい顔の上に載っかっている。おばさんはダドリーのことをよく、天使のようだわ、と言ったが、ハリーは豚がかつらをつけたみたいだ、といつも思っていた。
+　　ハリーは食卓の上にべーコンと卵の皿を並べた。プレゼントのせいでほとんどすき間がないので、そう簡単には置けない。ダドリーの方は、プレゼントの数を敢えていたが、突然顔色を変えてパパとママを見上げた。
+　　「三十六だ。去年より二つ少ないや」
+　　「坊や、マージおばさんの分を数えなかったでしょう。パパとママからの大きな包みの下にありますよ」
+　　「わかったよ。でも三十七だ」
+　　ダドリーの顔に血がのぼってきた。ハリーはダドリーのかんしゃく玉が大爆発寸前なのを感じて、いつテーブルがひっくり返されてもいいように大急ぎでベーコンに食らいついた。
+　　おばさんもあきらかに危険に気づいたらしく、あわてて言った。
+　　「今日お出かけした時、あと二つ買ってあげましょう。どう？かわいこちゃん。あと二個もよ。それでいい？」
+　　ダドリーはちょっと考え込んだ。かなり難しい計算らしかったが、やがて、のろのろと言った。
+　　「そうすると、ほく、三十……三十……」
+　　「三十九よ、かわいい坊や」
+　　「そうか、そんならいいや」
+　　ダドリーはドッカと座り込み、一番手近にあった包みを鷲づかみにした。
+　　バーノンおじさんはクスクス笑った。
+　　「やんちゃ君はパパと同じで、絶対損したくないってわけだ。なんてすごい子だ！ダドリーや」
+　　パパはダドリーの髪をクシャクシャッとなでた。
+　　電話が鳴り、おばさんがキッチンを出ていった。おじさんもハリーも、ダドリーが包みを解くのを眺めていた。レース用自転車、８ミリカメラ、ラジコン飛行機、新しいコンピューターゲーム十六本、ビデオ・レコーダー……おばさんが戻ってきた時は、金の腕時計の包みをビリビリ破っているところだった。おばさんは怒ったような困ったような顔で現れた。
+　　「バーノン、大変だわ。フィッグさんが脚を祈っちゃって、この子を預かれないって」
+　　おばさんはハリーの方をあごでしゃくった。
+　　ダドリーはショックで口をあんぐり開けたが、ハリーの心は踊った。毎年誕生日になると、ダドリーは友達と二人で、おじさんとおばさんに連れられ、アドベンチャー・パークやハンバーガー屋、映画などに出かけることになっていた。ハリーはいつも置いてけぼりで、ふた筋むこうに住んでいる変わりもののフィッグばあさんに預けられていた。ハリーはそこが大嫌いだった。家中キャベツの匂いがするし、おまけにばあさんが今まで飼った猫の写真を全部、無理やり見せるからだ。
+　　「どうします？」
+　　ペチュニアおばさんは、ハリーが仕組んだと言わんばかりに恐ろしい顔でハリーをにらんだ。
+　　ハリーは骨折したばあさんに同情すべきだと思ったが、あと一年間はティブルスやらスノーイー、ミスター・ポーズ、タフティーなどの猫の写真を見ないですむと思うと、同情しろという方が無理だった。
+　　「マージに電話したらどうかね」とおじさんが提案した。
+　　「バカなこと言わないで。マージはこの子を嫌ってるのよ」
+　　ダーズリー夫妻はよくこんな風に、ハリーの目の前で、本人をまるで無視して話をした。むしろ、ハリーは言葉の通じないけがらわしいナメタジのように無視された。
+　　「それなら、ほれ、なんていう名前だったか、おまえの友達の――イボンヌ、どうかね」
+　　「バケーションでマジョルカ島よ」
+　　「僕をここに置いていったら」
+　　そうなることを期待しながらハリーが口をはさんだ。（いつもとちがうテレビ番組を自分で選んで見ることができるかもしれないし、ひょっとするとダドリーのコンピュータをいじったりできるかもしれない）
+　　おばさんはレモンを丸ごと飲み込んだような顔をした。
+　　「それで、帰ってきたら家がバラバラになってるってわけ？」
+　　「僕、家を爆破したりしないよ」
+　　誰もハリーの言うことを聞いていなかった。
+　　「動物園まで連れて行ったらどうかしら……それで、車の中に残しておいたら……」
+　　おばさんが気のりのしない様子で言った。
+　　「しかし新車だ。ハリーを一人で中に残しておくわけにはいかん……」
+　　ダドリーはワンワン泣き出した。ウソ泣きだ。ここ何年も本当に泣いたことなんてないが、顔をゆがめてメソメソすれば、母親がほしいものは何でもくれることを知っているのだ。
+　　「ダッドちゃん、ダドリーちゃん、泣かないで。ママがついているわ。おまえの特別な日を、あいつなんかにだいなしにさせたりしやしないから！」
+　　おばさんはダドリーを抱きしめた。
+　　「ぼく……いやだ……あいつが……く、く、くるなんて！」
+　　しゃくりあげるふりをしながらダドリーがわめいた。
+　　「いつだって、あいつが、めちゃめちゃにするんだ！」
+　　抱きしめている母親の腕のすき閏から、ダドリーはハリーに向かって意地悪くニヤリと笑った。ちょうどその時玄関のベルが鳴った。
+　　「ああ、なんてことでしょう。みんなが来てしまったわ！」
+　　おばさんは大あわてだった。――やがてダドリーの一の子分、ピアーズ・ポルキスが母親に連れられて部屋に入ってきた。ねずみ顔のガリガリにやせた子だ。ダドリーが誰かを殴る時に、腕を後ろにねじ上げる役をするのはたいていこの子だ。ダドリーはたちまちウソ泣きをやめた。
+　　三十分後、ハリーはダーズリー一家の車の後部座席にピアーズ、ダドリーと一緒に座り、生まれて初めて動物園に向かっていた。信じられないような幸運だった。おじさんもおばさんも、結局ハリーをどうしていいかほかに思いつかなかった。ただし、出発前にバーノンおじさんはハリーをそばに呼んだ。
+　　「言っておくがな……」
+　　おじさんは大きな赤ら顔をハリーの目の前につきつけた。
+　　「小僧、変なことをしてみろ。ちょっとでもだ、そしたらクリスマスまでずっと物置に閉じ込めてやる」
+　　「僕、何もしないよ。ほんとだよ……」
+　　しかし、おじさんは信じていなかった。ハリーの言うことを今まで誰も信じてくれなかった。
+　　困ったことに、ハリーのまわりでよく不思議なことが起きたし、自分がやったんじゃないとダーズリー夫妻にいくら話してもムダだった。
+　　ある時、床屋から帰ってきたハリーが、散髪する前と同じように髪が伸びているのを見て業をにやしたペチュニアおばさんが、キッチンバサミでクリクリに刈り上げたことがあった。
+　　「醜い傷を隠すため」と前髪だけは残してくれたが、あとはほとんど丸坊主になった。ダドリーはハリーを見てバカ笑いしたし、ハリーは翌日の学校のことを思うと眠れなかった。ただでさえ、ダブダブの服を着てセロテープだらけのメガネをかけたハリーは物笑いの種だった。しかし、翌朝起きてみると、髪は刈り上げる前とまったく変わらなかった。おかげでハリーは一週間物置に閉じ込められた。どうしてこんなに早く髪が伸びたのかわからないと、ハリーがいくら言ってもだめだった。
+　　またある時は、おばさんがダドリーのお古の吐き気がするようなセーター（茶色でオレンジ色の毛玉が浮き上がっていた）を無理にハリーに着せようとしたが、ハリーの頭からかぶせようと、おばさんがやっきになればなるほど服はどんどん小さくなった。とうとう、指人形ならいざ知らず、ハリーにはとうてい着られないほどに縮んでしまった。おばさんはきっと洗濯で縮んだのだときめつけ、この時はハリーはおしおきを受けずにすんでほっとした。
+　　反対にひどい目にあったのが、学校の屋根事件だった。いつものようにダドリー軍団に追いかけられ、気がついたらハリーは食堂の屋根の煙突の上に腰かけていた。これには誰よりもハリー自身が驚いた。ダーズリー家には女校長先生から、ハリーが学枚の建物によじ登った、とたいそうご立腹の手紙がきた。しかし、ハリーがやったことといえば（物置に閉じ込められた時、外にいるバーノンおじさんにも大声でそう言ったのだが）食堂の外にあった大きな容器の陰に飛び込もうとしただけだったのだ。ハリーはジャンプした拍子に風にさらわれたにちがいないと思った。
+　　しかし、今日は絶対おかしなことがあってはならない。学校でも、物置でも、キャベツ臭いフィッグばあさんの居間でもないところで一日を過ごせるのだから、ダドリーやピアーズと一緒だって文句は言えない。
+　　運転をしながら、おじさんはおばさんを相手にブツブツ不平を言った。何しろ不平を言うのが好きなのだ。会社の人間のこと、ハリーのこと、市議会のこと、ハリーのこと、銀行のこと、ハリーのこと、ざっとこんなところがお気に入りのネタだった。今朝はオートバイがやり玉に上がった。
+　　「……ムチャクチャな音を出して走りおって。チンピラどもが」
+　　オートバイに追い抜かれた時におじさんが言った。
+　　「僕、オートバイの夢を見た」ハリーは急に思い出した。「空を飛んでたよ」
+　　バーノンおじさんはとたんに前の車にぶつかりそうになった。運転席からグルッと振り向きざま、彼は口ひげをはやした巨大な赤かぶのような顔でハリーを怒鳴りつけた。
+　　「オートバイは空を飛ばん！」
+　　ダドリーとピアーズがクスクス笑った。
+　　「飛ばないことはわかってる。ただの夢だよ」
+　　ハリーは何にも言わなきゃよかったと思った。ダーズリー夫妻はハリーが質問するのも嫌ったが、もっと嫌ったのは、夢だろうが漫画だろうが、何かがまともではない行動をする話だった。ハリーがそんな話をすると、まるで危険なことを考えているとでも思っているようだった。
+　　その日はお天気もよく、土曜日で、動物園は家族連れで混み合っていた。ダーズリー夫妻は人口でダドリーとピアーズに大きなチョコレート・アイスクリームを買い与えた。ハリーを急いでアイス・スタンドから遠ざけようとしたが、間に合わず、愛想のよい売り子のおばさんが、坊やは何がいいのと聞いたので、しかたなしにハリーにも安いレモン・アイスを買い与えた。
+　　これだってけっこういける、とアイスをなめながら、ハリーはみんなと一緒にゴリラのおりを眺めた。――ゴリラが頭を掻いている姿がダドリーそっくりだ。あれで金髪だったらな……。
+　　こんなにすばらしい朝を過ごしたのは、ハリーにとって久しぶりだった。昼近くになると、ダドリーもピアーズも動物に飽きてきたので、かわりにお気に入りのハリー殴りを始めるかもしれないと思い、ハリーは慎重に二人から少し離れて歩くようにした。園内のレストランでお昼を食べたが、ダドリーはチョコレート・パフェが小さいとかんしゃくを起こし、おじさんがもう一つ買ってやるはめになり、ハリーはパフェのお下がりを食べることを許された。
+　　後になって思えば、こんないいことばかりが続くはずがなかった。
+　　昼食の後で、爬虫類館を見た。館内はヒヤッとして暗く、壁に沿ってガラスケースが並び、中には照明がついていた。ガラスのむこうにはいろいろなトカゲやへどがいて、材木や石の上をスルスルと這い回っていた。ダドリーとピアーズは巨大な毒ヘビコブラと、人間でも絞め殺しそうな太いニシキヘビを見たがった。ダドリーはすぐに館内で一番大きなヘビを見つけた。バーノンおじさんの車を二巻きにして砕いてくずかごに放り込みそうな大蛇だ――ただし、今はそういうムードではないらしい。それどころかぐっすり眠っている。
+　　ダドリーは、ガラスに鼻を押しつけて、ツヤツヤと光る茶色のとぐろを見つめていた。
+　　「動かしてよ」
+　　ダドリーは父親にせがんだ。おじさんはガラスをトントンと叩いたが、ヘビは身じろぎもしない。
+　　「もう一回やって」
+　　ダドリーが命令した。おじさんは拳でドンドンとガラスを叩いたが、ヘビは眠り続けている。
+　　「つまんないや」
+　　ダドリーはブーブー言いながら行ってしまった。
+　　ハリーはガラスの前に来て、じっとヘビを見つめた。ヘビの方こそ退屈のあまり死んでしまっても不思議はない。一日中、ガラスを叩いてチョッカイを出すバカな人間ども以外に友達もいない……物置で寝起きする方がまだましだ。ドアをドンドンやられるのはペチュニアおばさんが朝起こしに来る時だけだし、少なくともハリーは家の中を歩き回れる。
+　　突然、ヘビはビーズのような目を開け、ゆっくり、とてもゆっくりとかま首をもたげ、ハリーの目線と同じ高さまで持ち上げた。
+　　ヘビがウィンクした。
+　　ハリーは目を見張った。あわてて誰か見ていないかと、周りを見まわした。
+　　大丈夫だ。ハリーはヘビに視線を戻し、ウィンクを返した。
+　　へどはかま首をバーノンおじさんとダドリーの方に伸ばし、目を天井に向けた。その様子は、明らかにハリーにこう言っていた。
+　　「いつもこうさ」
+　　「わかるよ」
+　　へどに聞こえるかどうかわからなかったが、ガラス越しにハリーはそうつぶやいた。
+　　「ほんとにイライラするだろうね」
+　　ヘビは激しくうなずいた。
+　　「ところで、どこから来たの？」
+　　ヘビはガラスケースの横にある掲示板を尾でツンツンとつついた。ハリーがのぞいてみると、
+　　ブラジル産ボア・コンストリクター大ニシキヘビ
+　　と書いてある。
+　　「いいところなの？」
+　　ニシキヘビはもう一度尾で掲示板をつついた。
+　　このヘビは動物園で生まれました
+　　「そうなの……じゃ、ブラジルに行ったことがないんだね？」
+　　へどがうなずいたとたん、ハリーの後ろで耳をつんざくような大声がして、ハリーもヘビも飛び上がりそうになった。
+　　「ダドリー！ダーズリーおじさん！早く来てヘビを見て。信じられないようなことやってるよ」
+　　ダドリーがドタドタと、それなりに全速力でやってきた。
+　　「どけよ、オイ」
+　　ダドリーがハリーの肋骨にパンチを食らわせた。不意を食らってハリーはコンクリートの床にひっくり返った。次の瞬間の出来事は、あっという間だったので、どんなふうに起こったのか誰にもわからなかった。最初、ダドリーとピアーズがガラスに寄りかかった。次の瞬間、二人は恐怖の叫びを上げて飛びのいた。
+　　ハリーは起き上がり、息をのんだ。ニシキヘビのケースのガラスが消えていた。大ヘビはすばやくとぐろをほどき、ズルズルと外にはい出した。館内にいた客たちは叫び声を上げ、出口に向かってかけ出した。
+　　ヘビがスルスルとハリーのそばを通り過ぎた時、誓ってもいい、ハリーは確かに、低い、シューシューという声を開いたのだ。
+　　「プラジルへ、俺は行く――シュシュシュ、ありがとよ。アミーゴ」
+　　爬虫類館の飼育係はショック状態だった。
+　　「でも、ガラスは、ガラスはいったいどこに？」と言い続けていた。
+　　園長は自らペチュニアおばさんに濃い甘い紅茶を入れ、ペコペコと謝った。ピアーズとダドリーはわけのわからないことを口走るばかりだった。ハリーが見ていたかぎりでは、ヘビは通りがかりざまに二人のかかとにかみつくふりをしただけなのに、バーノンおじさんの車に全員が戻った時には、ダドリーは「ヘビに脚を食いちぎられそうになった」と言い、ピアーズは「うそじゃない、ヘビが絞め殺そうとした」と言った。しかしハリーにとって最悪だったのはだんだん落ち着いてきたピアーズが言った言葉だった。
+　　「ハリーはヘビと話してた。ハリー、そうだろ？」
+　　バーノンおじさんはまずピアーズを無事家から送り出すまで怒鳴るのを我慢し、それからハリーの処分に取りかかった。怒りのあまり、おじさんは声も出なかった。やっとのことで
+　　「行け――物置――出るな――食事抜き」
+　　と言うと、椅子に倒れこんでしまった。おばさんは急いでおじさんに飲ませるブランデーの大瓶を取りに行った。
+　　
+　　ハリーが暗い物置に入ってからだいぶ時間がたった。時計が欲しいと思った。どのぐらい時間がたったのかわからないし、ダーズリー一家が眠ってしまったかどうかもわからない。みんなが寝静まるまではキッチンでこっそり盗み食いをすることもできない。
+　　ダーズリー一家と暮らしてほぼ十年が……思い出すかぎり惨めな十年が過ぎた。赤ん坊の時から、両親が自動車事故で死んでからずっとだ。両親が死んだ時、自分が車の中にいたかどうかさえ思い出せない。時々、物置の中で長い時間を過ごしながら、一生懸命思い出をたぐっていると、不思議な光景が見えてくることがあった。目の眩むような緑の閃光と焼けつくような額の痛みだ。緑の光がどこから出ているのかは想像がつかなかったが、ハリーはきっと、これが自動車事故なんだ、と思った。両親のことはまったく思い出せなかった。おじさんもおばさんも一度も話してくれないし、もちろん質問は禁じられていた。この家のどこにも両親の写真はなかった。
+　　小さかった頃、ハリーは誰か見知らぬ親戚が自分を迎えにやってくることを何度も何度も夢見た。しかし、そんなことは一度も起こらなかった。ダーズリー一家しか家族はなかった。それなのに、時々街で見知らぬ人がハリーのことを知っているのではないかと思うことがあった（そう思いたかったのかもしれない）。見知らぬばかりか、実に奇妙な人たちだった。一度は、おばさんやダドリーと一緒に買い物に出た時、店の中でスミレ色の三角帽子をかぶった小さな男の人がハリーにお辞儀をした。おばさんは、知っている人なのかと激しくハリーを問いつめ、何も買わずに二人を連れて店を飛び出した。一度はバスの中で、緑ずくめのとっぴな格好をしたおばあさんがハリーに向かってうれしそうに手を振った。つい先日も、ひどく長い紫のマントを着たハゲ頭の男が、街中でハリーとしっかり握手までしてそのまま一言も言わずに立ち去った。一番奇妙なのは、ハリーがもう一度よく見ようとしたとたん、こうした人たちが消えてしまうことだった。
+　　学校でもハリーは一人ぼっちだった。ダブダブの服に壊れたメガネをかけたおかしなハリー・ポッターが、ダドリー軍団に憎まれていることをみんな知っていたし、誰一人ダドリー軍団に逆らおうとはしなかったのだ。
+</div>
+<!-- CONTENT ABOVE -->
+
+<script>
+  var isAndroid = /(android)/i.test(navigator.userAgent);
+  $().ready(function() {
+    var touch = 'ontouchstart' in document.documentElement
+            || navigator.maxTouchPoints > 0
+            || navigator.msMaxTouchPoints > 0;
+
+    function hideRT(rt) {
+      setTimeout(function(rt) {
+        if ($('#modal').is(':visible')) {
+          hideRT(rt);
+        } else {
+          rt.css('visibility', 'hidden');
+        }
+      }, 10000, rt);
+    }
+
+    function showModal(html) {
+      modal_content = $('#modal-content');
+      modal_content.height(1);      
+      modal_content.html(html);
+            
+      modal_content.css("visibility", "hidden");
+      $('#modal').show();
+      
+      scrollHeight = modal_content.prop('scrollHeight');
+      padding = modal_content.innerWidth() - modal_content.width();
+      modal_content.height(scrollHeight - padding);
+
+      margin = ( 100 - (modal_content.height() * (100 / document.documentElement.clientHeight))) / 2 - 5;
+      modal_content.css("margin" , margin + "vh auto")
+
+      modal_content.css("visibility", "visible");
+    }
+
+    if (touch) {
+      $('ruby').click(function () {      
+        rt = $(this).find('rt');
+        if (rt.css('visibility') == 'hidden' ) {
+          rt.css('visibility', 'visible');
+          hideRT(rt);
+        }
+      });
+    } else {
+      var sheet = document.createElement('style')
+      sheet.innerHTML = "ruby:hover rt {visibility: visible;}";
+      document.body.appendChild(sheet);
+    }
+
+    $('.english').click(function () {      
+      showModal(Base64.decode($(this).data('english')));
+    });
+
+    $('#modal').click(function (e) {
+      if (e.target !== this) {return}
+      $('#modal').hide();
+    });
+
+    var scrollPos = "ddsl_off_scroll_pos_" + $('#chapter-number').data("chapter");
+    if (localStorage && localStorage.getItem(scrollPos)) {
+      $('body, html').scrollLeft(localStorage.getItem(scrollPos));
+    } else {
+      $('body, html').scrollLeft($(document).outerWidth() - $(window).width());
+    }
+
+    $(window).scroll(function (){
+      localStorage.setItem(scrollPos, $(window).scrollLeft());
+    });
+
+    if ($('#mainContent').css('writing-mode') != 'horizontal-tb') {
+      $('#mainContent').css('height', $('#mainContent').css('height'));
+    }
+    
+    if (isAndroid) {
+      sheet = document.createElement('style')
+      sheet.innerHTML = "@font-face {font-family: YuMin; src: url(yumindb.ttf);}";
+      document.body.appendChild(sheet);                
+    }
+  });
+</script>
+</body>
+</html>

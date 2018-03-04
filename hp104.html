@@ -1,0 +1,405 @@
+<!doctype html>
+
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no">
+
+  <title>ハリーポッターと賢者の石</title>
+  <meta name="description" content="Harry Potter">
+  <meta name="author" content="NamHP">
+
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+  
+  <!-- Bootstrap 
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+  -->
+  
+  <link href="https://fonts.googleapis.com/css?family=Gentium+Book+Basic" rel="stylesheet">
+
+ <style>
+    /*! normalize.css v7.0.0 | MIT License | github.com/necolas/normalize.css */
+    button,hr,input{overflow:visible}audio,canvas,progress,video{display:inline-block}progress,sub,sup{vertical-align:baseline}[type=checkbox],[type=radio],legend{box-sizing:border-box;padding:0}html{line-height:1.15;-ms-text-size-adjust:100%;-webkit-text-size-adjust:100%}body{margin:0}article,aside,details,figcaption,figure,footer,header,main,menu,nav,section{display:block}h1{font-size:2em;margin:.67em 0}figure{margin:1em 40px}hr{box-sizing:content-box;height:0}code,kbd,pre,samp{font-family:monospace,monospace;font-size:1em}a{background-color:transparent;-webkit-text-decoration-skip:objects}abbr[title]{border-bottom:none;text-decoration:underline;text-decoration:underline dotted}b,strong{font-weight:bolder}dfn{font-style:italic}mark{background-color:#ff0;color:#000}small{font-size:80%}sub,sup{font-size:75%;line-height:0;position:relative}sub{bottom:-.25em}sup{top:-.5em}audio:not([controls]){display:none;height:0}img{border-style:none}svg:not(:root){overflow:hidden}button,input,optgroup,select,textarea{font-family:sans-serif;font-size:100%;line-height:1.15;margin:0}button,select{text-transform:none}[type=reset],[type=submit],button,html [type=button]{-webkit-appearance:button}[type=button]::-moz-focus-inner,[type=reset]::-moz-focus-inner,[type=submit]::-moz-focus-inner,button::-moz-focus-inner{border-style:none;padding:0}[type=button]:-moz-focusring,[type=reset]:-moz-focusring,[type=submit]:-moz-focusring,button:-moz-focusring{outline:ButtonText dotted 1px}fieldset{padding:.35em .75em .625em}legend{color:inherit;display:table;max-width:100%;white-space:normal}textarea{overflow:auto}[type=number]::-webkit-inner-spin-button,[type=number]::-webkit-outer-spin-button{height:auto}[type=search]{-webkit-appearance:textfield;outline-offset:-2px}[type=search]::-webkit-search-cancel-button,[type=search]::-webkit-search-decoration{-webkit-appearance:none}::-webkit-file-upload-button{-webkit-appearance:button;font:inherit}summary{display:list-item}[hidden],template{display:none}
+
+    body {
+    	font-family: "Gentium Book Basic", Georgia, "Times New Roman", "Palatino Linotype", YuMin, 'ヒラギノ明朝 ProN', 'Hiragino Mincho ProN', '游明朝', '游明朝体', YuMincho, 'Yu Mincho', 'ＭＳ 明朝', 'MS Mincho', HiraMinProN-W3, 'TakaoEx明朝', TakaoExMincho, 'MotoyaLCedar', 'Droid Sans Japanese', serif;
+    }
+
+    #mainContent {
+      margin: 50px 50px 50px 50px;
+      line-height: 1.7em;
+      font-size: 1.5em;
+      letter-spacing: 1px;
+      writing-mode: vertical-rl;
+      -webkit-writing-mode: vertical-rl;      
+      text-align: justify;
+      white-space: pre-wrap;
+    }	
+
+    rt {
+      visibility: hidden;
+      letter-spacing: 0px;
+      font-size: 40%;
+    }
+
+    #modal {
+      display: none;
+      position: fixed;
+      z-index: 1;
+      left: 0;
+      top: 0;
+      width: 100%;
+      height: 100%;
+      overflow-y: hidden;
+      background-color: rgb(0,0,0);
+      background-color: rgba(0,0,0,0.4);
+    }
+
+    #modal-content {
+      background-color: #fefefe;      
+      padding: 20px;
+      border: 1px solid #888;      
+      overflow: auto;
+      border-radius: 8px;
+      max-height: 80vh;
+      max-width: 60vw;      
+    }
+
+    @media all and (min-width: 960px) {
+      body {font-size: 18px;}
+    }
+ 
+    @media all and (max-width: 959px) and (min-width: 600px) {
+      body {font-size: 16px;}
+    }
+ 
+    @media all and (max-width: 599px) and (min-width: 320px) {
+      body {font-size: 12px;}
+    }
+
+    #rikaichan-window {width: 600px !important;}
+    
+    digit {
+    	text-combine-upright: all;
+	}
+  </style>
+
+  <script>
+    /* Base64.js https://www.npmjs.com/package/js-base64 */
+    !function(t){"use strict";var r,e=t.Base64;if("undefined"!=typeof module&&module.exports)try{r=require("buffer").Buffer}catch(t){}var n="ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/",o=function(t){for(var r={},e=0,n=t.length;e<n;e++)r[t.charAt(e)]=e;return r}(n),c=String.fromCharCode,u=function(t){if(t.length<2)return(r=t.charCodeAt(0))<128?t:r<2048?c(192|r>>>6)+c(128|63&r):c(224|r>>>12&15)+c(128|r>>>6&63)+c(128|63&r);var r=65536+1024*(t.charCodeAt(0)-55296)+(t.charCodeAt(1)-56320);return c(240|r>>>18&7)+c(128|r>>>12&63)+c(128|r>>>6&63)+c(128|63&r)},a=/[\uD800-\uDBFF][\uDC00-\uDFFFF]|[^\x00-\x7F]/g,i=function(t){return t.replace(a,u)},f=function(t){var r=[0,2,1][t.length%3],e=t.charCodeAt(0)<<16|(t.length>1?t.charCodeAt(1):0)<<8|(t.length>2?t.charCodeAt(2):0);return[n.charAt(e>>>18),n.charAt(e>>>12&63),r>=2?"=":n.charAt(e>>>6&63),r>=1?"=":n.charAt(63&e)].join("")},h=t.btoa?function(r){return t.btoa(r)}:function(t){return t.replace(/[\s\S]{1,3}/g,f)},d=r?function(t){return(t.constructor===r.constructor?t:new r(t)).toString("base64")}:function(t){return h(i(t))},s=function(t,r){return r?d(String(t)).replace(/[+\/]/g,function(t){return"+"==t?"-":"_"}).replace(/=/g,""):d(String(t))},g=function(t){return s(t,!0)},A=new RegExp(["[À-ß][-¿]","[à-ï][-¿]{2}","[ð-÷][-¿]{3}"].join("|"),"g"),l=function(t){switch(t.length){case 4:var r=((7&t.charCodeAt(0))<<18|(63&t.charCodeAt(1))<<12|(63&t.charCodeAt(2))<<6|63&t.charCodeAt(3))-65536;return c(55296+(r>>>10))+c(56320+(1023&r));case 3:return c((15&t.charCodeAt(0))<<12|(63&t.charCodeAt(1))<<6|63&t.charCodeAt(2));default:return c((31&t.charCodeAt(0))<<6|63&t.charCodeAt(1))}},p=function(t){return t.replace(A,l)},C=function(t){var r=t.length,e=r%4,n=(r>0?o[t.charAt(0)]<<18:0)|(r>1?o[t.charAt(1)]<<12:0)|(r>2?o[t.charAt(2)]<<6:0)|(r>3?o[t.charAt(3)]:0),u=[c(n>>>16),c(n>>>8&255),c(255&n)];return u.length-=[0,0,2,1][e],u.join("")},b=t.atob?function(r){return t.atob(r)}:function(t){return t.replace(/[\s\S]{1,4}/g,C)},B=r?function(t){return(t.constructor===r.constructor?t:new r(t,"base64")).toString()}:function(t){return p(b(t))},S=function(t){return B(String(t).replace(/[-_]/g,function(t){return"-"==t?"+":"/"}).replace(/[^A-Za-z0-9\+\/]/g,""))},v=function(){var r=t.Base64;return t.Base64=e,r};if(t.Base64={VERSION:"2.1.9",atob:b,btoa:h,fromBase64:S,toBase64:s,utob:i,encode:s,encodeURI:g,btou:p,decode:S,noConflict:v},"function"==typeof Object.defineProperty){var y=function(t){return{value:t,enumerable:!1,writable:!0,configurable:!0}};t.Base64.extendString=function(){Object.defineProperty(String.prototype,"fromBase64",y(function(){return S(this)})),Object.defineProperty(String.prototype,"toBase64",y(function(t){return s(this,t)})),Object.defineProperty(String.prototype,"toBase64URI",y(function(){return s(this,!0)}))}}t.Meteor&&(Base64=t.Base64)}(this);
+  </script>
+</head>
+
+<body>
+
+<div id="modal">
+  <div id="modal-content">
+  </div>
+</div>
+
+<!-- CONTENT BELOW -->
+<div id="mainContent">
+　　Ｊ・Ｋ・ローリング
+　　ハリーポッターと賢者の石
+
+　　
+　　第四章　鍵の番人
+　　The Keeper of the Keys
+　　
+　　
+　　ドーン。もう一度、誰かがノックしている。ダドリーが跳び起きて、寝ぼけた声を上げた。
+　　「何？大砲？どこ？」
+　　むこうの部屋でガラガラガッシャンと音がしたかと思うと、バーノンおじさんがライフル銃を手に、すっとんできた――あの細長い包みが何だったのか、今わかった。
+　　「誰だ。そこにいるのは。言っとくが、こっちには銃があるぞ！」
+　　おじさんは叫んだ。
+　　一瞬の空白があった。そして……
+　　バターン！
+　　蝶番も吹っ飛ぶほどの力でドアが開けられ、扉が轟音を上げて床に落ちた。
+　　戸口には大男が突っ立っていた。ボウボウと長い髪、モジャモジャの荒々しいひげに隠れて、顔はほとんど見えない。でも、毛むくじゃらの中から、まっ黒な黄金虫のような目がキラキラ輝いているのが見える。
+　　大男は窮屈そうに部屋に入ってきた。身を屈めても、髪が天井をこすった。男は腰を折ってドアを拾い上げると、いとも簡単に元の枠にバチンと戻した。外の嵐の音がやや薄らいで聞こえた。大男は振り返ってグルリとみんなを見渡した。
+　　「お茶でも入れてくれんかね？いやはや、ここまで来るのは骨だったぞ……」
+　　男は大股でソファに近づき、恐怖で凍りついているダドリーに言った。
+　　「少し空けてくれや、太っちょ」
+　　ダドリーは金切り声を上げて追げ出し、母親の陰に隠れた。おばさんは震えながらおじさんの陰にうずくまっていた。
+　　「オーッ、ハリーだ！」と大男が言った。
+　　ハリーは恐ろしげな、荒々しい黒い影のような男の顔を見上げ、黄金虫のような目がクシャクシャになって笑いかけているのを見つけた。
+　　「最後におまえさんを見た時にゃ、まだほんの赤ん坊だったなあ。あんた父さんそっくりだ。でも目は母さんの目だなあ」と大男は言った。
+　　バーノンおじさんは奇妙なかすれ声を出した。
+　　「今すぐお引き取りを願いたい。家宅侵入罪ですぞ！」
+　　「黙れ、ダーズリー。腐った大マヌケめ」
+　　と言うやいなや、大男はソファの背ごしに手を伸ばして、おじさんの手から銃をひったくりまるでゴム細工の銃をひねるかのようにやすやすと丸めて一結びにし、部屋の隅に放り投げてしまった。
+　　バーノンおじさんはまたまた奇妙な声を上げた。今度は踏みつけられたねずみのような声だった。
+　　「なにはともあれ……ハリーや」
+　　大男はダーズリーに背を向けてハリーに話しかけた。
+　　「お誕生日おめでとう。おまえさんにちょいとあげたいモンがある……どっかで俺が尻に敷いちまったかもしれんが、まあ味は変わらんだろ」
+　　黒いコートの内ポケットから、ややひしゃげた箱が出てきた。ハリーは震える指で箱を開けた。中は大きなとろりとしたチョコレート・ケーキで、上には緑色の砂糖で、ハリーお誕生日おめでとうと書いてあった。
+　　ハリーは大男を見上げた。ありがとうと言うつもりだったのに、言葉が途中で迷子になって、かわりに「あなたは誰？」と言ってしまった。
+　　大男はクスクス笑いながら答えた。
+　　「さよう、まだ自己紹介をしとらんかった。俺はルビウス・ハグリッド。ホグワーツの鍵と領地を守る番人だ」
+　　男は巨大な手を差し出し、ハリーの腕をブンブン振って握手した。
+　　「さあて、お茶にしようじゃないか。え？」
+　　男はもみ手しながら言った。
+　　「紅茶よりちょいと強い液体だってかまわんぞ。まあ、あればの話だがな」
+　　大男は、チリチリに縮んだポテトチップの空き袋が転がっているだけの、火の気のない暖炉に目をやると、フンと鼻を鳴らしながら、暖炉に覆いかぶさるようにして何やら始めた。次の瞬間、大男が身を引くと、暖炉にはゴウゴウと火が起こっていた。
+　　火は湿った小屋をチラチラ揺らめく明りで満たし、ハリーは暖かい湯にトップリとつかったような温もりが体中を包むのを感じた。
+　　大男はソファにドッカと座った。ソファが重みで沈み込んだ。男はコートのポケットから次々にいろいろなものを取り出しはじめた。銅のヤカン、ひしゃげたソーセージ一袋、火掻き棒、ティーポット、口の欠けたマグカップ数個、琥珀色の液体が入った瓶。その液体を一杯ひっかけてから、大男はお茶の準備を始めた。やがて、ソーセージがジュージュー焼ける音と匂いで小屋中がいっぱいになった。誰も声を出すものはいなかった。太くて軟らかそうな、少し焦げめのついたソーセージが六本、焼串からはずされた時、ダドリーがそわそわしはじめたので、おじさんは一喝した。
+　　「ダドリー、この男のくれるものに、一切触ってはいかん」
+　　大男はクックッと低く笑いながら言った。
+　　「おまえのデブチン息子はこれ以上太らんでいい。ダーズリーとっつあん、余計な心配じゃ」
+　　男はソーセージをハリーに渡した。お腹が空いていたので、ハリーはこんなにおいしいものは食べたことがないと思った。それでも、目だけは大男に釘づけになっていた。誰も説明してくれないので、とうとうハリーは口を開いた。
+　　「あの、僕、まだあなたが誰だかわからないんですけど」
+　　大男はお茶をガブリと飲んで、手の甲で口をぬぐった。
+　　「ハグリッドって呼んでおくれ。みんなそう呼ぶんだ。さっき言ったように、ホグワーツの番人だ――ホグワーツのことはもちろん知っとろうな？」
+　　「あの……、いいえ」
+　　ハグリッドはショックを受けたような顔をした。
+　　「ごめんなさい」ハリーはあわてて言った。
+　　「ごめんなさいだと？」
+　　ハグリッドは吠えるような大声を出すと、ダーズリーたちをにらみつけた。ダーズリー親子は薄暗いところで、小さくなっていた。
+　　「ごめんなさいはこいつらのセリフだ。おまえさんが手紙を受け取ってないのは知っとったが、まさかホグワーツのことも知らんとは、思ってもみなかったぞ。なんてこった！おまえの両親がいったいどこであんなにいろんなことを学んだのか、不思議に思わなんだのか？」
+　　「いろんなことって？」ハリーが尋ねた。
+　　「いろんなことって、だと？」
+　　ハグリッドの雷のような声が響く。
+　　「ちょっとまった！」
+　　ハグリッドは仁王立ちになった。怒りでハグリッドの体が小屋いっぱいに膨れ上がったかのようだった。ダーズリー親子はすくみあがって壁に張りついていた。
+　　ハグリッドは、ダーズリーたちに詰め寄って、かみつくように言った。
+　　「この子が……この子ともあろうものが……何も知らんというのか……まったくなんにも？」
+　　ハリーは、ちょっと言い過ぎじゃないかと思った。学校にも行ったし、成績だってそう悪くなかったんだから。
+　　「僕、少しなら知ってるよ。算数とか、そんなのだったら」
+　　ハグリッドは首を横に振った。
+　　「我々の世界のことだよ。つまり、あんたの世界だ。俺の世界。あんたの両親の世界のことだ」
+　　「なんの世界？」
+　　ハグリッドはいまや爆発寸前の形相だ。
+　　「ダーズリー！」
+　　ドッカーンときた。
+　　バーノンおじさんは真っ青な顔で、何やら「ムニャムニャ」と意味のないことを言うばかりだった。ハグリッドはハリーを燃えるような目で見つめた。
+　　「じゃが、おまえさんの父さん母さんのことは知っとるだろうな。ご両親は有名なんだ。おまえさんも有名なんだよ」
+　　「えっ？僕の……父さんと母さんが有名だったなんて、ほんとに？」
+　　「知らんのか……おまえは、知らんのか……」
+　　ハグリッドは髪をかきむしり、当惑した眼差しでハリーを見つめた。
+　　「おまえは自分が何者なのか知らんのだな？」
+　　しばらくしてハグリッドはそう言った。
+　　バーノンおじさんが急に声を取り戻して、命令口調で言った。
+　　「やめろ！客人。今すぐやめろ！その子にこれ以上何も言ってはいかん！」
+　　ハグリッドはすさまじい形相でおじさんをにらみつけた。そのものすごさときたら、たとえ今のダーズリー氏より勇敢な人がいたってしっぽを巻いただろう。ハグリッドの言葉は、一言ひとこと怒りでワナワナと震えていた。
+　　「きさまは何も話してやらなかったんだな？ダンブルドアがこの子のために残した手紙の中身を、一度も？俺はあの場にいたんだ。ダンブルドアが手紙を置くのを見ていたんだぞ！それなのに、きさまはずーっとこの子に隠していたんだな？」
+　　「いったい何を隠してたの？」ハリーは急き込んで聞いた。
+　　「止めろ。絶対言うな！」
+　　おじさんは狂ったように叫び、ペチュニアおばさんは、恐怖で引きつった声を上げた。
+　　「二人とも勝手に喚いていろ。ハリー――おまえは魔法使いだ」
+　　小屋の中が、シーンとした。聞こえるのはただ、彼の音とヒューヒューという風の音……
+　　「僕が何だって？」ハリーは息をのんだ。
+　　「魔法使いだよ、今言ったとおり」
+　　ハグリッドはまたソファにドシンと座った。ソファがギシギシとうめき声をあげて、前より深く沈み込んだ。
+　　「しかも、訓練さえ受けりや、そんじょそこらの魔法使いよりすごくなる。なんせ、ああいう父さんと母さんの子だ。おまえは魔法使いに決まってる。そうじゃないか？さて、手紙を読む時がきたようだ」
+　　ハリーはついに黄色味がかった封筒に手を伸ばした。エメラルド色で宛名が書いてある。
+　　
+　　海の上、
+　　岩の上の小屋、
+　　床
+　　ハリー・ポッター棟
+　　
+　　中から手紙を取り出し、読んだ。
+　　
+　　ホグワーツ魔法魔術学校
+　　校長アルバス・ダンブルドア
+　　マーリン勲章、勲一等、大魔法使い、魔法戦士隊長
+　　最上級独立魔法使い、国際魔法使い連盟会員
+　　
+　　親愛なるポッター殿
+　　このたびホグワーツ魔法魔術学校にめでたく入学を許可されましたこと、心よりお喜び申し上げます。教科書並びに必要な教材のリストを同封いたします。
+　　新学期は九月一日に始まります。七月三十一日必着でふくろう便にてのお返事をお待ちしております。
+　　
+　　敬具
+　　
+　　副校長ミネルバ・マクゴナガル
+　　
+　　
+　　ハリーの頭で、まるで花火のように次々と疑問がはじけた。何から先に聞いてよいのかわからない。しばらくしてやっと、つっかえながら聞いた。
+　　「これどういう意味ですか？ふくろう便を待つって」
+　　「おっとどっこい。忘れるとこだった」
+　　ハグリッドは「しまった」というふうにおでこを手でパチンと叩いたが、その力の強いこと、馬車馬でも吹っ飛んでしまいそうだ。そして、コートのポケットから今度はふくろうを引っ張り出した……少しもみくちゃになってはいたが、生きてる本物だ……それから、長い羽根ペンと……羊皮紙の巻紙を取り出した。ハグリッドが歯の問から舌を少しのぞかせながら走り書きするのを、ハリーは逆さまから読んだ。
+　　
+　　ダンブルドア先生、ハリーに手紙を渡しました。明日は入学に必要なものを買いに連れてゆきます。
+　　ひどい天気です。お元気で。
+　　ハグリッドより
+　　
+　　
+　　ハグリッドは手紙をクルクルッと丸めてふくろうの嘴にくわえさせ、戸を開けて嵐の中に放った。そして、まるで電話でもかけたかのようにあたりまえの顔で、ソファに戻った。
+　　ハリーはポカンと口を開けていることに気づいてあわてて閉じた。
+　　「どこまで話したかな？」
+　　とハグリッドが言った時、おじさんが灰色の顔に怒りの表情をあらわにし、暖炉の火の明るみにグイと進み出た。
+　　「ハリーは行かせんぞ」
+　　「おまえのようなコチコチのマグルに、この子を引き止められるもんなら、拝見しようじゃないか」とハグリッドはうなった。
+　　「マグ――何ていったの？」気になってハリーは聞いた。
+　　「マグルだよ。連中のような魔法族ではない者をわしらはそう呼ぶ。よりによって、俺の見た中でも最悪の、極めつきの大マグルの家で育てられるなんて、おまえさんも不運だったなあ」
+　　「ハリーを引き取った時、くだらんゴチャゴチャはおしまいにするとわしらは誓った。この子の中からそんなものは叩き出してやると誓ったんだ！魔法使いなんて、まったく！」
+　　「知ってたの？おじさん、僕があの、ま、魔法使いだってこと、知ってたの？」
+　　突然ペチュニアおばさんがかん高い声を上げた。
+　　「知ってたかですって？ああ、知ってたわ。知ってましたとも！あのしゃくな妹がそうだったんだから、おまえだってそうに決まってる。妹にもちょうどこれと同じような手紙が来て、さっさと行っちまった……その学校とやらへね。休みで帰ってくる時にゃ、ポケットはカエルの卵でいっぱいだし、コップをねずみに変えちまうし。私だけは、妹の本当の姿を見てたんだよ……奇人だって。ところがどうだい、父も母も、やれリリー、それリリーって、わが家に魔女がいるのが自慢だったんだ」
+　　おばさんはここで大きく息を吸い込むと、何年も我慢していたものを吐き出すように一気にまくしたてた。
+　　「そのうち学校であのポッターに出会って、二人ともどっかへ行って結婚した。そしておまえが生まれたんだ。ええ、ええ、知ってましたとも。おまえも同じだろうってね。同じように変てこりんで、同じように……まともじゃないってね。それから妹は、自業自得で吹っ飛んじまった。おかげでわたしたちゃ、おまえを押しつけられたってわけさ！」
+　　ハリーほ真っ青で声も出ない。やっと口がきけるようになった時、叫ぶように言った。
+　　「吹っ飛んだ？自動車事故で死んだって言ったじゃない！」
+　　「自動車事故！」
+　　ハグリッドはソファからいきなり立ち上がり、怒りのうなり声を上げた。ダーズリー親子はあわててまた隅っこの暗がりに逃げ戻った。
+　　「自動車事故なんぞで、リリーやジェームズ・ポッターが死ぬわけがなかろう。何たる屈辱！何たる恥！魔法界の子どもは一人残らずハリーの名前を知っているというのに、ハリー・ポッターが自分のことを知らんとは！」
+　　「でも、どうしてなの？いったい何があったの？」ハリーは急き込んで尋ねた。
+　　ハグリッドの顔から怒りが消え、急に気づかわしげな表情になった。
+　　「こんなことになろうとは」ハグリッドの声は低く、物憂げだった。
+　　「ダンブルドアが、おまえさんを捕まえるのに苦労するかもしれん、と言いなさったが、まさか、おまえさんがこれほど知らんとはなあ。ハリーや、おまえに話して聞かせるのは、俺には荷が重すぎるかもしれん……だが、誰かがやらにゃ……何も知らずにホグワーツに行くわけにはいくまいて」
+　　ハグリッドはダーズリー親子をジロッと見た。
+　　「さあ、俺が知ってることをおまえさんに話すのが一番いいじゃろう……ただし、すべてを話すことはできん。まだ謎に包まれたままのところがあるんでな……」
+　　ハグリッドは腰を下ろし、しばらくはじーっと火を見つめていたが、やがて語り出した。
+　　「事の起こりは、ある人からだと言える。名前は……こりゃいかん。おまえはその名を知らん。我々の世界じゃみんな知っとるのに……」
+　　「誰なの？」
+　　「さて……できれば名前を口にしたくないもんだ。誰もがそうなんじゃが」
+　　「どうしてなの？」
+　　「どうもこうも、ハリーや。みんな、今だに恐れとるんだよ。いやはや、こりゃ困った。いいかな、ある魔法使いがおってな、悪の道に走ってしまったわけだ……悪も悪、とことん悪、悪よりも悪とな。その名は……」ハグリッドは一瞬息を詰めた、が、言葉にならなかった。
+　　「名前を書いてみたら？」ハリーが促した。
+　　「うんにゃ、名前の綴りがわからん。言うぞ、それっ！ヴォルデモート」
+　　ハグリッドは身震いした。
+　　「二度と口にさせんでくれ。そういうこった。もう二十年も前になるが、この魔法使いは仲間を集めはじめた。何人かは仲間に入った……恐れて入った者もいたし、そいつがどんどん力をつけていたので、おこぼれにあずかろうとした者もいた。暗黒の日々じゃよ、ハリー。誰を信じていいかわからん。知らない連中とはとても友達になろうなんて考えられん……恐ろしいことがいろいろ起こった。我々の世界をそいつが支配するようになった。もちろん、立ち向かう者もいた……だが、みんな殺された。恐ろしや……残された数少ない安全な場所がホグワーツだった。ダンブルドアだけは、『例のあの人』も一目置いていた。学校にだけはさすがに手出しができんかった。その時はな。そういうこった。
+　　おまえの父さん、母さんはな、おれの知っとる中で一番すぐれた魔法使いと魔女だったよ。
+　　在学中は、二人ともホグワーツの代表監督生だった！『あの人』が、何でもっと前に二人を味方に引き入れようとしなかったのか、謎じゃて……だが二人はダンブルドアと親しいし、闇の世界とは関わるはずがないと知っとったんだろうな。
+　　あやつは二人を説得できると思ったか……それとも邪魔者としてかたづけようと思ったのかもしれん。ただわかっているのは、十年前のハロウィーンに、おまえさんたち三人が住んでいた村にあやつが現れたってことだけだ。おまえさんは一歳になったばかりだったよ。やつがおまえさんたちの家にやってきた。そして……そして……」
+　　ハグリッドは突然水玉模様の汚いハンカチを取り出し、ボアーッと霧笛のような音を響かせて鼻をかんだ。
+　　「すまん。だが、ほんとに悲しかった……おまえの父さん母さんのようないい人はどこを探したっていやしない……そういうこった。
+　　『あの人』は二人を殺した。そしてだ、そしてこれがまったくの謎なんだが……やつはおまえさんも殺そうとした。きれいさっぱりやってしまおうというつもりだったんだろうな。もしかしたら、殺すこと自体が楽しみになっていたのかもしれん。ところができんかった。おまえの額の傷跡がどうしてできたか不思議に思ったことはありゃせんか？並みの切り傷じゃない。強力な悪の呪いにかけられた時にできる傷だ。おまえの父さん母さんを殺し、家までメチャメチャにした呪いが、おまえにだけは効かんかった。ハリーや、だからおまえさんは有名なんだよ。あやつが目をつけた者で生き残ったのは一人もいない……おまえさん以外はな。当時最も力のあった魔法使いや魔女が何人も殺された……マッキノン家、ボーン家、プルウェット家……なのに、まだほんの赤ん坊のおまえさんだけが生き残った」
+　　ハリーの心に言い知れぬ痛みが走った。ハグリッドが語り終わった時、ハリーはあの目も眩むような緑の閃光を見た。これまでに思い出した時よりずっと鮮烈に……そして、これまで一度も思い出さなかったことまで、初めて思い出した。冷たい、残忍な高笑いを。
+　　ハグリッドは沈んだ目でハリーを見ながら話を続けた。
+　　「ダンブルドアの言いつけで、この俺が、おまえさんを壊れた家から連れ出した。この連中のところへおまえさんを連れてきた……」
+　　「バカバカしい」
+　　バーノンおじさんの声がした。ハリーは飛び上がった。ダーズリー親子がいることをすっかり忘れていた。おじさんはどうやら勇気を取り戻したらしい。拳を握りしめ、ハグリッドをはたとにらみつけた。
+　　「いいか、よく聞け、小僧」おじさんがうなった。
+　　「確かにおまえは少々おかしい。だが、恐らく、みっちり叩きなおせば治るだろう……おまえの両親の話だが、間違いなく、妙ちくりんな変人だ。連中のようなのはいないほうが、世の中が少しはましになったとわしは思う。――あいつらは身から出た錆、魔法使いなんて変な仲間と交わるからだ……思ったとおり、常々ろくな死に方はせんと思っておったわ……」
+　　その時、ハグリッドがソファからガバッと立ち上がり、コートから使い古したピンクの傘を取り出した。傘を刀のようにバーノンおじさんに突きつけながら言った。
+　　「それ以上一言でも言ってみろ、ダーズリー。ただじゃすまんぞ」
+　　ひげモジャの大男に傘で串刺しにされる危険を感じ、バーノンおじさんの勇気はまたもやくじけ、壁に張りついて黙ってしまった。
+　　「それでいいんだ」
+　　ハグリッドは息を荒げてそう言うと、ソファに座り直した。ソファはついに床まで沈み込んでしまった。
+　　ハリーはまだまだ聞きたいことが山のようにあった。
+　　「でもヴォル……あ、ごめんなさい……『あの人』はどうなったの？」
+　　「それがわからんのだ。ハリー。消えたんだ。消滅だ。おまえさんを殺そうとしたその夜にな。だからおまえはいっそう有名なんだよ。最大の謎だ。なあ……あやつはますます強くなっていた……なのに、なんで消えなきゃならん？
+　　あやつが死んだという者もいる。俺に言わせりゃ、くそくらえだ。やつに人間らしさのかけらでも残っていれば死ぬこともあろうさ。まだどこかにいて、時の来るのを待っているという者もいるな。俺はそうは思わん。やつに従っていた連中は我々の方に戻ってきた。夢から覚めたように戻ってきた者もいる。やつが戻ってくるなら、そんなことはできまい。
+　　やつはまだどこかにいるが、力を失ってしまった、そう考えている者が大多数だ。もう何もできないぐらい弱っているとな。ハリーや、おまえさんの何かが、あやつを降参させたからだよ。あの晩、あやつが考えてもみなかった何かが起きたんだ……俺には何かはわからんが。誰にもわからんが……しかし、おまえさんの何かがやつに参ったと言わせたのだけは確かだ」
+　　ハグリッドは優しさと敬意に輝く眼差しでハリーを見た。ハリーは喜ぶ気にも、誇る気にもなれなかった。むしろ、とんでもない間違いだという思いの方が強かった。魔法使いだって？この僕が？そんなことがありえるだろうか。ダドリーに殴られ、バーノンおじさんとペチュニアおばさんにいじめられてきたんだもの。もし本当に魔法使いなら、物置に閉じ込められそうになるたび、どうして連中をいぼいぼヒキガエルに変えられなかったんだろう？昔、世界一強い魔法使いをやっつけたなら、どうしてダドリーなんかが、おもしろがって僕をサッカーボールのように蹴っていじめることができるんだろう？
+　　「ハグリッド」ハリーは静かに言った。
+　　「きっと間違いだよ。僕が魔法使いだなんてありえないよ」
+　　驚いたことに、ハグリッドはクスクス笑った。
+　　「魔法使いじゃないって？えっ？おまえが怖かった時、怒った時、何も起こらなかったか？」
+　　ハリーは暖炉の火を見つめた。そう言えば……おじさんやおばさんをカンカンに怒らせたおかしな出来事は、ハリーが困った時、腹を立てた時に起こった……ダドリー軍団に追いかけられた時、どうやったのかわからないが、連中の手の届かないところに逃げられたし……ちんちくりんな髪に刈り上げられて学校に行くのがとてもいやだった時、髪は、あっという間に元通りに伸びたし……最後にダドリーに殴られた時、自分でもそうとは気づかず、仕返しをしたんじゃないか？大ニシキヘビにダドリーを襲わせたじゃないか。
+　　ハリーはハグリッドに向かってほほえんだ。ハグリッドも、そうだろうという顔でニッコリした。
+　　「なあ？ハリー・ポッターが魔法使いじゃないなんて、そんなことはないぞ……見ておれ。おまえさんはホグワーツですごく有名になるぞ」
+　　だが、おじさんはおとなしく引き下がりはしなかった。
+　　「行かせん、と言ったはずだぞ」食いしばった歯の間から声がもれた。
+　　「こいつはストーンウォール校に行くんだ。やがてはそれを感謝するだろう。わしは手紙を読んだぞ。準備するのはバカバカしいものばかりだ……呪文の本だの魔法の杖だの、それに……」
+　　「この子が行きたいと言うなら、おまえのようなコチコチのマグルに止められるものか」
+　　ハグリッドがうなった。
+　　「リリーとジェームズの息子、ハリー・ポッターがホグワーツに行くのを止めるだと。たわけが。ハリーの名前は生まれた時から入学名簿に載っておる。世界一の魔法使いと魔女の名門校に入るんだ。七年たてば、見違えるようになろう。これまでと違って、同じ仲間の子供たちと共に過ごすんだ。しかも、ホグワーツの歴代の校長の中で最も偉大なアルバス・ダンブルドア校長の下でな」
+　　「まぬけのきちがいじじいが小僧に魔法を教えるのに、わしは金なんか払わんぞ！」とバーノンおじさんが叫んだ。
+　　ついに言葉が過ぎたようだ。ハグリッドは傘をつかんで、頭の上でグルグル回した。
+　　「絶対に」
+　　雷のような声だった。
+　　「おれの……前で……アルバス・ダンブルドアを……侮辱するな！」
+　　ハグリッドはヒューッと傘を振り下ろし、ダドリーにその先端を向けた。一瞬、紫色の光が走り、爆竹のような音がしたかと思うと、鋭い悲鳴がして、次の瞬間、ダドリーは太ったお尻を両手で押さえ、痛みで喚きながら床の上を飛び跳ねていた。ダドリーが後ろ向きになった時、ハリーは見た。ズボンの穴から突き出しているのは、クルリと丸まった豚のしっぽだった。
+　　バーノンおじさんは叫び声をあげ、ペチュニアおばさんとダドリーを隣の部屋に引っばっていった。最後にもう一度こわごわハグリッドを見ると、おじさんはドアをバタンと閉めた。
+　　ハグリッドは傘を見下ろし、ひげをなでた。
+　　「癇癪を起こすんじゃなかった」
+　　ハグリッドは悔やんでいた。
+　　「じゃが、いずれにしてもうまくいかんかった。豚にしてやろうと思ったんだが、もともとあんまりにも豚にそっくりなんで、変えるところがなかった」
+　　ボサボサ眉毛の下からハリーを横目で見ながら、ハグリッドが言った。
+　　「ホグワーツでは今のことを誰にも言わんでくれるとありがたいんだが。俺は……その……
+　　厳密に言えば、魔法を使っちゃならんことになっとるんで。おまえさんを追いかけて、手紙を渡したりいろいろするのに、少しは使ってもいいとお許しが出た……この役目をすすんで引き受けたのも、一つにはそれがあったからだが……」
+　　「どうして魔法を使っちゃいけないの？」とハリーが聞いた。
+　　「ふむ、まあ――俺もホグワーツ出身で、ただ、俺は……その……実は退学処分になったんだ。三年生の時にな、杖を真っ二つに折られた。だが、ダンブルドアが、俺を森の番人としてホグワーツにいられるようにしてくださった。偉大なお方じゃ。ダンブルドアは」
+　　「どうして退学になったの？」
+　　「もう夜も遅い。明日は忙しいぞ」ハグリッドは大きな声で言った。
+　　「町へ行って、教科書やら何やら買わんとな」
+　　ハグリッドは分厚いコートを脱いで、ハリーに放ってよこした。
+　　「それを掛けて寝るといい。ちいとばかりモゴモゴ動いても気にするなよ。どっかのボケットにヤマネが二、三匹入っているはずだ」
+</div>
+<!-- CONTENT ABOVE -->
+
+<script>
+  var isAndroid = /(android)/i.test(navigator.userAgent);
+  $().ready(function() {
+    var touch = 'ontouchstart' in document.documentElement
+            || navigator.maxTouchPoints > 0
+            || navigator.msMaxTouchPoints > 0;
+
+    function hideRT(rt) {
+      setTimeout(function(rt) {
+        if ($('#modal').is(':visible')) {
+          hideRT(rt);
+        } else {
+          rt.css('visibility', 'hidden');
+        }
+      }, 10000, rt);
+    }
+
+    function showModal(html) {
+      modal_content = $('#modal-content');
+      modal_content.height(1);      
+      modal_content.html(html);
+            
+      modal_content.css("visibility", "hidden");
+      $('#modal').show();
+      
+      scrollHeight = modal_content.prop('scrollHeight');
+      padding = modal_content.innerWidth() - modal_content.width();
+      modal_content.height(scrollHeight - padding);
+
+      margin = ( 100 - (modal_content.height() * (100 / document.documentElement.clientHeight))) / 2 - 5;
+      modal_content.css("margin" , margin + "vh auto")
+
+      modal_content.css("visibility", "visible");
+    }
+
+    if (touch) {
+      $('ruby').click(function () {      
+        rt = $(this).find('rt');
+        if (rt.css('visibility') == 'hidden' ) {
+          rt.css('visibility', 'visible');
+          hideRT(rt);
+        }
+      });
+    } else {
+      var sheet = document.createElement('style')
+      sheet.innerHTML = "ruby:hover rt {visibility: visible;}";
+      document.body.appendChild(sheet);
+    }
+
+    $('.english').click(function () {      
+      showModal(Base64.decode($(this).data('english')));
+    });
+
+    $('#modal').click(function (e) {
+      if (e.target !== this) {return}
+      $('#modal').hide();
+    });
+
+    var scrollPos = "ddsl_off_scroll_pos_" + $('#chapter-number').data("chapter");
+    if (localStorage && localStorage.getItem(scrollPos)) {
+      $('body, html').scrollLeft(localStorage.getItem(scrollPos));
+    } else {
+      $('body, html').scrollLeft($(document).outerWidth() - $(window).width());
+    }
+
+    $(window).scroll(function (){
+      localStorage.setItem(scrollPos, $(window).scrollLeft());
+    });
+
+    if ($('#mainContent').css('writing-mode') != 'horizontal-tb') {
+      $('#mainContent').css('height', $('#mainContent').css('height'));
+    }
+    
+    if (isAndroid) {
+      sheet = document.createElement('style')
+      sheet.innerHTML = "@font-face {font-family: YuMin; src: url(yumindb.ttf);}";
+      document.body.appendChild(sheet);                
+    }
+  });
+</script>
+</body>
+</html>
