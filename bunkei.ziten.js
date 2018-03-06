@@ -241,14 +241,6 @@ function dataReady() {
                 }
                 $("#newUpdate").show();
                 $("#newUpdate").blink();
-                /*Promise.all([getData('toc.json', false), getData('dict.json', false)]).then(
-                    (values) => {
-                        toc  = values[0];
-                        dict = values[1];
-                        displayNewContent(currentHeading);
-                        $("#mainContent").fadeIn(100).fadeOut(100).fadeIn(100).fadeOut(100).fadeIn(100).fadeIn(100).fadeOut(100).fadeIn(100).fadeOut(100).fadeIn(100);
-                    }
-                )*/
             }
         }, 1000);
     });
@@ -324,7 +316,6 @@ function dataReady() {
             $("#" + currentHeading)[0].scrollIntoView({block: sitvff});
         }
         if (forward.length == 0) {
-            // $('#forward').attr('disabled', 'disabled');
             $('#forward').css('color', '#ccc');
             $('#forward').data("disabled", "true");
         }
@@ -342,14 +333,12 @@ function dataReady() {
         forward.push(backward.pop());
         store.set('history', backward);
         if (backward.length == 0) {
-            // $('#back').attr('disabled', 'disabled');
             $('#back').css('color', '#ccc');
             $('#back').data("disabled", "true");
         }
         if (forward.length > 0) {
             $('#forward').css('color', '#666666');
             $('#forward').data("disabled", "false");
-            // $("#forward").removeAttr('disabled');
         }
         updateDB();
     });
@@ -567,8 +556,23 @@ $( document ).ready(() => {
         caches.open('bunkei').catch(() => alert('Switch to HTTPS please!'));
     } else {
         $("#title").css('color', 'red');
-    }    
+    }
     if (isAndroid || isLinux) {
+
+        caches.open(cacheName).then((cache) => {
+            cache.match("mincho.json").then(
+                function(resp) {
+                    if (resp) {
+                        // There are fonts cached
+                    } else {
+                        // No fonts cached
+                        $(".spinner").hide();
+                        $("#mainContent").css("visibility", "visible");
+                    }
+                }
+            )
+        });
+
         Promise.all([getData('toc.json', true), getData('dict.json', true), getData('mincho.json', true), getData('gothic.json', true)]).then(
             (values) => {
                 toc  = values[0];
