@@ -558,7 +558,6 @@ $( document ).ready(() => {
         $("#title").css('color', 'red');
     }
     if (isAndroid || isLinux) {
-
         caches.open(cacheName).then((cache) => {
             cache.match("mincho.json").then(
                 function(resp) {
@@ -615,9 +614,7 @@ $( document ).ready(() => {
                     }
                 }
             )
-        });
-
-
+        })
     } else {
         Promise.all([getData('toc.json', true), getData('dict.json', true)]).then(
             (values) => {
