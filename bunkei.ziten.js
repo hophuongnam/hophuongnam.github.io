@@ -564,39 +564,60 @@ $( document ).ready(() => {
                 function(resp) {
                     if (resp) {
                         // There are fonts cached
+                        Promise.all([getData('toc.json', true), getData('dict.json', true), getData('mincho.json', true), getData('gothic.json', true)]).then(
+                            (values) => {
+                                toc  = values[0];
+                                dict = values[1];
+
+                                sheetMincho = document.createElement('style');
+                                sheetMincho.innerHTML = "@font-face{font-family:CustomMincho;src:url(data:font/ttf;base64," + values[2].mincho + ")}";
+                                document.body.appendChild(sheetMincho);
+
+                                sheetGothic = document.createElement('style');
+                                sheetGothic.innerHTML = "@font-face{font-family:CustomGothic;src:url(data:font/ttf;base64," + values[3].gothic + ")}";
+                                document.body.appendChild(sheetGothic);
+
+                                dataReady();
+
+                                fontLoader = new FontLoader(["CustomGothic", "CustomMincho"], {
+                                    "complete": () => {
+                                        $(".spinner").hide();
+                                        $("#mainContent").css("visibility", "visible");
+                                    }
+                                }, null);
+                                fontLoader.loadFonts();
+                            }
+                        )
                     } else {
                         // No fonts cached
-                        $(".spinner").hide();
-                        $("#mainContent").css("visibility", "visible");
+                        Promise.all([getData('toc.json', true), getData('dict.json', true)]).then(
+                            (values) => {
+                                toc  = values[0];
+                                dict = values[1];
+
+                                dataReady();
+                                $(".spinner").hide();
+                                $("#mainContent").css("visibility", "visible");
+                            }
+                        );
+
+                        Promise.all([getData('mincho.json', true), getData('gothic.json', true)]).then(
+                            (values) => {
+                                sheetMincho = document.createElement('style');
+                                sheetMincho.innerHTML = "@font-face{font-family:CustomMincho;src:url(data:font/ttf;base64," + values[0].mincho + ")}";
+                                document.body.appendChild(sheetMincho);
+
+                                sheetGothic = document.createElement('style');
+                                sheetGothic.innerHTML = "@font-face{font-family:CustomGothic;src:url(data:font/ttf;base64," + values[1].gothic + ")}";
+                                document.body.appendChild(sheetGothic);
+                            }
+                        )
                     }
                 }
             )
         });
 
-        Promise.all([getData('toc.json', true), getData('dict.json', true), getData('mincho.json', true), getData('gothic.json', true)]).then(
-            (values) => {
-                toc  = values[0];
-                dict = values[1];
 
-                sheetMincho = document.createElement('style');
-                sheetMincho.innerHTML = "@font-face{font-family:CustomMincho;src:url(data:font/ttf;base64," + values[2].mincho + ")}";
-                document.body.appendChild(sheetMincho);
-
-                sheetGothic = document.createElement('style');
-                sheetGothic.innerHTML = "@font-face{font-family:CustomGothic;src:url(data:font/ttf;base64," + values[3].gothic + ")}";
-                document.body.appendChild(sheetGothic);
-
-                dataReady();
-
-                fontLoader = new FontLoader(["CustomGothic", "CustomMincho"], {
-                    "complete": () => {
-                        $(".spinner").hide();
-                        $("#mainContent").css("visibility", "visible");
-                    }
-                }, null);
-                fontLoader.loadFonts();
-            }
-        )
     } else {
         Promise.all([getData('toc.json', true), getData('dict.json', true)]).then(
             (values) => {
