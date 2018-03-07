@@ -85,7 +85,7 @@
     if (touch) {
       $('ruby').click(function () {
         rt = $(this).find('rt');
-        if (rt.css('visibility') == 'hidden' ) {
+        if (rt.css('visibility') == 'hidden') {
           rt.css('visibility', 'visible');
           hideRT(rt);
         }
@@ -109,7 +109,7 @@
 
     if (isAndroid) {
       sheet = document.createElement('style')
-      sheet.innerHTML = "@font-face {font-family: YuMin; src: url(yumindb.ttf);}";
+      sheet.innerHTML = "@font-face {font-family: YuMin; src: url(yumin.ttf);}";
       document.body.appendChild(sheet);
     }
   });
