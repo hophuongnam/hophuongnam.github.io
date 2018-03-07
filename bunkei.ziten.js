@@ -21,6 +21,10 @@ var version;
 var myID = guid();
 var language;
 
+var touch = 'ontouchstart' in document.documentElement
+        || navigator.maxTouchPoints > 0
+        || navigator.msMaxTouchPoints > 0;
+
 const cacheAvailable = 'caches' in self;
 
 var toFullWidth = str => str.replace(/[!-~]/g, c => String.fromCharCode(c.charCodeAt(0) + 0xFEE0));
@@ -99,7 +103,8 @@ function doneTyping() {
 }
 
 function hideRT(rt) {
-    rt.css('color', 'transparent');
+    /*rt.css('color', 'transparent');*/
+    rt.css('visibility', 'hidden');
 }
 
 /*
@@ -433,13 +438,28 @@ function dataReady() {
                 displayNewContent(heading);
                 updateDB();
             });
-            $('#mainContent ruby').not("#mainContent strong ruby").click(function() {
+            /*$('#mainContent ruby').not("#mainContent strong ruby").click(function() {
                 rt = $(this).find('rt');
                 if (rt.css('color', 'transparent')) {
                     rt.css('color', 'black');
                     delayed.delay(hideRT, 5000, rt, rt)
                 }
-            });
+            });*/
+
+            if (touch) {
+                $('#mainContent ruby').not("#mainContent strong ruby").click(function() {
+                    rt = $(this).find('rt');
+                    if (rt.css('visibility') == 'hidden') {
+                        rt.css('visibility', 'visible');
+                        delayed.delay(hideRT, 5000, rt, rt)
+                    }
+                });
+            } else {
+                var sheet = document.createElement('style')
+                sheet.innerHTML = "ruby:hover rt {visibility: visible;}";
+                document.body.appendChild(sheet);
+            }
+            
             $(".sentinel").on('scrolling', function(event) {
                 var elemPos = $(this).offset().left;
                 if (elemPos > event.windowBoundRight) {
