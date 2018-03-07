@@ -26,7 +26,6 @@
 
     #mainContent {
       margin: 50px 50px 50px 50px;
-      font-size: 1.5em;
       letter-spacing: 1px;
       writing-mode: vertical-rl;
       -webkit-writing-mode: vertical-rl;
@@ -41,23 +40,31 @@
 
     .mt {
       text-indent: 2em;
-      margin: 0 20px;
+      margin: 0 1em;
     }
 
     digit {
       text-combine-upright: all;
     }
 
-    @media all and (min-width: 960px) {
-      body {font-size: 18px;}
+    body {
+      font-size: 20px;
     }
- 
-    @media all and (max-width: 959px) and (min-width: 600px) {
-      body {font-size: 16px;}
+
+    /* Media Queries */
+    /* Computer */
+    @media screen 
+        and (min-device-width: 1200px) {
+            body {font-size: 30px;} 
     }
- 
-    @media all and (max-width: 599px) and (min-width: 320px) {
-      body {font-size: 12px;}
+
+    /* ----------- iPad 1, 2, Mini and Air ----------- */
+    /* Portrait and Landscape */
+    @media only screen 
+        and (min-device-width: 768px) 
+        and (max-device-width: 1024px) 
+        and (-webkit-min-device-pixel-ratio: 1) {
+            body {font-size: 25px;}
     }
   </style>
 </head>
@@ -109,7 +116,7 @@
 
     if (isAndroid) {
       sheet = document.createElement('style')
-      sheet.innerHTML = "@font-face {font-family: YuMin; src: url(yumindb.ttf);}";
+      sheet.innerHTML = "@font-face {font-family: YuMin; src: url(yumin.ttf);}";
       document.body.appendChild(sheet);
     }
   });
