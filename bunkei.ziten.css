@@ -161,7 +161,7 @@ input::placeholder {
 
 .heading {
     margin-right: 1.5em;
-    margin-left: 0.2em;
+    /*margin-left: 0.2em;*/
 }
 
 .heading span {
@@ -190,7 +190,7 @@ input::placeholder {
 
 .border {
     margin-left: 0.5em;
-    margin-right: 1em;
+    /*margin-right: 1em;*/
     position: sticky;
     position: -webkit-sticky;
     right: 0;
