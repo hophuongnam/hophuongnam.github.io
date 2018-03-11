@@ -298,20 +298,11 @@ digit {
     display: none;
 }
 
-/* Media Queries */
 @media only screen and (max-width: 450px) {
     #sideBar {width: 100%;}
     #sideBarBackground {width: 100%;}
 }
 
 @media (min-width: 800px) {
-    body {font-size: 35px;}
-}
-
-@media (orientation: landscape) and (min-height: 1000px) {
     body {font-size: 30px;}
-}
-
-@media (orientation: landscape) and (max-height: 800px) {
-    body {font-size: 25px;}
 }
