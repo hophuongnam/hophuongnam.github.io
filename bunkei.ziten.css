@@ -304,22 +304,23 @@ digit {
 }
 
 /* Media Queries */
-@media screen and (max-width: 450px) {
+@media only screen and (max-width: 450px) {
     #sideBar {width: 100%;}
     #sideBarBackground {width: 100%;}
 }
 
-/* Computer */
-@media screen 
-    and (min-device-width: 1200px) {
-        body {font-size: 30px;} 
+@media only screen
+    and (min-width: 1366px)
+    and (min-height: 768px) {
+        body {font-size: 20px;}
 }
 
-/* ----------- iPad 1, 2, Mini and Air ----------- */
-/* Portrait and Landscape */
-@media only screen 
-    and (min-device-width: 768px)
-    and (max-device-width: 1024px)
-    and (-webkit-min-device-pixel-ratio: 1) {
-        body {font-size: 25px;}
+@media only screen
+    and (min-height: 1200px) {
+        body {font-size: 35px;}
+}
+
+@media only screen
+    and (min-width: 1600px) {
+        body {font-size: 30px;} 
 }
