@@ -22,11 +22,6 @@ a {
     cursor: pointer;
 }
 
-/*rt {
-    color: transparent;
-    font-size: 40%;
-}*/
-
 rt {
     visibility: hidden;
     letter-spacing: 0px;
@@ -296,7 +291,7 @@ input::placeholder {
 
 digit {
     text-combine-upright: all;
-    font-family: 'Roboto Condensed', sans-serif;
+    /*font-family: 'Roboto Condensed', sans-serif;*/
 }
 
 #newUpdate {
@@ -309,18 +304,14 @@ digit {
     #sideBarBackground {width: 100%;}
 }
 
-@media only screen
-    and (min-width: 1366px)
-    and (min-height: 768px) {
-        body {font-size: 20px;}
+@media (min-width: 800px) {
+    body {font-size: 35px;}
 }
 
-@media only screen
-    and (min-height: 1200px) {
-        body {font-size: 35px;}
+@media (orientation: landscape) and (min-height: 1000px) {
+    body {font-size: 30px;}
 }
 
-@media only screen
-    and (min-width: 1600px) {
-        body {font-size: 30px;} 
+@media (orientation: landscape) and (max-height: 800px) {
+    body {font-size: 25px;}
 }

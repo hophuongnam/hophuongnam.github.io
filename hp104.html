@@ -50,19 +50,16 @@
     }
 
     /* Media Queries */
-    /* Computer */
-    @media screen 
-        and (min-device-width: 1200px) {
-            body {font-size: 30px;} 
+    @media (min-width: 800px) {
+      body {font-size: 35px;}
     }
 
-    /* ----------- iPad 1, 2, Mini and Air ----------- */
-    /* Portrait and Landscape */
-    @media only screen 
-        and (min-device-width: 768px) 
-        and (max-device-width: 1024px) 
-        and (-webkit-min-device-pixel-ratio: 1) {
-            body {font-size: 25px;}
+    @media (orientation: landscape) and (min-height: 1000px) {
+      body {font-size: 30px;}
+    }
+
+    @media (orientation: landscape) and (max-height: 800px) {
+      body {font-size: 25px;}
     }
   </style>
 </head>
@@ -76,6 +73,7 @@
 
 <script>
   var isAndroid = /(android)/i.test(navigator.userAgent);
+  var isLinux = /linux/i.test(navigator.userAgent);
   $().ready(function() {
     var touch = 'ontouchstart' in document.documentElement
             || navigator.maxTouchPoints > 0
@@ -112,7 +110,7 @@
       localStorage.setItem(scrollPos, $(window).scrollLeft());
     });
 
-    if (isAndroid) {
+    if (isAndroid || isLinux) {
       sheet = document.createElement('style')
       sheet.innerHTML = "@font-face {font-family: YuMin; src: url(yumin.ttf);}";
       document.body.appendChild(sheet);
