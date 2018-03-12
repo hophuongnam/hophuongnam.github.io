@@ -8,7 +8,7 @@
 body {
     font-size: 20px;
     line-height: 1.7;
-    font-family : 'Tahoma', 'Verdana', 'Geneva', 'Helvetica', 'Arial', 'CustomGothic', 'Yu Gothic', 'YuGothic', 'ヒラギノ角ゴ ProN', 'Hiragino Kaku Gothic ProN', '游ゴシック', '游ゴシック体', 'メイリオ', 'Meiryo', 'ＭＳ ゴシック', 'MS Gothic', 'HiraKakuProN-W3', 'TakaoExゴシック', 'TakaoExGothic', 'MotoyaLCedar', 'Droid Sans Japanese', sans-serif;
+    font-family: Tahoma, Arial, Helvetica, Verdana, Geneva, 'CustomGothic', 'Yu Gothic', 'YuGothic', 'ヒラギノ角ゴ ProN', 'Hiragino Kaku Gothic ProN', '游ゴシック', '游ゴシック体', 'メイリオ', 'Meiryo', 'ＭＳ ゴシック', 'MS Gothic', 'HiraKakuProN-W3', 'TakaoExゴシック', 'TakaoExGothic', 'MotoyaLCedar', 'Droid Sans Japanese', sans-serif;
     padding-top: 60px;
 }
 
@@ -92,7 +92,7 @@ input#search, input#pouchdbConfig {
 }
 
 input::placeholder {
-    font-family : 'Tahoma', 'Verdana', 'Geneva', 'Helvetica', 'Arial', 'CustomGothic', 'Yu Gothic', 'YuGothic', 'ヒラギノ角ゴ ProN', 'Hiragino Kaku Gothic ProN', '游ゴシック', '游ゴシック体', 'メイリオ', 'Meiryo', 'ＭＳ ゴシック', 'MS Gothic', 'HiraKakuProN-W3', 'TakaoExゴシック', 'TakaoExGothic', 'MotoyaLCedar', 'Droid Sans Japanese', sans-serif;
+    font-family: Tahoma, Arial, Helvetica, Verdana, Geneva, 'CustomGothic', 'Yu Gothic', 'YuGothic', 'ヒラギノ角ゴ ProN', 'Hiragino Kaku Gothic ProN', '游ゴシック', '游ゴシック体', 'メイリオ', 'Meiryo', 'ＭＳ ゴシック', 'MS Gothic', 'HiraKakuProN-W3', 'TakaoExゴシック', 'TakaoExGothic', 'MotoyaLCedar', 'Droid Sans Japanese', sans-serif;
 }
 
 #toc {
@@ -172,7 +172,16 @@ input::placeholder {
     color: rgb(165, 42, 42);
     padding-top: 0.2em;
     padding-bottom: 0.2em;
-    font-family : 'Georgia', "Times New Roman", "Palatino Linotype", 'CustomMincho', 'ヒラギノ明朝 ProN', 'Hiragino Mincho ProN', '游明朝', '游明朝体', 'Yu Mincho', 'ＭＳ 明朝', 'MS Mincho', 'HiraMinProN-W3', 'TakaoEx明朝', 'TakaoExMincho', 'MotoyaLCedar', 'Droid Sans Japanese', serif;
+    font-family: Tahoma, Arial, Helvetica, Verdana, Geneva, 'CustomMincho', 'ヒラギノ明朝 ProN', 'Hiragino Mincho ProN', '游明朝', '游明朝体', 'Yu Mincho', 'ＭＳ 明朝', 'MS Mincho', 'HiraMinProN-W3', 'TakaoEx明朝', 'TakaoExMincho', 'MotoyaLCedar', 'Droid Sans Japanese', sans-serif;
+}
+
+.keyword {
+    display: inline-block;
+    margin-left: 0.5em;
+}
+
+.heading .keyword {
+    display: inline;
 }
 
 .kanji {
@@ -210,7 +219,7 @@ input::placeholder {
 }
 
 .examples {
-    font-family : Georgia, "Times New Roman", "Palatino Linotype", CustomMincho, 'ヒラギノ明朝 ProN', 'Hiragino Mincho ProN', '游明朝', '游明朝体', 'Yu Mincho', 'ＭＳ 明朝', 'MS Mincho', HiraMinProN-W3, 'TakaoEx明朝', TakaoExMincho, 'MotoyaLCedar', 'Droid Sans Japanese', serif;
+    font-family: Tahoma, Arial, Helvetica, Verdana, Geneva, CustomMincho, 'ヒラギノ明朝 ProN', 'Hiragino Mincho ProN', '游明朝', '游明朝体', 'Yu Mincho', 'ＭＳ 明朝', 'MS Mincho', HiraMinProN-W3, 'TakaoEx明朝', TakaoExMincho, 'MotoyaLCedar', 'Droid Sans Japanese', sans-serif;
 }
 
 .sentence {
@@ -261,7 +270,7 @@ input::placeholder {
     display:inline-block;
     cursor:pointer;
     color:#666666;
-    font-family:Arial;
+    font-family: Tahoma, Arial, Helvetica, Verdana, Geneva, sans-serif;
     font-size:15px;
     font-weight:bold;
     padding:3px 8px;
@@ -291,7 +300,8 @@ input::placeholder {
 
 digit {
     text-combine-upright: all;
-    /*font-family: 'Roboto Condensed', sans-serif;*/
+    /*font-family: 'Roboto Condensed', serif;*/
+    font-family: Tahoma, Arial, Helvetica, Verdana, Geneva, sans-serif;
 }
 
 #newUpdate {
