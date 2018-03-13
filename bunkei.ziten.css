@@ -64,14 +64,13 @@ sub {
 #sideBar {
     width: 50%;
     position: fixed;
-    left: -2000px;
+    left: -100%;
     bottom: 0;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
+    display: grid;
     border: 1px solid #e7e7e7;
     background-color: #f8f8f8;
     z-index: 999;
+    grid-template-rows: 70px auto 15px;
 }
 
 #searchBar {
@@ -79,7 +78,20 @@ sub {
     height: 50px;
 }
 
-input#search, input#pouchdbConfig {
+#toc {
+    overflow: auto;
+    border-top: 1px solid #e7e7e7;
+    border-bottom: 1px solid #e7e7e7;
+    background-color: #f8f8f8;
+}
+
+#tocFooter {
+    text-align: center;
+    font-size: 9px;
+    color: #777;
+}
+
+input#search {
     width: calc(100% - 3em);
     margin: 0 auto;
     display: block;
@@ -95,15 +107,6 @@ input::placeholder {
     font-family: Tahoma, Arial, Helvetica, Verdana, Geneva, 'CustomGothic', 'Yu Gothic', 'YuGothic', 'ヒラギノ角ゴ ProN', 'Hiragino Kaku Gothic ProN', '游ゴシック', '游ゴシック体', 'メイリオ', 'Meiryo', 'ＭＳ ゴシック', 'MS Gothic', 'HiraKakuProN-W3', 'TakaoExゴシック', 'TakaoExGothic', 'MotoyaLCedar', 'Droid Sans Japanese', sans-serif;
 }
 
-#toc {
-    flex-grow: 1;
-    flex-shrink: 1;
-    overflow: auto;
-    border-top: 1px solid #e7e7e7;
-    border-bottom: 1px solid #e7e7e7;
-    background-color: #f8f8f8;
-}
-
 #toc a {
     display: block;
     color: #777;
@@ -112,12 +115,6 @@ input::placeholder {
 
 #toc a:hover {
     color: blue;
-}
-
-#tocFooter {    
-    text-align: center;
-    font-size: xx-small;
-    color: #777;
 }
 
 .open {
@@ -156,7 +153,6 @@ input::placeholder {
 
 .heading {
     margin-right: 1.5em;
-    /*margin-left: 0.2em;*/
 }
 
 .heading span {
@@ -175,26 +171,26 @@ input::placeholder {
     font-family: Tahoma, Arial, Helvetica, Verdana, Geneva, 'CustomMincho', 'ヒラギノ明朝 ProN', 'Hiragino Mincho ProN', '游明朝', '游明朝体', 'Yu Mincho', 'ＭＳ 明朝', 'MS Mincho', 'HiraMinProN-W3', 'TakaoEx明朝', 'TakaoExMincho', 'MotoyaLCedar', 'Droid Sans Japanese', sans-serif;
 }
 
-.keyword {
+/*.keyword {
     display: inline-block;
     margin-left: 0.5em;
 }
 
 .heading .keyword {
     display: inline;
-}
+}*/
 
 .kanji {
     display: none;
 }
 
 .item {
-    padding-right: 0.5em;
+    margin-left: 1em;
 }
 
 .border {
     margin-left: 0.5em;
-    /*margin-right: 1em;*/
+    margin-right: 1em;
     position: sticky;
     position: -webkit-sticky;
     right: 0;
@@ -300,7 +296,6 @@ input::placeholder {
 
 digit {
     text-combine-upright: all;
-    /*font-family: 'Roboto Condensed', serif;*/
     font-family: Tahoma, Arial, Helvetica, Verdana, Geneva, sans-serif;
 }
 

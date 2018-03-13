@@ -17,14 +17,12 @@
     <script type="text/javascript" src="FontLoader.min.js"></script>
     <script type="text/javascript" src="vagueTime.min.js"></script>
     <script type="text/javascript" src="jquery.modal.min.js"></script>
-    <script type="text/javascript" src="pouchdb.min.js"></script>
     <script type="text/javascript" src="jquery.blink.js"></script>
     <script defer src="https://use.fontawesome.com/releases/v5.0.4/js/all.js"></script>
     <script type="text/javascript" src="bunkei.ziten.js"></script>
 
     <link rel="stylesheet" type="text/css" href="normalize.css">
     <link rel="stylesheet" type="text/css" href="jquery.modal.min.css">
-    <!--<link href="https://fonts.googleapis.com/css?family=Roboto+Condensed" rel="stylesheet">-->
     <link rel="stylesheet" type="text/css" href="bunkei.ziten.css">
 </head>
 <body>
@@ -57,19 +55,13 @@
         <i class="far fa-sun fa-spin"></i>
     </div>
 
-    <div id=pouchdb style="display: none;">
-        <p>Please enter RemoteDB detail</p>
-        <p><input id=pouchdbConfig type="text"></p>
-        <button id=pouchdbButton>Done</button>
-    </div>
-
     <div id=trans style="display: none; font-size: 0.7em; line-height: 1.5;"></div>
     <div id=helpBox style="display: none; font-size: 0.7em; line-height: 1.5;"></div>
 
     <div id=langBar class=transition style="padding: 10px;">
         <input type="radio" id="langJP" name="rr" value="jp" />
         <label for="langJP">日本語</label>
-        <br>        
+        <br>
         <input type="radio" id="langVI" name="rr" value="vi" />
         <label for="langVI">Tiếng Việt</label>
     </div>

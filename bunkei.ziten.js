@@ -14,9 +14,6 @@ var toc;
 var dict;
 // var scrolling = false;
 var sitvff = "center"; /* scrollIntoView */
-var remoteDBConfig = store.get("pouchdbRemoteDB", 'none');
-var localDB;
-var remoteDB;
 var version;
 var myID = guid();
 var language;
@@ -150,12 +147,10 @@ function updateMainContent(item) {
 function displayNewContent(heading) {
     if (currentHeading) {backward.push(currentHeading)}
     if (backward.length > 0) {
-        // $("#back").removeAttr('disabled');
         $('#back').css('color', '#666666');
         $('#back').data("disabled", "false");
     }
     if (forward.length > 0) {
-        // $("#forward").removeAttr('disabled');
         $('#forward').css('color', '#666666');
         $('#forward').data("disabled", "false");
     }
@@ -166,20 +161,6 @@ function displayNewContent(heading) {
     store.set('scroll', $('#mainContent').get(0).scrollWidth);
     store.set('currentHeading', heading);
     store.set('history', backward);
-}
-
-function updateDB() {
-    localDB.get('config').catch(function(err) {
-        if (err.name === 'not_found') {
-            return {
-                _id: 'config'
-            };
-        }
-    }).then(function(doc) {
-        doc.currentHeading = currentHeading;
-        doc.myID = myID;
-        localDB.put(doc);
-    });
 }
 
 async function getData(filename, same) {
@@ -316,7 +297,6 @@ function dataReady() {
     $("#random").click(() => {
         ran = pickRandomProperty(dict);
         displayNewContent(ran);
-        updateDB();
         if ( $("#sideBar").css('left') == "0px" ) {
             $("#search").val("");
             displayTOC(toc);
@@ -336,7 +316,6 @@ function dataReady() {
             $('#forward').css('color', '#ccc');
             $('#forward').data("disabled", "true");
         }
-        updateDB();
     });
 
     $("#back").click(() => {
@@ -357,13 +336,6 @@ function dataReady() {
             $('#forward').css('color', '#666666');
             $('#forward').data("disabled", "false");
         }
-        updateDB();
-    });
-
-    $("#tocFooter").click(function() {
-        $("#pouchdbConfig").val(remoteDBConfig);
-        $("#pouchdb").modal();
-        closeSideBar();
     });
 
     $("#language").click(function() {
@@ -388,13 +360,6 @@ function dataReady() {
         $("#langBar").toggleClass("openLang");
     });
 
-    $("#pouchdbButton").click(function() {
-        if ($("#pouchdbConfig").val() && $("#pouchdbConfig").val() != "none") {
-            store.set("pouchdbRemoteDB", $("#pouchdbConfig").val());
-            alert("Done. Please reload.\n" + $("#pouchdbConfig").val());
-        }
-    });
-
     $("#help").click(function() {
         if ($("#helpBox").html() == "") {
             $("#helpBox").html("<img src='help.gif' style='width:200px;height:349px;'><br><span>Errata, bugs ... write to ho.phuong.nam@gmail.com</span>");
@@ -410,7 +375,6 @@ function dataReady() {
             closeSideBar();
             heading = $(this).attr('id');
             displayNewContent(heading);
-            updateDB();
         });
     });
 
@@ -448,15 +412,7 @@ function dataReady() {
                 closeSideBar();
                 heading = $(this).attr('id');
                 displayNewContent(heading);
-                updateDB();
             });
-            /*$('#mainContent ruby').not("#mainContent strong ruby").click(function() {
-                rt = $(this).find('rt');
-                if (rt.css('color', 'transparent')) {
-                    rt.css('color', 'black');
-                    delayed.delay(hideRT, 5000, rt, rt)
-                }
-            });*/
 
             if (touch) {
                 $('#mainContent ruby').not("#mainContent strong ruby").click(function() {
@@ -510,49 +466,7 @@ function dataReady() {
                 });
             }, 500);            
         }, 500);
-    });
-
-    localDB = new PouchDB('bunkei');
-    if (remoteDBConfig != "none") {
-        remoteDB = new PouchDB(remoteDBConfig);
-        localDB.sync(remoteDB).on('complete', function(info) {
-            localDB.get('config').catch(function(err) {
-                if (err.name === 'not_found') {
-                    return {
-                        _id: 'none'
-                    };
-                }
-            }).then(function(doc) {
-                if (doc._id != "none" && doc.currentHeading != currentHeading) {
-                    displayNewContent(doc.currentHeading);
-                    $("#mainContent").fadeIn(100).fadeOut(100).fadeIn(100).fadeOut(100).fadeIn(100).fadeIn(100).fadeOut(100).fadeIn(100).fadeOut(100).fadeIn(100);
-                }
-            });
-            localDB.sync(remoteDB, {
-                live: true,
-                retry: true
-            }).on('change', function (change) {
-                if (change.change.docs[0]._id == "config") {
-                    if (myID != change.change.docs[0].myID && currentHeading != change.change.docs[0].currentHeading) {
-                        displayNewContent(change.change.docs[0].currentHeading);
-                        $("#mainContent").fadeIn(100).fadeOut(100).fadeIn(100).fadeOut(100).fadeIn(100).fadeIn(100).fadeOut(100).fadeIn(100).fadeOut(100).fadeIn(100);
-                    }
-                }
-                if (change.change.docs[0]._id == "update" && change.change.docs[0].version > dict.version) {
-                    delayed.delay(function() {
-                        Promise.all([getData('toc.json', false), getData('dict.json', false)]).then(
-                            (values) => {
-                                toc   = values[0];
-                                dict  = values[1];
-                                displayNewContent(currentHeading);
-                                $("#mainContent").fadeIn(100).fadeOut(100).fadeIn(100).fadeOut(100).fadeIn(100).fadeIn(100).fadeOut(100).fadeIn(100).fadeOut(100).fadeIn(100);
-                            }
-                        )
-                    }, 60 * 1000)
-                }
-            });
-        });
-    }
+    });    
 }
 
 $( document ).ready(() => {
