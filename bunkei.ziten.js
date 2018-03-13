@@ -12,7 +12,7 @@ var isFirefox = /firefox/i.test(navigator.userAgent);
 var rebuildTOC = true;
 var toc;
 var dict;
-// var scrolling = false;
+var scrolling = false;
 var sitvff = "center"; /* scrollIntoView */
 var version;
 var myID = guid();
@@ -280,19 +280,20 @@ function dataReady() {
     });
 
     $(window).scroll(() => {
-        // scrolling = true;
-        store.set('scroll', $(window).scrollLeft());
-        $(".sentinel").trigger({
-            type: "scrolling",
-            windowBoundRight: $(window).scrollLeft() + document.documentElement.clientWidth
-        });
+        scrolling = true;
     });
 
-    /* setInterval(() => {
+    setInterval(() => {
         if (scrolling) {
             scrolling = false;
+
+            store.set('scroll', $(window).scrollLeft());
+            $(".sentinel").trigger({
+                type: "scrolling",
+                windowBoundRight: $(window).scrollLeft() + document.documentElement.clientWidth
+            });
         }
-    }, 1000); */
+    }, 100);
 
     $("#random").click(() => {
         ran = pickRandomProperty(dict);
