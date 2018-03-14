@@ -145,6 +145,9 @@ function updateMainContent(item) {
 }
 
 function displayNewContent(heading) {
+    $("#mainContent").css("visibility", "hidden");
+    $("#spinnerContainer").show();
+
     if (currentHeading) {backward.push(currentHeading)}
     if (backward.length > 0) {
         $('#back').css('color', '#666666');
@@ -383,8 +386,6 @@ function dataReady() {
 
     $("#toc").mutationObserver(() => {
         $('#toc a').click(function(e) {
-        	$(".spinner").show();
-        	$("#mainContent").css("visibility", "hidden");
             e.preventDefault();
             closeSideBar();
             heading = $(this).attr('id');
@@ -437,32 +438,16 @@ function dataReady() {
                         delayed.delay(hideRT, 5000, rt, rt)
                     }
                 });
-            } else {
-                var sheet = document.createElement('style')
-                sheet.innerHTML = "ruby:hover rt {visibility: visible;}";
-                document.body.appendChild(sheet);
             }
             
             $(".sentinel").on('scrolling', function(event) {
                 var elemPos = $(this).offset().left;
                 if (elemPos > event.windowBoundRight) {
                     $( "#" + $(this).data('id') ).css("position", "initial");
-                    /*$("#" + $(this).data('id') + " span").css({
-                        "box-shadow": "initial",
-                        "background-color": "transparent",
-                        "color": "transparent"
-                    });
-                    $("#" + $(this).data('id') + " img").hide();*/
                 }
                 if (elemPos < event.windowBoundRight) {
                     $( "#" + $(this).data('id') ).css("position", "sticky");
                     $( "#" + $(this).data('id') ).css("position", "-webkit-sticky");
-                    /*$("#" + $(this).data('id') + " span").css({
-                        "box-shadow": "1px 1px 5px rgba(0, 0, 0, 0.3)",
-                        "background-color": "#f0f0f0",
-                        "color": "initial"
-                    });
-                    $("#" + $(this).data('id') + " img").show();*/
                 }
             });
 
@@ -476,7 +461,7 @@ function dataReady() {
                 $("#trans").modal();
             });
 
-            $(".spinner").hide();
+            $("#spinnerContainer").hide();
             $("#mainContent").css("visibility", "visible");
 
             delayed.delay(function() {
@@ -484,7 +469,7 @@ function dataReady() {
                     type: "scrolling",
                     windowBoundRight: $(window).scrollLeft() + document.documentElement.clientWidth
                 });
-            }, 500);            
+            }, 500);
         }, 500);
     });    
 }
@@ -546,7 +531,9 @@ $( document ).ready(() => {
 
                                 fontLoader = new FontLoader(["CustomGothic", "CustomMincho"], {
                                     "complete": () => {
-                                        $(".spinner").hide();
+                                        $("#spinnerContainer").hide();
+                                        $("#spinnerContainer").css("top", $("#topBar").height() + 2);
+                                        $("#spinnerContainer").css("z-index", "10");
                                         $("#mainContent").css("visibility", "visible");
                                     }
                                 }, null);
@@ -561,7 +548,9 @@ $( document ).ready(() => {
                                 dict = values[1];
 
                                 dataReady();
-                                $(".spinner").hide();
+                                $("#spinnerContainer").hide();
+                                $("#spinnerContainer").css("top", $("#topBar").height() + 2);
+                                $("#spinnerContainer").css("z-index", "10");
                                 $("#mainContent").css("visibility", "visible");
                             }
                         );
@@ -588,9 +577,18 @@ $( document ).ready(() => {
                 dict = values[1];
 
                 dataReady();
-                $(".spinner").hide();
+                $("#spinnerContainer").hide();
+                $("#spinnerContainer").css("top", $("#topBar").height() + 2);
+                $("#spinnerContainer").css("z-index", "10");
                 $("#mainContent").css("visibility", "visible");
             }
         )
+    }
+
+    if (touch) {
+    } else {
+        var sheet = document.createElement('style')
+        sheet.innerHTML = "ruby:hover rt {visibility: visible;}";
+        document.body.appendChild(sheet);
     }
 });
