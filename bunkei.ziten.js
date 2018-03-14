@@ -214,7 +214,7 @@ async function getData(filename, same) {
 function closeSideBar() {
     if ( $("#sideBar").css('left') == "0px" ) {
         $("#sideBar").toggleClass("open");
-        $("#pullout").toggleClass("openMenu");
+        $("#pullout").toggleClass("open");
     }
 }
 
@@ -282,7 +282,7 @@ function dataReady() {
             $("#" + currentHeading)[0].scrollIntoView({block: sitvff});
         }
         $("#sideBar").toggleClass("open");
-        $("#pullout").toggleClass("openMenu");
+        $("#pullout").toggleClass("open");
     });
 
     wanakana.bind($("#search").get(0));

@@ -64,7 +64,7 @@ sub {
 #sideBar {
     width: 50%;
     position: fixed;
-    left: -100%;
+    left: -50%;
     bottom: 0;
     display: grid;
     border: 1px solid #e7e7e7;
@@ -309,8 +309,8 @@ digit {
 
 #pullout {
     position: fixed;
-    left: -18.3em;
-    width: 20em;
+    left: -50%;
+    width: calc(50% + 1.7em);
     top: -100%;
     display: grid;
     height: 3em;
@@ -328,17 +328,15 @@ digit {
     justify-self: end;
 }
 
-.openMenu {
-    left: calc(50% - 18.3em) !important;
-}
-
-/*@media only screen and (max-width: 450px) {
-    #sideBar {width: 100%;}
-    #sideBarBackground {width: 100%;}
-}*/
 @media only screen and (max-width: 450px) {
-    #sideBar {width: 80%;}
-    .openMenu {left: calc(80% - 18.3em) !important;}
+    #sideBar {
+        width: calc(100% - 1.7em);
+        left: calc(1.7em - 100%);
+    }
+    #pullout {
+        width: 100%;
+        left: calc(1.7em - 100%);
+    }
 }
 
 @media (min-width: 800px) {
