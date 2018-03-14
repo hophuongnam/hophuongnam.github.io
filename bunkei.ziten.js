@@ -249,7 +249,6 @@ function dataReady() {
 
     $("#sideBar").css("top", $("#topBar").height() + 1);
     $("#langBar").css("top", $("#topBar").height() + 1);
-    $("#pullout").css("top", (document.documentElement.clientHeight/3)*2);
 
     if (isiOS) {
         $(window).resize(function() {
