@@ -307,9 +307,38 @@ digit {
     display: none;
 }
 
-@media only screen and (max-width: 450px) {
+#pullout {
+    position: fixed;
+    left: -18.3em;
+    width: 20em;
+    top: -100%;
+    display: grid;
+    height: 3em;
+    background-color: #f8f8f8;
+    border: 1px solid #e7e7e7;
+    -webkit-box-shadow: 1px 1px 5px rgba(0, 0, 0, 0.3);
+    -moz-box-shadow: 1px 1px 5px rgba(0, 0, 0, 0.3);
+    box-shadow: 1px 1px 5px rgba(0, 0, 0, 0.3);
+    border-radius: 20px;
+}
+
+#pulloutMenu {
+    writing-mode: vertical-lr;
+    align-self: center;
+    justify-self: end;
+}
+
+.openMenu {
+    left: calc(50% - 18.3em) !important;
+}
+
+/*@media only screen and (max-width: 450px) {
     #sideBar {width: 100%;}
     #sideBarBackground {width: 100%;}
+}*/
+@media only screen and (max-width: 450px) {
+    #sideBar {width: 80%;}
+    .openMenu {left: calc(80% - 18.3em) !important;}
 }
 
 @media (min-width: 800px) {

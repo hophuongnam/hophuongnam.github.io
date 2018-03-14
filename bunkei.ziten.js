@@ -214,6 +214,7 @@ async function getData(filename, same) {
 function closeSideBar() {
     if ( $("#sideBar").css('left') == "0px" ) {
         $("#sideBar").toggleClass("open");
+        $("#pullout").toggleClass("openMenu");
     }
 }
 
@@ -245,6 +246,7 @@ function dataReady() {
 
     $("#sideBar").css("top", $("#topBar").height() + 1);
     $("#langBar").css("top", $("#topBar").height() + 1);
+    $("#pullout").css("top", (document.documentElement.clientHeight/3)*2);
 
     if (isiOS) {
         $(window).resize(function() {
@@ -262,7 +264,7 @@ function dataReady() {
         $(window).scrollLeft(store.get('scroll'));
     }
 
-    $("#title").click(() => {
+    /*$("#title").click(() => {
         $("#tocFooter").text("Last updated " + vagueTime.get({to: dict.version * 1000, from: Date.now()}) + ".");
         if ( $("#sideBar").css('left') != "0px" ) {
             $("#search").val("");
@@ -270,6 +272,17 @@ function dataReady() {
             $("#" + currentHeading)[0].scrollIntoView({block: sitvff});
         }
         $("#sideBar").toggleClass("open");
+    });*/
+
+    $("#pullout").click(() => {
+        $("#tocFooter").text("Last updated " + vagueTime.get({to: dict.version * 1000, from: Date.now()}) + ".");
+        if ( $("#sideBar").css('left') != "0px" ) {
+            $("#search").val("");
+            displayTOC(toc);
+            $("#" + currentHeading)[0].scrollIntoView({block: sitvff});
+        }
+        $("#sideBar").toggleClass("open");
+        $("#pullout").toggleClass("openMenu");
     });
 
     wanakana.bind($("#search").get(0));
