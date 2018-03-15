@@ -266,16 +266,6 @@ function dataReady() {
         $(window).scrollLeft(store.get('scroll'));
     }
 
-    /*$("#title").click(() => {
-        $("#tocFooter").text("Last updated " + vagueTime.get({to: dict.version * 1000, from: Date.now()}) + ".");
-        if ( $("#sideBar").css('left') != "0px" ) {
-            $("#search").val("");
-            displayTOC(toc);
-            $("#" + currentHeading)[0].scrollIntoView({block: sitvff});
-        }
-        $("#sideBar").toggleClass("open");
-    });*/
-
     $("#pullout").click(() => {
         $("#tocFooter").text("Last updated " + vagueTime.get({to: dict.version * 1000, from: Date.now()}) + ".");
         if ( $("#sideBar").css('left') != "0px" ) {
@@ -309,6 +299,12 @@ function dataReady() {
             });
         }
     }, 100);
+
+    setInterval(() => {
+        if ($(".kanji").length > 0) {
+            titleToggle();
+        }
+    }, 5000);
 
     $("#random").click(() => {
         ran = pickRandomProperty(dict);
@@ -401,26 +397,31 @@ function dataReady() {
         }
         var idBefore = guid();
         var myID;
+
         $(".border").each(function() {
             myID = guid();
             $(this).attr("id", myID);
             $(this).before("<div class=sentinel data-id='" + idBefore + "'></div>");
             idBefore = myID;
         });
+
         $("digit").each(function(i, e) {
             var fullWidth = $(e).text();
             var halfWidth = toHalfWidth(fullWidth);
             $(e).text(halfWidth);
         });
+
         delayed.delay(() => {
             if ($(".kanji").length > 0) {
-                $(".heading span").css("text-shadow", "1px 1px 2px rgba(150, 150, 150, 1)");
+                // $(".heading span").css("text-shadow", "1px 1px 2px rgba(150, 150, 150, 1)");
+
                 $(".kanji, .heading .keyword").click(function() {
                     titleToggle();
                 });
             } else {
-                $(".heading span").css("text-shadow", "initial");
+                // $(".heading span").css("text-shadow", "initial");
             }
+
             $('#mainContent a').click(function(e) {
                 e.preventDefault();
                 closeSideBar();
