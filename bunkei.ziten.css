@@ -185,10 +185,6 @@ input::placeholder {
     display: inline;
 }*/
 
-.kanji {
-    display: none;
-}
-
 .item {
     margin-left: 1em;
 }
@@ -340,6 +336,10 @@ digit {
     writing-mode: vertical-lr;
     align-self: center;
     justify-self: end;
+}
+
+.heading rt {
+    visibility: visible;
 }
 
 @media only screen and (max-width: 450px) {

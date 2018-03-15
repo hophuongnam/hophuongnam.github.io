@@ -221,16 +221,6 @@ function closeSideBar() {
     }
 }
 
-function titleToggle() {
-    if ($(".heading .keyword").is(":visible")) {
-        $(".heading .keyword").hide();
-        $(".kanji").show();
-    } else {
-        $(".heading .keyword").show();
-        $(".kanji").hide();
-    }
-}
-
 function dataReady() {
     $.getScript('bunkei.ziten.version.js', function() {
         delayed.delay(function() {
@@ -299,12 +289,6 @@ function dataReady() {
             });
         }
     }, 100);
-
-    setInterval(() => {
-        if ($(".kanji").length > 0) {
-            titleToggle();
-        }
-    }, 5000);
 
     $("#random").click(() => {
         ran = pickRandomProperty(dict);
@@ -411,66 +395,59 @@ function dataReady() {
             $(e).text(halfWidth);
         });
 
-        delayed.delay(() => {
-            if ($(".kanji").length > 0) {
-                // $(".heading span").css("text-shadow", "1px 1px 2px rgba(150, 150, 150, 1)");
+        if ($(".kanji").length > 0) {
+            $(".keyword").hide();
+        }
 
-                $(".kanji, .heading .keyword").click(function() {
-                    titleToggle();
-                });
-            } else {
-                // $(".heading span").css("text-shadow", "initial");
-            }
+        $('#mainContent a').click(function(e) {
+            e.preventDefault();
+            closeSideBar();
+            heading = $(this).attr('id');
+            displayNewContent(heading);
+        });
 
-            $('#mainContent a').click(function(e) {
-                e.preventDefault();
-                closeSideBar();
-                heading = $(this).attr('id');
-                displayNewContent(heading);
-            });
-
-            if (touch) {
-                // $('#mainContent ruby').not("#mainContent strong ruby").click(function() {
-                $('#mainContent ruby').click(function() {
-                    rt = $(this).find('rt');
-                    if (rt.css('visibility') == 'hidden') {
-                        rt.css('visibility', 'visible');
-                        delayed.delay(hideRT, 5000, rt, rt)
-                    }
-                });
-            }
-            
-            $(".sentinel").on('scrolling', function(event) {
-                var elemPos = $(this).offset().left;
-                if (elemPos > event.windowBoundRight) {
-                    $( "#" + $(this).data('id') ).css("position", "initial");
-                }
-                if (elemPos < event.windowBoundRight) {
-                    $( "#" + $(this).data('id') ).css("position", "sticky");
-                    $( "#" + $(this).data('id') ).css("position", "-webkit-sticky");
+        if (touch) {
+            // $('#mainContent ruby').not("#mainContent strong ruby").click(function() {
+            $('#mainContent ruby').click(function() {
+                rt = $(this).find('rt');
+                if (rt.css('visibility') == 'hidden') {
+                    rt.css('visibility', 'visible');
+                    delayed.delay(hideRT, 5000, rt, rt)
                 }
             });
+        }
+        
+        $(".sentinel").on('scrolling', function(event) {
+            var elemPos = $(this).offset().left;
+            if (elemPos > event.windowBoundRight) {
+                $( "#" + $(this).data('id') ).css("position", "initial");
+            }
+            if (elemPos < event.windowBoundRight) {
+                $( "#" + $(this).data('id') ).css("position", "sticky");
+                $( "#" + $(this).data('id') ).css("position", "-webkit-sticky");
+            }
+        });
 
-            $(".vi").click(function() {
-                $("#trans").html($(this).data("vi"));
-                $("#trans").modal();
-            });
+        $(".vi").click(function() {
+            $("#trans").html($(this).data("vi"));
+            $("#trans").modal();
+        });
 
-            $(".en").click(function() {
-                $("#trans").html($(this).data("en"));
-                $("#trans").modal();
-            });
+        $(".en").click(function() {
+            $("#trans").html($(this).data("en"));
+            $("#trans").modal();
+        });
 
-            $("#spinnerContainer").hide();
-            $("#mainContent").css("visibility", "visible");
+        $("#spinnerContainer").hide();
+        $("#mainContent").css("visibility", "visible");
 
-            delayed.delay(function() {
-                $(".sentinel").trigger({
-                    type: "scrolling",
-                    windowBoundRight: $(window).scrollLeft() + document.documentElement.clientWidth
-                });
-            }, 500);
-        }, 500);
+        $(".sentinel").trigger({
+            type: "scrolling",
+            windowBoundRight: $(window).scrollLeft() + document.documentElement.clientWidth
+        });
+
+        /*delayed.delay(function() {
+        }, 500);*/
     });    
 }
 
