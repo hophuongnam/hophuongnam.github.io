@@ -79,10 +79,12 @@ sub {
 }
 
 #toc {
-    overflow: auto;
+    overflow-y: scroll;
     border-top: 1px solid #e7e7e7;
     border-bottom: 1px solid #e7e7e7;
     background-color: #f8f8f8;
+    -webkit-transform: translate3d(0, 0, 0);
+    transform: translate3d(0, 0, 0);
 }
 
 #tocFooter {

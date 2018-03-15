@@ -445,10 +445,7 @@ function dataReady() {
             type: "scrolling",
             windowBoundRight: $(window).scrollLeft() + document.documentElement.clientWidth
         });
-
-        /*delayed.delay(function() {
-        }, 500);*/
-    });    
+    });
 }
 
 $( document ).ready(() => {
