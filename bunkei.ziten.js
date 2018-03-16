@@ -646,6 +646,8 @@ $( document ).ready(() => {
                     cache.delete('mincho.json');
                     cache.delete('gothic.json');
                     $("#spinnerContainer").hide();
+                    $("#spinnerContainer").css("top", $("#topBar").height() + 2);
+                    $("#spinnerContainer").css("z-index", "10");
                     $("#mainContent").css("visibility", "visible");
                 });
             }
