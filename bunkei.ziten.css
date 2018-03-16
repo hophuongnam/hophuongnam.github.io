@@ -93,7 +93,7 @@ sub {
     color: #777;
 }
 
-input {
+input#search {
     color: #555;
     background-color: #fff;
     /*border: 1px solid #ccc;*/
