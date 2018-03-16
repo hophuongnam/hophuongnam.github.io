@@ -20,6 +20,8 @@ var language;
 var minchoReady = false;
 var gothicReady = false;
 var textReady = false;
+var containerMonitor;
+var monitors = [];
 
 var touch = 'ontouchstart' in document.documentElement
         || navigator.maxTouchPoints > 0
@@ -70,6 +72,25 @@ function displayTOC(tocToDisplay) {
         })        
         $('#toc').html("");
         $("#toc").append(tocA);
+
+        monitors.forEach(function(element) {
+            element.destroy();
+        });
+        monitors = [];
+
+        $("#toc a").each(function(i) {
+            var watcher = containerMonitor.create( $(this) );
+            
+            watcher.enterViewport(function() {
+                $(watcher.watchItem).css("visibility", "visible");
+            });
+            watcher.exitViewport(function() {
+                $(watcher.watchItem).css("visibility", "hidden");
+            });
+
+            monitors.push(watcher);
+        });
+
         rebuildTOC = false;
     }
 }
@@ -224,6 +245,54 @@ function dataReady() {
         return
     }
 
+    $("#sideBar").css("top", $("#topBar").height() + 1);
+    $("#langBar").css("top", $("#topBar").height() + 1);
+
+    if (isiOS) {
+        $(window).resize(function() {
+            // Fix zoom bug on iOS
+            $('#mainContent').css('height', document.documentElement.clientHeight - 120)
+        });
+    }
+
+    if (isFirefox) {
+        $("#mainContent").css({
+            "overflow": "auto",
+            "height": "calc(100% - 100px)"
+        });
+        sitvff = "start"; /* scrollIntoView */
+    }
+
+    if (touch) {
+    } else {
+        var sheet = document.createElement('style')
+        sheet.innerHTML = "ruby:hover rt {visibility: visible;}";
+        document.body.appendChild(sheet);
+    }
+
+    containerMonitor = scrollMonitor.createContainer($("#toc"));
+
+    language = store.get("language", "jp");
+    switch(language) {
+        case "jp":
+            $("#langJP").prop("checked", true);
+            $("<style id=cssJP type='text/css'>.vi,.en{display:none !important;}</style>").appendTo("head");
+            $("#language").html("<span style='font-family:monospace;'>JP</span>");
+            break;
+        case "vi":
+            $("#langVI").prop("checked", true);
+            $("<style id=cssVI type='text/css'>.vi{display:inline;}.en{display:none !important;}</style>").appendTo("head");
+            $("#language").html("<span style='font-family:monospace;'>VI</span>");
+            break;
+    }
+    store.set("language", language);
+
+    backward = store.get("history", []);
+    if (backward.length > 0) {
+        $('#back').css('color', '#666666');
+        $('#back').data("disabled", "false");
+    }
+
     $.getScript('bunkei.ziten.version.js', function() {
         delayed.delay(function() {
             if (version != dict.version) {
@@ -237,17 +306,7 @@ function dataReady() {
                 $("#newUpdate").blink();
             }
         }, 1000);
-    });
-
-    $("#sideBar").css("top", $("#topBar").height() + 1);
-    $("#langBar").css("top", $("#topBar").height() + 1);
-
-    if (isiOS) {
-        $(window).resize(function() {
-            // Fix zoom bug on iOS
-            $('#mainContent').css('height', document.documentElement.clientHeight - 120)
-        });
-    }    
+    });   
 
     currentHeading = store.get('currentHeading');
     if (!currentHeading) {
@@ -381,6 +440,7 @@ function dataReady() {
             str = str.replace(m, "<sub>" + m + "</sub>");
             $("div.heading span.keyword").html(str);
         }
+
         var idBefore = guid();
         var myID;
 
@@ -426,7 +486,6 @@ function dataReady() {
             }
             if (elemPos < event.windowBoundRight) {
                 $( "#" + $(this).data('id') ).css("position", "sticky");
-                $( "#" + $(this).data('id') ).css("position", "-webkit-sticky");
             }
         });
 
@@ -458,35 +517,6 @@ function dataReady() {
 $( document ).ready(() => {
     // https://www.samclarke.com/javascript-is-font-available/
     (function(d){function c(c){b.style.fontFamily=c;e.appendChild(b);f=b.clientWidth;e.removeChild(b);return f}var f,e=d.body,b=d.createElement("span");b.innerHTML=Array(100).join("wi");b.style.cssText=["position:absolute","width:auto","font-size:128px","left:-99999px"].join(" !important;");var g=c("monospace"),h=c("serif"),k=c("sans-serif");window.isFontAvailable=function(b){return g!==c(b+",monospace")||k!==c(b+",sans-serif")||h!==c(b+",serif")}})(document);
-
-    language = store.get("language", "jp");
-    switch(language) {
-        case "jp":
-            $("#langJP").prop("checked", true);
-            $("<style id=cssJP type='text/css'>.vi,.en{display:none !important;}</style>").appendTo("head");
-            $("#language").html("<span style='font-family:monospace;'>JP</span>");
-            break;
-        case "vi":
-            $("#langVI").prop("checked", true);
-            $("<style id=cssVI type='text/css'>.vi{display:inline;}.en{display:none !important;}</style>").appendTo("head");
-            $("#language").html("<span style='font-family:monospace;'>VI</span>");
-            break;
-    }
-    store.set("language", language);
-
-    backward = store.get("history", []);
-    if (backward.length > 0) {
-        $('#back').css('color', '#666666');
-        $('#back').data("disabled", "false");
-    }
-
-    if (isFirefox) {
-        $("#mainContent").css({
-            "overflow": "auto",
-            "height": "calc(100% - 100px)"
-        });
-        sitvff = "start"; /* scrollIntoView */
-    }
 
     Promise.all([getData('toc.json'), getData('dict.json')]).then(
         (values) => {
@@ -606,10 +636,19 @@ $( document ).ready(() => {
         dataReady();
     }
 
-    if (touch) {
-    } else {
-        var sheet = document.createElement('style')
-        sheet.innerHTML = "ruby:hover rt {visibility: visible;}";
-        document.body.appendChild(sheet);
-    }
+    // Failsafe, after 30"
+    delayed.delay(function () {
+        if ( !(minchoReady && gothicReady && textReady) ) {
+            if (cacheAvailable) {
+                caches.open(cacheName).then((cache) => {
+                    cache.delete('toc.json');
+                    cache.delete('dict.json');
+                    cache.delete('mincho.json');
+                    cache.delete('gothic.json');
+                    $("#spinnerContainer").hide();
+                    $("#mainContent").css("visibility", "visible");
+                });
+            }
+        }
+    }, 30000)
 });
