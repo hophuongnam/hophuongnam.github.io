@@ -17,6 +17,9 @@ var sitvff = "center"; /* scrollIntoView */
 var version;
 var myID = guid();
 var language;
+var minchoReady = false;
+var gothicReady = false;
+var textReady = false;
 
 var touch = 'ontouchstart' in document.documentElement
         || navigator.maxTouchPoints > 0
@@ -166,8 +169,7 @@ function displayNewContent(heading) {
     store.set('history', backward);
 }
 
-async function getData(filename, same) {
-    // same: true/false. false will delete file
+async function getData(filename) {
     var myCache;
     var dataReturn;
 
@@ -176,10 +178,6 @@ async function getData(filename, same) {
             myCache = cache
         });
 
-        if (!same) {
-            await myCache.delete(filename);
-        }
-        
         await myCache.match(filename)
         .then(
             (resp) => {
@@ -222,6 +220,10 @@ function closeSideBar() {
 }
 
 function dataReady() {
+    if ( !(minchoReady && gothicReady && textReady) ) {
+        return
+    }
+
     $.getScript('bunkei.ziten.version.js', function() {
         delayed.delay(function() {
             if (version != dict.version) {
@@ -446,9 +448,17 @@ function dataReady() {
             windowBoundRight: $(window).scrollLeft() + document.documentElement.clientWidth
         });
     });
+
+    $("#spinnerContainer").hide();
+    $("#spinnerContainer").css("top", $("#topBar").height() + 2);
+    $("#spinnerContainer").css("z-index", "10");
+    $("#mainContent").css("visibility", "visible");
 }
 
 $( document ).ready(() => {
+    // https://www.samclarke.com/javascript-is-font-available/
+    (function(d){function c(c){b.style.fontFamily=c;e.appendChild(b);f=b.clientWidth;e.removeChild(b);return f}var f,e=d.body,b=d.createElement("span");b.innerHTML=Array(100).join("wi");b.style.cssText=["position:absolute","width:auto","font-size:128px","left:-99999px"].join(" !important;");var g=c("monospace"),h=c("serif"),k=c("sans-serif");window.isFontAvailable=function(b){return g!==c(b+",monospace")||k!==c(b+",sans-serif")||h!==c(b+",serif")}})(document);
+
     language = store.get("language", "jp");
     switch(language) {
         case "jp":
@@ -477,86 +487,123 @@ $( document ).ready(() => {
         });
         sitvff = "start"; /* scrollIntoView */
     }
+
+    Promise.all([getData('toc.json'), getData('dict.json')]).then(
+        (values) => {
+            toc  = values[0];
+            dict = values[1];
+            textReady = true;
+            dataReady();
+        }
+    )
+
     if (cacheAvailable) {
-        caches.open('bunkei').catch(() => alert('Switch to HTTPS please!'));
-    } else {
-        $("#title").css('color', 'red');
-    }
-    if (isAndroid || isLinux) {
-        caches.open(cacheName).then((cache) => {
-            cache.match("mincho.json").then(
-                function(resp) {
-                    if (resp) {
-                        // There are fonts cached
-                        Promise.all([getData('toc.json', true), getData('dict.json', true), getData('mincho.json', true), getData('gothic.json', true)]).then(
-                            (values) => {
-                                toc  = values[0];
-                                dict = values[1];
+        caches.open(cacheName).catch(() => alert('Switch to HTTPS please!'));
 
-                                sheetMincho = document.createElement('style');
-                                sheetMincho.innerHTML = "@font-face{font-family:CustomMincho;src:url(data:font/ttf;base64," + values[2].mincho + ")}";
-                                document.body.appendChild(sheetMincho);
+        var mincho = isFontAvailable("Yu Mincho");
+        var gothic = isFontAvailable("Yu Gothic");
 
-                                sheetGothic = document.createElement('style');
-                                sheetGothic.innerHTML = "@font-face{font-family:CustomGothic;src:url(data:font/ttf;base64," + values[3].gothic + ")}";
-                                document.body.appendChild(sheetGothic);
-
-                                dataReady();
-
-                                fontLoader = new FontLoader(["CustomGothic", "CustomMincho"], {
-                                    "complete": () => {
-                                        $("#spinnerContainer").hide();
-                                        $("#spinnerContainer").css("top", $("#topBar").height() + 2);
-                                        $("#spinnerContainer").css("z-index", "10");
-                                        $("#mainContent").css("visibility", "visible");
-                                    }
-                                }, null);
-                                fontLoader.loadFonts();
-                            }
-                        )
-                    } else {
-                        // No fonts cached
-                        Promise.all([getData('toc.json', true), getData('dict.json', true)]).then(
-                            (values) => {
-                                toc  = values[0];
-                                dict = values[1];
-
-                                dataReady();
-                                $("#spinnerContainer").hide();
-                                $("#spinnerContainer").css("top", $("#topBar").height() + 2);
-                                $("#spinnerContainer").css("z-index", "10");
-                                $("#mainContent").css("visibility", "visible");
-                            }
-                        );
-
-                        Promise.all([getData('mincho.json', true), getData('gothic.json', true)]).then(
-                            (values) => {
-                                sheetMincho = document.createElement('style');
-                                sheetMincho.innerHTML = "@font-face{font-family:CustomMincho;src:url(data:font/ttf;base64," + values[0].mincho + ")}";
-                                document.body.appendChild(sheetMincho);
-
-                                sheetGothic = document.createElement('style');
-                                sheetGothic.innerHTML = "@font-face{font-family:CustomGothic;src:url(data:font/ttf;base64," + values[1].gothic + ")}";
-                                document.body.appendChild(sheetGothic);
-                            }
-                        )
+        if ( !mincho ) {
+            caches.open(cacheName).then((cache) => {
+                cache.match("mincho.json").then(
+                    function(resp) {
+                        if (resp) { // Font cached
+                            getData('mincho.json').then(
+                                function(value) {
+                                    var sheetMincho = document.createElement('style');
+                                    sheetMincho.innerHTML = "@font-face{font-family:CustomMincho;src:url(data:font/ttf;base64," + value.mincho + ")}";
+                                    document.body.appendChild(sheetMincho);
+                                    fontLoader = new FontLoader(["CustomMincho"], {
+                                        "complete": () => {
+                                            minchoReady = true;
+                                            dataReady();
+                                        }
+                                    }, null);
+                                    fontLoader.loadFonts();
+                                }
+                            )
+                        } else {
+                            getData('mincho.json').then(
+                                function(value) {
+                                    var sheetMincho = document.createElement('style');
+                                    sheetMincho.innerHTML = "@font-face{font-family:CustomMincho;src:url(data:font/ttf;base64," + value.mincho + ")}";
+                                    document.body.appendChild(sheetMincho);
+                                }
+                            )
+                            minchoReady = true;
+                            dataReady();
+                        }
                     }
+                )
+            })
+        } else {
+            minchoReady = true;
+            dataReady();
+        }
+
+        if ( !gothic ) {
+            caches.open(cacheName).then((cache) => {
+                cache.match("gothic.json").then(
+                    function(resp) {
+                        if (resp) { // Font cached
+                            getData('gothic.json').then(
+                                function(value) {
+                                    var sheetGothic = document.createElement('style');
+                                    sheetGothic.innerHTML = "@font-face{font-family:CustomGothic;src:url(data:font/ttf;base64," + value.gothic + ")}";
+                                    document.body.appendChild(sheetGothic);
+                                    fontLoader = new FontLoader(["CustomGothic"], {
+                                        "complete": () => {
+                                            gothicReady = true;
+                                            dataReady();
+                                        }
+                                    }, null);
+                                    fontLoader.loadFonts();
+                                }
+                            )
+                        } else {
+                            getData('gothic.json').then(
+                                function(value) {
+                                    var sheetGothic = document.createElement('style');
+                                    sheetGothic.innerHTML = "@font-face{font-family:CustomGothic;src:url(data:font/ttf;base64," + value.gothic + ")}";
+                                    document.body.appendChild(sheetGothic);
+                                }
+                            )
+                            gothicReady = true;
+                            dataReady();
+                        }
+                    }
+                )
+            })
+        } else {
+            gothicReady = true;
+            dataReady();
+        }
+
+        /*if ( !gothic ) {
+            getData('gothic.json').then(
+                function(value) {
+                    var sheetGothic = document.createElement('style');
+                    sheetGothic.innerHTML = "@font-face{font-family:CustomGothic;src:url(data:font/ttf;base64," + value.gothic + ")}";
+                    document.body.appendChild(sheetGothic);
+                    fontLoader = new FontLoader(["CustomGothic"], {
+                        "complete": () => {
+                            gothicReady = true;
+                            dataReady();
+                        }
+                    }, null);
+                    fontLoader.loadFonts();
                 }
             )
-        })
-    } else {
-        Promise.all([getData('toc.json', true), getData('dict.json', true)]).then(
-            (values) => {
-                toc  = values[0];
-                dict = values[1];
+        } else {
+            gothicReady = true;
+            dataReady();
+        }*/
 
-                dataReady();
-                $("#spinnerContainer").hide();
-                $("#spinnerContainer").css("top", $("#topBar").height() + 2);
-                $("#spinnerContainer").css("z-index", "10");
-                $("#mainContent").css("visibility", "visible");
-            }
-        )
+    } else {
+        $("#title").css('color', 'red');
+        minchoReady = true;
+        gothicReady = true;
+        dataReady();
     }
 
     if (touch) {
