@@ -71,6 +71,7 @@ sub {
     background-color: #f8f8f8;
     z-index: 999;
     grid-template-rows: minmax(auto, 60px) auto 15px;
+    -webkit-transform: translate3d(0, 0, 0);
 }
 
 #searchBar {
