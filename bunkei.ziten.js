@@ -21,7 +21,7 @@ var minchoReady = false;
 var gothicReady = false;
 var textReady = false;
 var containerMonitor;
-var monitors = [];
+var monitorsTOC = [];
 
 var touch = 'ontouchstart' in document.documentElement
         || navigator.maxTouchPoints > 0
@@ -72,11 +72,12 @@ function displayTOC(tocToDisplay) {
         })        
         $('#toc').html("");
         $("#toc").append(tocA);
+        rebuildTOC = false;
 
-        monitors.forEach(function(element) {
+        monitorsTOC.forEach(function(element) {
             element.destroy();
         });
-        monitors = [];
+        monitorsTOC = [];
 
         $("#toc a").each(function(i) {
             var watcher = containerMonitor.create( $(this), 100 );
@@ -88,10 +89,8 @@ function displayTOC(tocToDisplay) {
                 $(watcher.watchItem).css("visibility", "hidden");
             });
 
-            monitors.push(watcher);
+            monitorsTOC.push(watcher);
         });
-
-        rebuildTOC = false;
     }
 }
 
@@ -183,7 +182,9 @@ function displayNewContent(heading) {
     }
     if (backward.length > 99) {backward.shift();}
     currentHeading = heading;
+
     updateMainContent(heading);
+
     $(window).scrollLeft($('#mainContent').get(0).scrollWidth);
     store.set('scroll', $('#mainContent').get(0).scrollWidth);
     store.set('currentHeading', heading);
@@ -270,7 +271,7 @@ function dataReady() {
         document.body.appendChild(sheet);
     }
 
-    containerMonitor = scrollMonitor.createContainer($("#toc"));
+    containerMonitor = scrollMonitor.createContainer( $("#toc") );
 
     language = store.get("language", "jp");
     switch(language) {
