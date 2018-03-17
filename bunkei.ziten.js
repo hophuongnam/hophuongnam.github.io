@@ -79,7 +79,7 @@ function displayTOC(tocToDisplay) {
         monitors = [];
 
         $("#toc a").each(function(i) {
-            var watcher = containerMonitor.create( $(this) );
+            var watcher = containerMonitor.create( $(this), 100 );
             
             watcher.enterViewport(function() {
                 $(watcher.watchItem).css("visibility", "visible");
