@@ -27,10 +27,10 @@
 </head>
 <body>
     <script type="text/javascript" src="scrollMonitor.js"></script>
+    
     <div id=topBar>
         <div id=title>日本語文型辞典</div>
         <div id=history>
-            <i class="fas fa-star" id=newUpdate style="color: Tomato;"></i>
             <a class=myButton id=random><i class="fas fa-random"></i></a>
             <a class=myButton id=back data-disabled="true"><i class="fas fa-chevron-left"></i></a>
             <a class=myButton id=forward data-disabled="true"><i class="fas fa-chevron-right"></i></a>
@@ -38,6 +38,8 @@
             <a class=myButton id=help><i class="fas fa-question"></i></a>
         </div>
     </div>
+
+    <div id=main><div id=mainContent></div></div>
 
     <div id=sideBar class=transition>
         <div id=searchBar>
@@ -47,10 +49,8 @@
         <div id=toc></div>
         <div id=tocFooter></div>
     </div>
-    
-    <div id=main>
-        <div id=mainContent></div>
-    </div>
+
+    <div id=pullout class=transition><div id=pulloutMenu>目次</div></div>
     
     <div id=spinnerContainer>
         <div class="fa-lg spinner">
@@ -61,14 +61,12 @@
     <div id=trans style="display: none; font-size: 0.7em; line-height: 1.5;"></div>
     <div id=helpBox style="display: none; font-size: 0.7em; line-height: 1.5;"></div>
 
-    <div id=langBar class=transition style="padding: 10px;">
+    <div id=langBar class=transitionLang>
         <input type="radio" id="langJP" name="rr" value="jp" />
         <label for="langJP">日本語</label>
         <br>
         <input type="radio" id="langVI" name="rr" value="vi" />
         <label for="langVI">Tiếng Việt</label>
     </div>
-
-    <div id=pullout class=transition><div id=pulloutMenu>目次</div></div>
 </body>
 </html>

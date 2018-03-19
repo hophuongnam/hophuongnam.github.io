@@ -33,7 +33,15 @@ sub {
     vertical-align: sub;
 }
 
+digit {
+    text-combine-upright: all;
+    font-family: Tahoma, Arial, Helvetica, Verdana, Geneva, sans-serif;
+}
+
 #topBar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
     position: fixed;
     top: 0;
     right: 0;
@@ -41,77 +49,75 @@ sub {
     background-color: #f8f8f8;
     border: 1px solid #e7e7e7;
     max-height: 60px;
+    padding: 10px;
 }
 
 #title {
-    float: left;
-    padding: 14px;
+    padding-left: 0.5em;
+    color: #777;
+    font-family: 'acgyosyoregular';
     font-size: 18px;
     line-height: 20px;
-    color: #777;
-    cursor: pointer;
-    font-family: 'acgyosyoregular';
 }
 
 #history {
-    float: right;
-    padding: 10px;
+    padding-right: 0.5em;
     font-size: 18px;
     line-height: 20px;
     color: #777;
+}
+
+#newUpdate {
+    display: none;
+    color: Tomato;
+}
+
+#forward, #back {
+    color: #ccc;
 }
 
 #sideBar {
     width: 50%;
     position: fixed;
-    left: -50%;
+    left: -51%;
     bottom: 0;
-    display: grid;
     border: 1px solid #e7e7e7;
     background-color: #f8f8f8;
-    z-index: 999;
-    grid-template-rows: minmax(auto, 60px) auto 15px;
-    -webkit-transform: translate3d(0, 0, 0);
+    display: flex;
+    flex-direction: column;
+    z-index: 2;
 }
 
 #searchBar {
-    display: grid;
+    display: flex;
+    justify-content: center;
     padding: 10px;
+}
+
+input#search {
+    color: #555;
+    background-color: #fff;
+    // border: 1px solid #ccc;
+    border-radius: 4px;
+    -webkit-appearance: textfield;
+    line-height: initial;
+    text-align: center;
+    // font-size: 20px;
+    width: 90%;
+}
+
+input::placeholder {
+    font-family: Tahoma, Arial, Helvetica, Verdana, Geneva, 'CustomGothic', 'Yu Gothic', 'YuGothic', 'ヒラギノ角ゴ ProN', 'Hiragino Kaku Gothic ProN', '游ゴシック', '游ゴシック体', 'メイリオ', 'Meiryo', 'ＭＳ ゴシック', 'MS Gothic', 'HiraKakuProN-W3', 'TakaoExゴシック', 'TakaoExGothic', 'MotoyaLCedar', 'Droid Sans Japanese', sans-serif;
+    text-align: center;
 }
 
 #toc {
     overflow: auto;
     border-top: 1px solid #e7e7e7;
     border-bottom: 1px solid #e7e7e7;
-    background-color: #f8f8f8;
     -webkit-transform: translate3d(0, 0, 0);
     transform: translate3d(0, 0, 0);
-}
-
-#tocFooter {
-    text-align: center;
-    font-size: xx-small;
-    color: #777;
-}
-
-input#search {
-    color: #555;
-    background-color: #fff;
-    /*border: 1px solid #ccc;*/
-    border-radius: 4px;
-    -webkit-appearance: textfield;
-    line-height: initial;
-    align-self: center;
-    justify-self: center;
-    width: 100%;
     height: 100%;
-    text-align: center;
-    font-size: 20px;
-}
-
-input::placeholder {
-    font-family: Tahoma, Arial, Helvetica, Verdana, Geneva, 'CustomGothic', 'Yu Gothic', 'YuGothic', 'ヒラギノ角ゴ ProN', 'Hiragino Kaku Gothic ProN', '游ゴシック', '游ゴシック体', 'メイリオ', 'Meiryo', 'ＭＳ ゴシック', 'MS Gothic', 'HiraKakuProN-W3', 'TakaoExゴシック', 'TakaoExGothic', 'MotoyaLCedar', 'Droid Sans Japanese', sans-serif;
-    text-align: center;
 }
 
 #toc a {
@@ -125,16 +131,34 @@ input::placeholder {
     color: blue;
 }
 
-.open {
-    left: 0px !important;
+#tocFooter {
+    text-align: center;
+    font-size: xx-small;
+    color: #777;
 }
 
-.openLang {
-    right: 0px !important;
+#pullout {
+    position: fixed;
+    left: -51%;
+    width: calc(51% + 1.7em);
+    top: 70%;
+    height: 3em;
+    background-color: #f8f8f8;
+    border: 1px solid #e7e7e7;
+    -webkit-box-shadow: 1px 1px 5px rgba(0, 0, 0, 0.3);
+    -moz-box-shadow: 1px 1px 5px rgba(0, 0, 0, 0.3);
+    box-shadow: 1px 1px 5px rgba(0, 0, 0, 0.3);
+    border-radius: 20px;
+    background-color: rgb(255, 250, 205);
+    color: rgb(165, 42, 42);
+    display: grid;
+    z-index: 1;
 }
 
-.transition {
-    transition: left 0.3s ease-out;
+#pulloutMenu {
+    writing-mode: vertical-lr;
+    align-self: center;
+    justify-self: end;
 }
 
 #main {
@@ -143,20 +167,16 @@ input::placeholder {
 
 #mainContent {
     writing-mode: vertical-rl;
-    padding: 20px 0;
     letter-spacing: 1px;
     text-align: justify;
     visibility: hidden;
-    height: calc(100% - 60px);
     margin-left: auto;
+    height: calc(100% - 60px);
+    padding: 20px 0;
 }
 
 #mainContent a {
     color: blue;
-}
-
-#mainContent strong rt {
-    color: black;
 }
 
 .heading {
@@ -178,6 +198,20 @@ input::placeholder {
     padding-bottom: 0.2em;
     font-family: Tahoma, Arial, Helvetica, Verdana, Geneva, 'CustomMincho', 'ヒラギノ明朝 ProN', 'Hiragino Mincho ProN', '游明朝', '游明朝体', 'Yu Mincho', 'ＭＳ 明朝', 'MS Mincho', 'HiraMinProN-W3', 'TakaoEx明朝', 'TakaoExMincho', 'MotoyaLCedar', 'Droid Sans Japanese', sans-serif;
     /*text-shadow: 1px 1px 2px rgba(150, 150, 150, 1);*/
+}
+
+.heading rt {
+    visibility: visible;
+    text-shadow: 1px 1px 2px rgba(150, 150, 150, 1);
+    /*background-color: rgb(255, 250, 205);
+    border-top-left-radius: 0.2em;
+    border-top-right-radius: 0.2em;
+    border-bottom-right-radius: 0.2em;
+    border-bottom-left-radius: 0.2em;
+    -webkit-box-shadow: 1px 1px 5px rgba(0, 0, 0, 0.3);
+    -moz-box-shadow: 1px 1px 5px rgba(0, 0, 0, 0.3);
+    box-shadow: 1px 1px 5px rgba(0, 0, 0, 0.3);
+    color: rgb(165, 42, 42);*/
 }
 
 /*.keyword {
@@ -231,13 +265,38 @@ input::placeholder {
     display: table-cell;
 }
 
+.open {
+    left: 0px !important;
+}
+
+.transition {
+    transition: left 0.3s ease-out;
+}
+
+#langBar {
+    position: fixed;
+    right: -10em;
+    border: 1px solid #e7e7e7;
+    background-color: #f8f8f8;
+    padding: 10px;
+    z-index: 2;
+}
+
+.openLang {
+    right: 0px !important;
+}
+
+.transitionLang {
+    transition: right 0.3s ease-out;
+}
+
 #spinnerContainer {
     position: fixed;
     top: 0;
     left: 0;
     width: 100%;
     height: 100%;
-    z-index: 1000;
+    z-index: 9;
     background: white;
 }
 
@@ -248,18 +307,6 @@ input::placeholder {
     left: 50%;
     position: fixed;
     transform: translate(-50%,-50%);
-}
-
-.tocKanji {
-    text-align: end;
-}
-
-#langBar {
-    position: fixed;
-    right: -2000px;
-    border: 1px solid #e7e7e7;
-    background-color: #f8f8f8;
-    z-index: 999;
 }
 
 .myButton {
@@ -303,57 +350,6 @@ input::placeholder {
 .myButton:active {
     position:relative;
     top:1px;
-}
-
-#forward, #back {
-    color: #ccc;
-}
-
-digit {
-    text-combine-upright: all;
-    font-family: Tahoma, Arial, Helvetica, Verdana, Geneva, sans-serif;
-}
-
-#newUpdate {
-    display: none;
-}
-
-#pullout {
-    position: fixed;
-    left: -50%;
-    width: calc(50% + 1.7em);
-    top: 70%;
-    display: grid;
-    height: 3em;
-    background-color: #f8f8f8;
-    border: 1px solid #e7e7e7;
-    -webkit-box-shadow: 1px 1px 5px rgba(0, 0, 0, 0.3);
-    -moz-box-shadow: 1px 1px 5px rgba(0, 0, 0, 0.3);
-    box-shadow: 1px 1px 5px rgba(0, 0, 0, 0.3);
-    border-radius: 20px;
-    background-color: rgb(255, 250, 205);
-    color: rgb(165, 42, 42);
-    z-index: 99;
-}
-
-#pulloutMenu {
-    writing-mode: vertical-lr;
-    align-self: center;
-    justify-self: end;
-}
-
-.heading rt {
-    visibility: visible;
-    text-shadow: 1px 1px 2px rgba(150, 150, 150, 1);
-    /*background-color: rgb(255, 250, 205);
-    border-top-left-radius: 0.2em;
-    border-top-right-radius: 0.2em;
-    border-bottom-right-radius: 0.2em;
-    border-bottom-left-radius: 0.2em;
-    -webkit-box-shadow: 1px 1px 5px rgba(0, 0, 0, 0.3);
-    -moz-box-shadow: 1px 1px 5px rgba(0, 0, 0, 0.3);
-    box-shadow: 1px 1px 5px rgba(0, 0, 0, 0.3);
-    color: rgb(165, 42, 42);*/
 }
 
 @media only screen and (max-width: 450px) {

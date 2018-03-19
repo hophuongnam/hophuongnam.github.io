@@ -32,6 +32,31 @@ const cacheAvailable = 'caches' in self;
 var toFullWidth = str => str.replace(/[!-~]/g, c => String.fromCharCode(c.charCodeAt(0) + 0xFEE0));
 var toHalfWidth = str => str.replace(/[！-～]/g, c => String.fromCharCode(c.charCodeAt(0) - 0xFEE0));
 
+function isChromeF() {
+  var isChromium = window.chrome,
+    winNav = window.navigator,
+    vendorName = winNav.vendor,
+    isOpera = winNav.userAgent.indexOf("OPR") > -1,
+    isIEedge = winNav.userAgent.indexOf("Edge") > -1,
+    isIOSChrome = winNav.userAgent.match("CriOS");
+
+  if (isIOSChrome) {
+    return true;
+  } else if (
+    isChromium !== null &&
+    typeof isChromium !== "undefined" &&
+    vendorName === "Google Inc." &&
+    isOpera === false &&
+    isIEedge === false
+  ) {
+    return true;
+  } else { 
+    return false;
+  }
+}
+
+var isChrome = isChromeF();
+
 function getUrlVars() {
     var vars = {};
     window.location.search.replace(/[?&]+([^=&]+)=([^&]*)/gi, function(m,key,value) { vars[key] = value; });
@@ -246,8 +271,8 @@ function dataReady() {
         return
     }
 
-    $("#sideBar").css("top", $("#topBar").height() + 1);
-    $("#langBar").css("top", $("#topBar").height() + 1);
+    $("#sideBar").css("top", $("#topBar").outerHeight() - 1);
+    $("#langBar").css("top", $("#topBar").outerHeight() - 1);
 
     if (isiOS) {
         $(window).resize(function() {
@@ -336,21 +361,23 @@ function dataReady() {
         typingTimer = setTimeout(doneTyping, doneTypingInterval);
     });
 
-    $(window).scroll(() => {
-        scrolling = true;
-    });
+    if (isChrome) {
+        $(window).scroll(() => {
+            scrolling = true;
+        });
 
-    setInterval(() => {
-        if (scrolling) {
-            scrolling = false;
+        setInterval(() => {
+            if (scrolling) {
+                scrolling = false;
 
-            store.set('scroll', $(window).scrollLeft());
-            $(".sentinel").trigger({
-                type: "scrolling",
-                windowBoundRight: $(window).scrollLeft() + document.documentElement.clientWidth
-            });
-        }
-    }, 100);
+                store.set('scroll', $(window).scrollLeft());
+                $(".sentinel").trigger({
+                    type: "scrolling",
+                    windowBoundRight: $(window).scrollLeft() + document.documentElement.clientWidth
+                });
+            }
+        }, 100);
+    }
 
     $("#random").click(() => {
         ran = pickRandomProperty(dict);
@@ -445,12 +472,29 @@ function dataReady() {
         var idBefore = guid();
         var myID;
 
-        $(".border").each(function() {
-            myID = guid();
-            $(this).attr("id", myID);
-            $(this).before("<div class=sentinel data-id='" + idBefore + "'></div>");
-            idBefore = myID;
-        });
+        if (isChrome) {
+            $(".border").each(function() {
+                myID = guid();
+                $(this).attr("id", myID);
+                $(this).before("<div class=sentinel data-id='" + idBefore + "'></div>");
+                idBefore = myID;
+            });
+
+            $(".sentinel").on('scrolling', function(event) {
+                var elemPos = $(this).offset().left;
+                if (elemPos > event.windowBoundRight) {
+                    $( "#" + $(this).data('id') ).css("position", "initial");
+                }
+                if (elemPos < event.windowBoundRight) {
+                    $( "#" + $(this).data('id') ).css("position", "sticky");
+                }
+            });
+
+            $(".sentinel").trigger({
+                type: "scrolling",
+                windowBoundRight: $(window).scrollLeft() + document.documentElement.clientWidth
+            });
+        }
 
         $("digit").each(function(i, e) {
             var fullWidth = $(e).text();
@@ -479,16 +523,6 @@ function dataReady() {
                 }
             });
         }
-        
-        $(".sentinel").on('scrolling', function(event) {
-            var elemPos = $(this).offset().left;
-            if (elemPos > event.windowBoundRight) {
-                $( "#" + $(this).data('id') ).css("position", "initial");
-            }
-            if (elemPos < event.windowBoundRight) {
-                $( "#" + $(this).data('id') ).css("position", "sticky");
-            }
-        });
 
         $(".vi").click(function() {
             $("#trans").html($(this).data("vi"));
@@ -502,11 +536,6 @@ function dataReady() {
 
         $("#spinnerContainer").hide();
         $("#mainContent").css("visibility", "visible");
-
-        $(".sentinel").trigger({
-            type: "scrolling",
-            windowBoundRight: $(window).scrollLeft() + document.documentElement.clientWidth
-        });
     });
 
     $("#spinnerContainer").hide();
