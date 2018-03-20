@@ -22,6 +22,7 @@ var gothicReady = false;
 var textReady = false;
 var containerMonitor;
 var monitorsTOC = [];
+var perf;
 
 var touch = 'ontouchstart' in document.documentElement
         || navigator.maxTouchPoints > 0
@@ -56,6 +57,17 @@ function isChromeF() {
 }
 
 var isChrome = isChromeF();
+
+function performanceTest(testFunction, iterations) {
+    'use strict';
+    var sum = 0;
+    var start = performance.now();
+    for (var i = 0; i < iterations; i++) {
+        testFunction();
+    }
+    var time=performance.now() - start;
+    return time;
+}
 
 function getUrlVars() {
     var vars = {};
@@ -277,8 +289,9 @@ function dataReady() {
     if (isiOS) {
         $(window).resize(function() {
             // Fix zoom bug on iOS
-            $('#mainContent').css('height', document.documentElement.clientHeight - 120)
+            $('#mainContent').css('height', document.documentElement.clientHeight - 120);
         });
+        $(".border").css("position", "initial");
     }
 
     if (isFirefox) {
@@ -446,18 +459,19 @@ function dataReady() {
     });
 
     $("#help").click(function() {
-        if ($("#helpBox").html() == "") {
+        /*if ($("#helpBox").html() == "") {
             $("#helpBox").html("<img src='help.gif' style='width:200px;height:349px;'><br><span>Errata, bugs ... write to ho.phuong.nam@gmail.com</span>");
         }
-        $("#helpBox").modal();
+        $("#helpBox").modal();*/
+        showModal( "<img src='help.gif' style='width:200px;height:349px;'><br><span style='font-size: xx-small;'>Errata, bugs ... write to ho.phuong.nam@gmail.com</span>", "trans" );
     });
 
     $("#toc").mutationObserver(() => {
         $('#toc a').click(function(e) {
             e.preventDefault();
-            closeSideBar();
             heading = $(this).attr('id');
             displayNewContent(heading);
+            closeSideBar();
         });
     });
 
@@ -525,13 +539,13 @@ function dataReady() {
         }
 
         $(".vi").click(function() {
-            $("#trans").html($(this).data("vi"));
-            $("#trans").modal();
+            // $("#trans").html($(this).data("vi"));
+            // $("#trans").modal();
+            showModal( $(this).data("vi"), "trans" );
         });
 
         $(".en").click(function() {
-            $("#trans").html($(this).data("en"));
-            $("#trans").modal();
+            showModal( $(this).data("en"), "trans" );
         });
 
         $("#spinnerContainer").hide();
@@ -539,7 +553,7 @@ function dataReady() {
     });
 
     $("#spinnerContainer").hide();
-    $("#spinnerContainer").css("top", $("#topBar").height() + 2);
+    $("#spinnerContainer").css("top", $("#topBar").outerHeight());
     $("#spinnerContainer").css("z-index", "10");
     $("#mainContent").css("visibility", "visible");
 }
@@ -639,26 +653,6 @@ $( document ).ready(() => {
             dataReady();
         }
 
-        /*if ( !gothic ) {
-            getData('gothic.json').then(
-                function(value) {
-                    var sheetGothic = document.createElement('style');
-                    sheetGothic.innerHTML = "@font-face{font-family:CustomGothic;src:url(data:font/ttf;base64," + value.gothic + ")}";
-                    document.body.appendChild(sheetGothic);
-                    fontLoader = new FontLoader(["CustomGothic"], {
-                        "complete": () => {
-                            gothicReady = true;
-                            dataReady();
-                        }
-                    }, null);
-                    fontLoader.loadFonts();
-                }
-            )
-        } else {
-            gothicReady = true;
-            dataReady();
-        }*/
-
     } else {
         $("#title").css('color', 'red');
         minchoReady = true;
@@ -682,5 +676,24 @@ $( document ).ready(() => {
                 });
             }
         }
-    }, 30000)
+    }, 30000);
 });
+
+/*
+//Or make a helper function, like this:
+function performanceTest(testFunction, iterations) {
+  'use strict';
+  var sum = 0;
+  var start = performance.now();
+  for (var i = 0; i < iterations; i++) {
+    testFunction();
+  }
+  var time=performance.now() - start;
+  return time;
+}
+ 
+//And use it like this:
+performanceTest(function(){
+  Math.random()*Math.random();
+}, 1000);
+*/

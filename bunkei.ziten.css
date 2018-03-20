@@ -79,7 +79,8 @@ digit {
 #sideBar {
     width: 50%;
     position: fixed;
-    left: -51%;
+    // left: -51%;
+    left: calc(-50% - 2px);
     bottom: 0;
     border: 1px solid #e7e7e7;
     background-color: #f8f8f8;
@@ -139,8 +140,8 @@ input::placeholder {
 
 #pullout {
     position: fixed;
-    left: -51%;
-    width: calc(51% + 1.7em);
+    left: -50%;
+    width: calc(50% + 1.7em);
     top: 70%;
     height: 3em;
     background-color: #f8f8f8;
@@ -350,6 +351,12 @@ input::placeholder {
 .myButton:active {
     position:relative;
     top:1px;
+}
+
+/* Style for translation */
+.trans {
+    font-size: 0.7em;
+    line-height: 1.5;
 }
 
 @media only screen and (max-width: 450px) {
