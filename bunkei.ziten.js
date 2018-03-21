@@ -9,6 +9,7 @@ var isAndroid = /(android)/i.test(navigator.userAgent);
 var isiOS = /iPad|iPhone|iPod/.test(navigator.userAgent);
 var isLinux = /linux/i.test(navigator.userAgent);
 var isFirefox = /firefox/i.test(navigator.userAgent);
+var isChrome = /Chrome/.test(navigator.userAgent) && /Google Inc/.test(navigator.vendor);
 var rebuildTOC = true;
 var toc;
 var dict;
@@ -31,31 +32,6 @@ const cacheAvailable = 'caches' in self;
 
 var toFullWidth = str => str.replace(/[!-~]/g, c => String.fromCharCode(c.charCodeAt(0) + 0xFEE0));
 var toHalfWidth = str => str.replace(/[！-～]/g, c => String.fromCharCode(c.charCodeAt(0) - 0xFEE0));
-
-function isChromeF() {
-  var isChromium = window.chrome,
-    winNav = window.navigator,
-    vendorName = winNav.vendor,
-    isOpera = winNav.userAgent.indexOf("OPR") > -1,
-    isIEedge = winNav.userAgent.indexOf("Edge") > -1,
-    isIOSChrome = winNav.userAgent.match("CriOS");
-
-  if (isIOSChrome) {
-    return true;
-  } else if (
-    isChromium !== null &&
-    typeof isChromium !== "undefined" &&
-    vendorName === "Google Inc." &&
-    isOpera === false &&
-    isIEedge === false
-  ) {
-    return true;
-  } else { 
-    return false;
-  }
-}
-
-var isChrome = isChromeF();
 
 function getUrlVars() {
     var vars = {};
@@ -553,7 +529,7 @@ function dataReady() {
 
     $("#spinnerContainer").hide();
     $("#spinnerContainer").css("top", "51px");
-    $("#spinnerContainer").css("z-index", "10");
+    $("#spinnerContainer").css("z-index", "2");
     $("#mainContent").css("visibility", "visible");
 }
 
@@ -667,7 +643,7 @@ $( document ).ready(() => {
                     cache.delete('gothic.json');
                     $("#spinnerContainer").hide();
                     $("#spinnerContainer").css("top", "51px");
-                    $("#spinnerContainer").css("z-index", "10");
+                    $("#spinnerContainer").css("z-index", "2");
                     $("#mainContent").css("visibility", "visible");
                 });
             }

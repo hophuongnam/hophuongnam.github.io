@@ -99,8 +99,10 @@ digit {
     background-color: #f8f8f8;
     display: flex;
     flex-direction: column;
-    z-index: 2;
+    z-index: 3;
     writing-mode: horizontal-tb;
+    -webkit-transform: translate3d(0, 0, 0);
+    transform: translate3d(0, 0, 0);
 }
 
 #searchBar {
@@ -130,8 +132,6 @@ input::placeholder {
     overflow: auto;
     border-top: 1px solid #e7e7e7;
     border-bottom: 1px solid #e7e7e7;
-    -webkit-transform: translate3d(0, 0, 0);
-    transform: translate3d(0, 0, 0);
     height: 100%;
 }
 
@@ -290,7 +290,7 @@ input::placeholder {
     border: 1px solid #e7e7e7;
     background-color: #f8f8f8;
     padding: 10px 2em 10px 10px;
-    z-index: 2;
+    z-index: 3;
     writing-mode: horizontal-tb;
 }
 
