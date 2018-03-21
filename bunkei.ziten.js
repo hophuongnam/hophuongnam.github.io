@@ -188,6 +188,8 @@ function displayNewContent(heading) {
 
     store.set('currentHeading', heading);
     store.set('history', backward);
+    $(window).scrollLeft(0);
+    store.set( 'scroll', $(window).scrollLeft(0) );
 }
 
 async function getData(filename, same) {
@@ -353,26 +355,17 @@ function dataReady() {
         scrolling = true;
     });
 
-    if (isChrome) {
-        setInterval(() => {
-            if (scrolling) {
-                scrolling = false;
-                store.set('scroll', $(window).scrollLeft());
+    setInterval(() => {
+        if (scrolling) {
+            scrolling = false;
+            store.set('scroll', $(window).scrollLeft());
 
-                $(".sentinel").trigger({
-                    type: "scrolling",
-                    windowBoundRight: $(window).scrollLeft() + document.documentElement.clientWidth
-                });
-            }
-        }, 100);
-    } else {
-        setInterval(() => {
-            if (scrolling) {
-                scrolling = false;
-                store.set('scroll', $(window).scrollLeft());
-            }
-        }, 100);
-    }
+            $(".sentinel").trigger({
+                type: "scrolling",
+                windowBoundRight: $(window).scrollLeft() + document.documentElement.clientWidth
+            });
+        }
+    }, 100);
 
     $("#random").click(() => {
         ran = pickRandomProperty(dict);
@@ -461,31 +454,29 @@ function dataReady() {
             $("div.heading span.keyword").html(str);
         }
 
-        if (isChrome) {
-            var idBefore = guid();
-            var myID;
-            $(".border").each(function() {
-                myID = guid();
-                $(this).attr("id", myID);
-                $(this).before("<div class=sentinel data-id='" + idBefore + "'></div>");
-                idBefore = myID;
-            });
+        var idBefore = guid();
+        var myID;
+        $(".border").each(function() {
+            myID = guid();
+            $(this).attr("id", myID);
+            $(this).before("<div class=sentinel data-id='" + idBefore + "'></div>");
+            idBefore = myID;
+        });
 
-            $(".sentinel").on('scrolling', function(event) {
-                var elemPos = $(this).offset().left;
-                if (elemPos > event.windowBoundRight) {
-                    $( "#" + $(this).data('id') ).css("position", "initial");
-                }
-                if (elemPos < event.windowBoundRight) {
-                    $( "#" + $(this).data('id') ).css("position", "sticky");
-                }
-            });
+        $(".sentinel").on('scrolling', function(event) {
+            var elemPos = $(this).offset().left;
+            if (elemPos > event.windowBoundRight) {
+                $( "#" + $(this).data('id') ).css("position", "initial");
+            }
+            if (elemPos < event.windowBoundRight) {
+                $( "#" + $(this).data('id') ).css("position", "sticky");
+            }
+        });
 
-            $(".sentinel").trigger({
-                type: "scrolling",
-                windowBoundRight: $(window).scrollLeft() + document.documentElement.clientWidth
-            });
-        }
+        $(".sentinel").trigger({
+            type: "scrolling",
+            windowBoundRight: $(window).scrollLeft() + document.documentElement.clientWidth
+        });
 
         $("digit").each(function(i, e) {
             var fullWidth = $(e).text();
