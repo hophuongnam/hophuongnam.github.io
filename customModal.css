@@ -1,4 +1,5 @@
 .modal {
+    writing-mode: horizontal-tb;
     display: none;
     position: fixed;
     z-index: 99;

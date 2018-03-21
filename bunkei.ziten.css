@@ -5,6 +5,19 @@
     font-style: normal;
 }
 
+/* for font check */
+.fontTest {
+    writing-mode: horizontal-tb;
+}
+
+html {
+    -webkit-writing-mode: vertical-rl;
+    -ms-writing-mode: tb-rl; 
+    -moz-writing-mode: vertical-rl;
+    -ms-writing-mode: vertical-rl;
+    writing-mode: vertical-rl;
+}
+
 body {
     font-size: 20px;
     line-height: 1.7;
@@ -39,21 +52,25 @@ digit {
 }
 
 #topBar {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
+    //writing-mode: horizontal-tb;
     position: fixed;
     top: 0;
-    right: 0;
     left: 0;
+    width: 100%;
     background-color: #f8f8f8;
     border: 1px solid #e7e7e7;
-    max-height: 60px;
+    //max-height: 60px;
+    height: 29px;
+    display: flex;
+    flex-direction: column-reverse;
+    justify-content: space-between;
+    align-items: center;
     padding: 10px;
 }
 
 #title {
-    padding-left: 0.5em;
+    writing-mode: horizontal-tb;
+    //padding-left: 1em;
     color: #777;
     font-family: 'acgyosyoregular';
     font-size: 18px;
@@ -61,15 +78,11 @@ digit {
 }
 
 #history {
-    padding-right: 0.5em;
+    writing-mode: horizontal-tb;
+    padding-right: 20px;
     font-size: 18px;
     line-height: 20px;
     color: #777;
-}
-
-#newUpdate {
-    display: none;
-    color: Tomato;
 }
 
 #forward, #back {
@@ -79,14 +92,15 @@ digit {
 #sideBar {
     width: 50%;
     position: fixed;
-    // left: -51%;
     left: calc(-50% - 2px);
+    top: 50px;
     bottom: 0;
     border: 1px solid #e7e7e7;
     background-color: #f8f8f8;
     display: flex;
     flex-direction: column;
     z-index: 2;
+    writing-mode: horizontal-tb;
 }
 
 #searchBar {
@@ -139,6 +153,7 @@ input::placeholder {
 }
 
 #pullout {
+	writing-mode: horizontal-tb;
     position: fixed;
     left: -50%;
     width: calc(50% + 1.7em);
@@ -162,17 +177,11 @@ input::placeholder {
     justify-self: end;
 }
 
-#main {
-    display: flex;
-}
-
 #mainContent {
-    writing-mode: vertical-rl;
     letter-spacing: 1px;
     text-align: justify;
     visibility: hidden;
     margin-left: auto;
-    height: calc(100% - 60px);
     padding: 20px 0;
 }
 
@@ -276,15 +285,17 @@ input::placeholder {
 
 #langBar {
     position: fixed;
-    right: -10em;
+    top: 50px;
+    right: -50%;
     border: 1px solid #e7e7e7;
     background-color: #f8f8f8;
-    padding: 10px;
+    padding: 10px 2em 10px 10px;
     z-index: 2;
+    writing-mode: horizontal-tb;
 }
 
 .openLang {
-    right: 0px !important;
+    right: -3em !important;
 }
 
 .transitionLang {

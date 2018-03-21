@@ -22,7 +22,6 @@ var gothicReady = false;
 var textReady = false;
 var containerMonitor;
 var monitorsTOC = [];
-var perf;
 
 var touch = 'ontouchstart' in document.documentElement
         || navigator.maxTouchPoints > 0
@@ -57,17 +56,6 @@ function isChromeF() {
 }
 
 var isChrome = isChromeF();
-
-function performanceTest(testFunction, iterations) {
-    'use strict';
-    var sum = 0;
-    var start = performance.now();
-    for (var i = 0; i < iterations; i++) {
-        testFunction();
-    }
-    var time=performance.now() - start;
-    return time;
-}
 
 function getUrlVars() {
     var vars = {};
@@ -222,13 +210,12 @@ function displayNewContent(heading) {
 
     updateMainContent(heading);
 
-    $(window).scrollLeft($('#mainContent').get(0).scrollWidth);
-    store.set('scroll', $('#mainContent').get(0).scrollWidth);
     store.set('currentHeading', heading);
     store.set('history', backward);
 }
 
-async function getData(filename) {
+async function getData(filename, same) {
+    // same: true/false. false will delete file
     var myCache;
     var dataReturn;
 
@@ -237,6 +224,10 @@ async function getData(filename) {
             myCache = cache
         });
 
+        if (!same) {
+            await myCache.delete(filename);
+        }
+        
         await myCache.match(filename)
         .then(
             (resp) => {
@@ -283,22 +274,19 @@ function dataReady() {
         return
     }
 
-    $("#sideBar").css("top", $("#topBar").outerHeight() - 1);
-    $("#langBar").css("top", $("#topBar").outerHeight() - 1);
-
-    if (isiOS) {
+    /*if (isiOS) {
         $(window).resize(function() {
             // Fix zoom bug on iOS
             $('#mainContent').css('height', document.documentElement.clientHeight - 120);
         });
         $(".border").css("position", "initial");
-    }
+    }*/
 
     if (isFirefox) {
-        $("#mainContent").css({
+        /*$("#mainContent").css({
             "overflow": "auto",
             "height": "calc(100% - 100px)"
-        });
+        });*/
         sitvff = "start"; /* scrollIntoView */
     }
 
@@ -335,17 +323,28 @@ function dataReady() {
     $.getScript('bunkei.ziten.version.js', function() {
         delayed.delay(function() {
             if (version != dict.version) {
-                if (cacheAvailable) {
-                    caches.open(cacheName).then((cache) => {
-                        cache.delete('toc.json');
-                        cache.delete('dict.json');
-                    });
-                }
-                $("#newUpdate").show();
-                $("#newUpdate").blink();
+                Promise.all([getData('toc.json', false), getData('dict.json', false)]).then(
+                    (values) => {
+                        toc  = values[0];
+                        dict = values[1];
+                    }
+                );
             }
         }, 1000);
-    });   
+    });
+
+    setInterval(() => {
+        $.getScript('bunkei.ziten.version.js', function() {
+            if (version != dict.version) {
+                Promise.all([getData('toc.json', false), getData('dict.json', false)]).then(
+                    (values) => {
+                        toc  = values[0];
+                        dict = values[1];
+                    }
+                );
+            }
+        });
+    }, 300000);
 
     currentHeading = store.get('currentHeading');
     if (!currentHeading) {
@@ -374,20 +373,27 @@ function dataReady() {
         typingTimer = setTimeout(doneTyping, doneTypingInterval);
     });
 
-    if (isChrome) {
-        $(window).scroll(() => {
-            scrolling = true;
-        });
+    $(window).scroll(() => {
+        scrolling = true;
+    });
 
+    if (isChrome) {
         setInterval(() => {
             if (scrolling) {
                 scrolling = false;
-
                 store.set('scroll', $(window).scrollLeft());
+
                 $(".sentinel").trigger({
                     type: "scrolling",
                     windowBoundRight: $(window).scrollLeft() + document.documentElement.clientWidth
                 });
+            }
+        }, 100);
+    } else {
+        setInterval(() => {
+            if (scrolling) {
+                scrolling = false;
+                store.set('scroll', $(window).scrollLeft());
             }
         }, 100);
     }
@@ -459,10 +465,6 @@ function dataReady() {
     });
 
     $("#help").click(function() {
-        /*if ($("#helpBox").html() == "") {
-            $("#helpBox").html("<img src='help.gif' style='width:200px;height:349px;'><br><span>Errata, bugs ... write to ho.phuong.nam@gmail.com</span>");
-        }
-        $("#helpBox").modal();*/
         showModal( "<img src='help.gif' style='width:200px;height:349px;'><br><span style='font-size: xx-small;'>Errata, bugs ... write to ho.phuong.nam@gmail.com</span>", "trans" );
     });
 
@@ -470,8 +472,8 @@ function dataReady() {
         $('#toc a').click(function(e) {
             e.preventDefault();
             heading = $(this).attr('id');
-            displayNewContent(heading);
             closeSideBar();
+            displayNewContent(heading);
         });
     });
 
@@ -483,10 +485,9 @@ function dataReady() {
             $("div.heading span.keyword").html(str);
         }
 
-        var idBefore = guid();
-        var myID;
-
         if (isChrome) {
+            var idBefore = guid();
+            var myID;
             $(".border").each(function() {
                 myID = guid();
                 $(this).attr("id", myID);
@@ -539,8 +540,6 @@ function dataReady() {
         }
 
         $(".vi").click(function() {
-            // $("#trans").html($(this).data("vi"));
-            // $("#trans").modal();
             showModal( $(this).data("vi"), "trans" );
         });
 
@@ -553,23 +552,20 @@ function dataReady() {
     });
 
     $("#spinnerContainer").hide();
-    $("#spinnerContainer").css("top", $("#topBar").outerHeight());
+    $("#spinnerContainer").css("top", "51px");
     $("#spinnerContainer").css("z-index", "10");
     $("#mainContent").css("visibility", "visible");
 }
 
 $( document ).ready(() => {
-    // https://www.samclarke.com/javascript-is-font-available/
-    (function(d){function c(c){b.style.fontFamily=c;e.appendChild(b);f=b.clientWidth;e.removeChild(b);return f}var f,e=d.body,b=d.createElement("span");b.innerHTML=Array(100).join("wi");b.style.cssText=["position:absolute","width:auto","font-size:128px","left:-99999px"].join(" !important;");var g=c("monospace"),h=c("serif"),k=c("sans-serif");window.isFontAvailable=function(b){return g!==c(b+",monospace")||k!==c(b+",sans-serif")||h!==c(b+",serif")}})(document);
-
-    Promise.all([getData('toc.json'), getData('dict.json')]).then(
+    Promise.all([getData('toc.json', true), getData('dict.json', true)]).then(
         (values) => {
             toc  = values[0];
             dict = values[1];
             textReady = true;
             dataReady();
         }
-    )
+    );
 
     if (cacheAvailable) {
         caches.open(cacheName).catch(() => alert('Switch to HTTPS please!'));
@@ -582,7 +578,7 @@ $( document ).ready(() => {
                 cache.match("mincho.json").then(
                     function(resp) {
                         if (resp) { // Font cached
-                            getData('mincho.json').then(
+                            getData('mincho.json', true).then(
                                 function(value) {
                                     var sheetMincho = document.createElement('style');
                                     sheetMincho.innerHTML = "@font-face{font-family:CustomMincho;src:url(data:font/ttf;base64," + value.mincho + ")}";
@@ -597,7 +593,7 @@ $( document ).ready(() => {
                                 }
                             )
                         } else {
-                            getData('mincho.json').then(
+                            getData('mincho.json', true).then(
                                 function(value) {
                                     var sheetMincho = document.createElement('style');
                                     sheetMincho.innerHTML = "@font-face{font-family:CustomMincho;src:url(data:font/ttf;base64," + value.mincho + ")}";
@@ -620,7 +616,7 @@ $( document ).ready(() => {
                 cache.match("gothic.json").then(
                     function(resp) {
                         if (resp) { // Font cached
-                            getData('gothic.json').then(
+                            getData('gothic.json', true).then(
                                 function(value) {
                                     var sheetGothic = document.createElement('style');
                                     sheetGothic.innerHTML = "@font-face{font-family:CustomGothic;src:url(data:font/ttf;base64," + value.gothic + ")}";
@@ -635,7 +631,7 @@ $( document ).ready(() => {
                                 }
                             )
                         } else {
-                            getData('gothic.json').then(
+                            getData('gothic.json', true).then(
                                 function(value) {
                                     var sheetGothic = document.createElement('style');
                                     sheetGothic.innerHTML = "@font-face{font-family:CustomGothic;src:url(data:font/ttf;base64," + value.gothic + ")}";
@@ -653,7 +649,7 @@ $( document ).ready(() => {
             dataReady();
         }
 
-    } else {
+    } else { // cacheAvailable = false
         $("#title").css('color', 'red');
         minchoReady = true;
         gothicReady = true;
@@ -670,30 +666,11 @@ $( document ).ready(() => {
                     cache.delete('mincho.json');
                     cache.delete('gothic.json');
                     $("#spinnerContainer").hide();
-                    $("#spinnerContainer").css("top", $("#topBar").height() + 2);
+                    $("#spinnerContainer").css("top", "51px");
                     $("#spinnerContainer").css("z-index", "10");
                     $("#mainContent").css("visibility", "visible");
                 });
             }
         }
-    }, 30000);
+    }, 60000);
 });
-
-/*
-//Or make a helper function, like this:
-function performanceTest(testFunction, iterations) {
-  'use strict';
-  var sum = 0;
-  var start = performance.now();
-  for (var i = 0; i < iterations; i++) {
-    testFunction();
-  }
-  var time=performance.now() - start;
-  return time;
-}
- 
-//And use it like this:
-performanceTest(function(){
-  Math.random()*Math.random();
-}, 1000);
-*/

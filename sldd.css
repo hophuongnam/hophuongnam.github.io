@@ -1,35 +1,45 @@
+html {
+    -webkit-writing-mode: vertical-rl;
+    -ms-writing-mode: tb-rl; 
+    -moz-writing-mode: vertical-rl;
+    -ms-writing-mode: vertical-rl;
+    writing-mode: vertical-rl;
+}
+
 body {
     font-family: Tahoma, Arial, Helvetica, Georgia, "Times New Roman", "Noto Serif", "Noto Serif CJK SC", "NotoSerifCJKsc", "Noto Sans", "Noto Sans CJK SC", "Microsoft YaHei New", "Microsoft Yahei", "微软雅黑", 宋体, SimSun, STXihei, "华文细黑", sans-serif, serif;
 }
 
 #mainContent {
-    writing-mode: vertical-rl;
-    -webkit-writing-mode: vertical-rl;
-    -ms-writing-mode: tb-rl; 
-    -moz-writing-mode: vertical-rl;
-    -ms-writing-mode: vertical-rl;    
     line-height: 1.7em;
     font-size: 2em;
     letter-spacing: 3px;
     text-align: justify;
     visibility: hidden;
-    margin: 50px;
+    margin: 1em;
 }
 
 #mainContent a {
-    display: inline-block;    
+    display: inline-block;
+}
+
+.paragraph {
+    text-indent: 2em;
+    margin: 0 2em;
 }
 
 #back {
     float: right;
+    display: none;
 }
 
 .tooltipser {
-    position: absolute;
-    display: inline-block;
+    //position: absolute;
+    //display: inline-block;
     visibility: hidden;
     white-space: nowrap;
-    z-index: 99;
+    z-index: 1;
+    writing-mode: horizontal-tb;
 }
 
 .tooltipser .tooltipsertext {
@@ -39,7 +49,6 @@ body {
     color: #fff;
     border-radius: 6px;
     position: absolute;
-    font-size: small;
 }
 
 .tooltipser .arrowRight::after {
@@ -64,10 +73,10 @@ body {
     border-color: transparent transparent transparent black;
 }
 
-#modal {
+.modal {
     display: none;
     position: fixed;
-    z-index: 999;
+    z-index: 9;
     left: 0;
     top: 0;
     width: 100%;
@@ -75,20 +84,29 @@ body {
     overflow-y: hidden;
     background-color: rgb(0,0,0);
     background-color: rgba(0,0,0,0.4);
+    writing-mode: horizontal-tb;
 }
 
-#modal-content {
+.modalContainer {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 100%;
+}
+
+.modalContent {
     background-color: #fefefe;
     padding: 20px;
     border: 1px solid #888;
-    height: 1vh;
     overflow: auto;
     border-radius: 8px;
-    max-height: 80vh;
-    font-family: Tahoma, Arial, Helvetica, Georgia, "Times New Roman", "Noto Serif", "Noto Serif CJK SC", "Noto Sans", "Noto Sans CJK SC", "Microsoft YaHei New", "Microsoft Yahei", "微软雅黑", 宋体, SimSun, STXihei, "华文细黑", serif, sans-serif;
+    max-height: 70%;
+    max-width: 70%;
+    line-height: 1.5;
 }
 
-#modal-content a {
+.modalContent a {
     color: darkblue;
     cursor: pointer;
 }
@@ -96,7 +114,7 @@ body {
 /* spinner */
 .spinner {
     width: 40px;
-    height: 40px;    
+    height: 40px;
     top: 50%;
     left: 50%;
     position: fixed;
@@ -143,13 +161,13 @@ body {
 }
 
 @media all and (min-width: 960px) {
-  body {font-size: 16px;}
+    body {font-size: 16px;}
 }
 
 @media all and (max-width: 959px) and (min-width: 600px) {
-  body {font-size: 14px;}
+    body {font-size: 14px;}
 }
 
 @media all and (max-width: 599px) and (min-width: 320px) {
-  body {font-size: 12px;}
+    body {font-size: 12px;}
 }
