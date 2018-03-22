@@ -64,6 +64,8 @@ function pickRandomProperty(obj) {
 
 function displayTOC(tocToDisplay) {
     if (rebuildTOC) {
+    	rebuildTOC = false;
+
         var tocA = ""
         jQuery.each(tocToDisplay, function(index, value) {
             if (value.type == "kana") {
@@ -73,8 +75,7 @@ function displayTOC(tocToDisplay) {
             }
         })        
         $('#toc').html("");
-        $("#toc").append(tocA);
-        rebuildTOC = false;
+        $("#toc").append(tocA);        
 
         monitorsTOC.forEach(function(element) {
             element.destroy();
@@ -298,6 +299,10 @@ function dataReady() {
         $('#back').css('color', '#666666');
         $('#back').data("disabled", "false");
     }
+
+    setInterval(function() {
+        displayTOC();
+    }, 1000);
 
     $.getScript('bunkei.ziten.version.js', function() {
         delayed.delay(function() {
