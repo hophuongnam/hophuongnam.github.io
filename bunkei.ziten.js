@@ -305,6 +305,8 @@ function dataReady() {
                     (values) => {
                         toc  = values[0];
                         dict = values[1];
+                        updateMainContent(currentHeading);
+                        $(window).scrollLeft(store.get('scroll'));
                     }
                 );
             }
@@ -318,6 +320,8 @@ function dataReady() {
                     (values) => {
                         toc  = values[0];
                         dict = values[1];
+                        updateMainContent(currentHeading);
+                        $(window).scrollLeft(store.get('scroll'));
                     }
                 );
             }
