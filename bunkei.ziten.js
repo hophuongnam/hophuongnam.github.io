@@ -23,6 +23,7 @@ var gothicReady = false;
 var textReady = false;
 var containerMonitor;
 var monitorsTOC = [];
+var timeChecked;
 
 var touch = 'ontouchstart' in document.documentElement
         || navigator.maxTouchPoints > 0
@@ -300,6 +301,7 @@ function dataReady() {
 
     $.getScript('bunkei.ziten.version.js', function() {
         delayed.delay(function() {
+            timeChecked = new Date().toLocaleString();
             if (version != dict.version) {
                 Promise.all([getData('toc.json', false), getData('dict.json', false)]).then(
                     (values) => {
@@ -315,6 +317,7 @@ function dataReady() {
 
     setInterval(() => {
         $.getScript('bunkei.ziten.version.js', function() {
+            timeChecked = new Date().toLocaleString();
             if (version != dict.version) {
                 Promise.all([getData('toc.json', false), getData('dict.json', false)]).then(
                     (values) => {
@@ -338,7 +341,8 @@ function dataReady() {
     }
 
     $("#pullout").click(() => {
-        $("#tocFooter").text("Last updated " + vagueTime.get({to: dict.version * 1000, from: Date.now()}) + ".");
+        // $("#tocFooter").text("Last updated " + vagueTime.get({to: dict.version * 1000, from: Date.now()}) + ".");
+        $("#tocFooter").html("Last updated " + vagueTime.get({to: dict.version * 1000, from: Date.now()}) + "." + "<br>" + "Last checked at " + timeChecked + ".");
         if ( $("#sideBar").css('left') != "0px" ) {
             $("#search").val("");
             displayTOC(toc);
