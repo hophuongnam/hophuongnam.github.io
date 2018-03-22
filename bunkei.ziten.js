@@ -189,7 +189,7 @@ function displayNewContent(heading) {
     store.set('currentHeading', heading);
     store.set('history', backward);
     $(window).scrollLeft(0);
-    store.set( 'scroll', $(window).scrollLeft(0) );
+    store.set( 'scroll', $(window).scrollLeft() );
 }
 
 async function getData(filename, same) {
@@ -360,10 +360,10 @@ function dataReady() {
             scrolling = false;
             store.set('scroll', $(window).scrollLeft());
 
-            $(".sentinel").trigger({
+            /*$(".sentinel").trigger({
                 type: "scrolling",
                 windowBoundRight: $(window).scrollLeft() + document.documentElement.clientWidth
-            });
+            });*/
         }
     }, 100);
 
@@ -454,7 +454,10 @@ function dataReady() {
             $("div.heading span.keyword").html(str);
         }
 
-        var idBefore = guid();
+        // $(".heading").attr("id", "itemTitle");
+        // $("#itemTitle").before("<div id=itemTitleSentinel></div>");
+
+        /*var idBefore = guid();
         var myID;
         $(".border").each(function() {
             myID = guid();
@@ -476,7 +479,7 @@ function dataReady() {
         $(".sentinel").trigger({
             type: "scrolling",
             windowBoundRight: $(window).scrollLeft() + document.documentElement.clientWidth
-        });
+        });*/
 
         $("digit").each(function(i, e) {
             var fullWidth = $(e).text();
@@ -484,9 +487,11 @@ function dataReady() {
             $(e).text(halfWidth);
         });
 
-        if ($(".kanji").length > 0) {
-            $(".keyword").hide();
+        if ( $(".heading .kanji").length > 0 ) {
+            $(".heading .keyword").hide();
         }
+
+        $("#stickyPanel").text( $(".heading .keyword").text() );
 
         $('#mainContent a').click(function(e) {
             e.preventDefault();
@@ -525,6 +530,11 @@ function dataReady() {
 }
 
 $( document ).ready(() => {
+    if (isAndroid && isChrome) {
+        $("#stickyPanelContainer").css("visibility", "visible");
+        $("body").css("padding-bottom", "1.5em");
+    }
+
     Promise.all([getData('toc.json', true), getData('dict.json', true)]).then(
         (values) => {
             toc  = values[0];
@@ -623,7 +633,7 @@ $( document ).ready(() => {
         dataReady();
     }
 
-    // Failsafe, after 30"
+    // Failsafe, after 1'
     delayed.delay(function () {
         if ( !(minchoReady && gothicReady && textReady) ) {
             if (cacheAvailable) {
