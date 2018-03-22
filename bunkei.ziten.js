@@ -360,6 +360,10 @@ function dataReady() {
             scrolling = false;
             store.set('scroll', $(window).scrollLeft());
 
+            if (isAndroid && isChrome) {
+                $("#titleSentinel").trigger("scrolling");
+            }
+
             /*$(".sentinel").trigger({
                 type: "scrolling",
                 windowBoundRight: $(window).scrollLeft() + document.documentElement.clientWidth
@@ -454,6 +458,18 @@ function dataReady() {
             $("div.heading span.keyword").html(str);
         }
 
+        if (isAndroid && isChrome) {
+            $(".heading").after("<div id=titleSentinel></div>");
+            $("#titleSentinel").on("scrolling", function() {
+                if ( $(this).offset().left > $(window).scrollLeft() + document.documentElement.clientWidth) {
+                    $("#stickyPanelContainer").css("visibility", "visible");
+                } else {
+                    $("#stickyPanelContainer").css("visibility", "hidden");
+                }
+            });
+            $("#titleSentinel").trigger("scrolling");
+        }
+
         // $(".heading").attr("id", "itemTitle");
         // $("#itemTitle").before("<div id=itemTitleSentinel></div>");
 
@@ -531,7 +547,6 @@ function dataReady() {
 
 $( document ).ready(() => {
     if (isAndroid && isChrome) {
-        $("#stickyPanelContainer").css("visibility", "visible");
         $("body").css("padding-bottom", "1.5em");
     }
 

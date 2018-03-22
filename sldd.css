@@ -104,6 +104,7 @@ body {
     max-height: 70%;
     max-width: 70%;
     line-height: 1.5;
+    font-family: sans-serif, serif;
 }
 
 .modalContent a {
