@@ -301,7 +301,9 @@ function dataReady() {
     }
 
     setInterval(function() {
-        displayTOC();
+        if ( $("#sideBar").css('left') != "0px" ) {
+            displayTOC(toc);
+        }
     }, 1000);
 
     $.getScript('bunkei.ziten.version.js', function() {
