@@ -112,10 +112,10 @@ async function getData(filename, same) {
 }
 
 function dataReady() {
-    $.getScript('sldd.version.js', function() {
+    $.getScript('/sldd.version.js', function() {
         delayed.delay(function() {
             if (version != hanviet.version) {
-                Promise.all([getData('hanviet.json', false), getData('tudien.json', false)]).then(
+                Promise.all([getData('/hanviet.json', false), getData('/tudien.json', false)]).then(
                     (values) => {
                         hanviet = values[0];
                         tudien  = values[1];
@@ -272,7 +272,7 @@ $( document ).ready(() => {
     if (cacheAvailable) {
         caches.open('bunkei').catch(() => alert('Switch to HTTPS please!'));
     }   
-    Promise.all([getData('hanviet.json', true), getData('tudien.json', true)]).then(
+    Promise.all([getData('/hanviet.json', true), getData('/tudien.json', true)]).then(
         (values) => {
             hanviet = values[0];
             tudien  = values[1];
