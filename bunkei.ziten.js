@@ -244,8 +244,8 @@ async function getData(filename, same) {
 
 function closeSideBar() {
     if ( $("#sideBar").css('left') == "0px" ) {
-        $("#sideBar").toggleClass("open");
-        $("#pullout").toggleClass("open");
+        $("#sideBar").removeClass("open");
+        $("#pullout").removeClass("open");
     }
 }
 
@@ -355,8 +355,8 @@ function dataReady() {
             displayTOC(toc);
             $("#" + currentHeading)[0].scrollIntoView({block: sitvff});
         }
-        $("#sideBar").toggleClass("open");
-        $("#pullout").toggleClass("open");
+        $("#sideBar").addClass("open");
+        $("#pullout").addClass("open");
     });
 
     wanakana.bind($("#search").get(0));
@@ -463,6 +463,10 @@ function dataReady() {
             closeSideBar();
             displayNewContent(heading);
         });
+    });
+
+    $("#mainContent").click(function() {
+        closeSideBar();
     });
 
     $("#mainContent").mutationObserver(() => {
