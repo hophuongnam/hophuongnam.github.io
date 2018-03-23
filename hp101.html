@@ -71,6 +71,55 @@
 <script>
   var isAndroid = /(android)/i.test(navigator.userAgent);
   var isLinux = /linux/i.test(navigator.userAgent);
+
+  async function getData(filename, same) {
+      // same: true/false. false will delete file
+      var myCache;
+      var dataReturn;
+
+      if (cacheAvailable) {
+          await caches.open(cacheName).then((cache) => {
+              myCache = cache
+          });
+
+          if (!same) {
+              await myCache.delete(filename);
+          }
+          
+          await myCache.match(filename)
+          .then(
+              (resp) => {
+                  if (resp) {
+                      return resp.json()
+                  } else {
+                      return myCache.add(filename)
+                      .then(
+                          () => {
+                              return myCache.match(filename)
+                              .then(
+                                  (resp) => {
+                                      return resp.json()
+                                  }
+                              )
+                          }
+                      )
+                  }
+              }
+          )
+          .then(
+              (data) => {
+                  dataReturn = data
+              }
+          );
+          return dataReturn;
+      } else {
+          await $.getJSON(filename, function(data) {
+              dataReturn = data
+          });
+          return dataReturn;
+      }
+  }
+
   $().ready(function() {
     var touch = 'ontouchstart' in document.documentElement
             || navigator.maxTouchPoints > 0
@@ -106,9 +155,17 @@
     });
 
     if (isAndroid || isLinux) {
-      sheet = document.createElement('style')
+      getData('mincho.json', true).then(
+        function(value) {
+          var sheetMincho = document.createElement('style');
+            sheetMincho.innerHTML = "@font-face{font-family:YuMin;src:url(data:font/ttf;base64," + value.mincho + ")}";
+            document.body.appendChild(sheetMincho);
+        }
+      )
+
+      /*sheet = document.createElement('style')
       sheet.innerHTML = "@font-face {font-family: YuMin; src: url(yumin.ttf);}";
-      document.body.appendChild(sheet);
+      document.body.appendChild(sheet);*/
     }
   });
 </script>
