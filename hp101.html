@@ -9,9 +9,6 @@
   <title>Harry Potter 1 Chapter 01</title>
   <meta name="description" content="Harry Potter">
 
-  <script src="https://use.typekit.net/lxu2umr.js"></script>
-  <script>try{Typekit.load({ async: true });}catch(e){}</script>
-
   <script type="text/javascript" src="jquery.min.js"></script>
   
   <!--
@@ -31,7 +28,7 @@
     }
 
     body {
-    	font-family: Tahoma, Arial, Helvetica, Verdana, Geneva, "source-han-serif-japanese";
+      font-family: Tahoma, Arial, Helvetica, Verdana, Geneva, YuMin, 'ヒラギノ明朝 ProN', 'Hiragino Mincho ProN', '游明朝', '游明朝体', 'Yu Mincho', 'ＭＳ 明朝', 'MS Mincho', 'HiraMinProN-W3', 'TakaoEx明朝', 'TakaoExMincho', 'MotoyaLCedar', 'Droid Sans Japanese', sans-serif;
       font-size: 20px;
     }
 
@@ -108,11 +105,11 @@
       localStorage.setItem(scrollPos, $(window).scrollLeft());
     });
 
-    /*if (isAndroid || isLinux) {
+    if (isAndroid || isLinux) {
       sheet = document.createElement('style')
       sheet.innerHTML = "@font-face {font-family: YuMin; src: url(yumin.ttf);}";
       document.body.appendChild(sheet);
-    }*/
+    }
   });
 </script>
 </body>
