@@ -18,9 +18,9 @@ var sitvff = "center"; /* scrollIntoView */
 var version;
 var myID = guid();
 var language;
-/*var minchoReady = false;
+var minchoReady = false;
 var gothicReady = false;
-var textReady = false;*/
+var textReady = false;
 var containerMonitor;
 var monitorsTOC = [];
 var timeChecked;
@@ -250,9 +250,9 @@ function closeSideBar() {
 }
 
 function dataReady() {
-    /*if ( !(minchoReady && gothicReady && textReady) ) {
+    if ( !(minchoReady && gothicReady && textReady) ) {
         return
-    }*/
+    }
 
     /*if (isiOS) {
         $(window).resize(function() {
@@ -569,12 +569,12 @@ $( document ).ready(() => {
         (values) => {
             toc  = values[0];
             dict = values[1];
-            // textReady = true;
+            textReady = true;
             dataReady();
         }
     );
 
-    /*if (cacheAvailable) {
+    if (cacheAvailable) {
         caches.open(cacheName).catch(() => alert('Switch to HTTPS please!'));
 
         var mincho = isFontAvailable("Yu Mincho");
@@ -679,5 +679,5 @@ $( document ).ready(() => {
                 });
             }
         }
-    }, 60000);*/
+    }, 60000);
 });
