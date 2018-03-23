@@ -72,6 +72,8 @@
   var isAndroid = /(android)/i.test(navigator.userAgent);
   var isLinux = /linux/i.test(navigator.userAgent);
 
+  const cacheAvailable = 'caches' in self;
+  var cacheName = 'bunkei';
   async function getData(filename, same) {
       // same: true/false. false will delete file
       var myCache;
