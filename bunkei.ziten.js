@@ -355,8 +355,8 @@ function dataReady() {
             displayTOC(toc);
             $("#" + currentHeading)[0].scrollIntoView({block: sitvff});
         }
-        $("#sideBar").addClass("open");
-        $("#pullout").addClass("open");
+        $("#sideBar").toggleClass("open");
+        $("#pullout").toggleClass("open");
     });
 
     wanakana.bind($("#search").get(0));
