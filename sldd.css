@@ -26,6 +26,7 @@ body {
 .paragraph {
     text-indent: 2em;
     margin: 0 2em;
+    visibility: hidden;
 }
 
 #back {

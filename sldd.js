@@ -8,6 +8,7 @@ var backward = [];
 var currentKeyword;
 var scrolling = false;
 var version;
+var swInstance;
 
 const cacheAvailable = 'caches' in self;
 
@@ -112,6 +113,19 @@ async function getData(filename, same) {
 }
 
 function dataReady() {
+    swInstance = new ScrollWatch({
+        watchOnce: false,
+        onElementInView: function(obj){
+            $(obj.el).css("visibility", "visible");
+        },
+        onElementOutOfView: function(obj){
+            $(obj.el).css("visibility", "hidden");
+        },
+        debounce: true,
+        watchOffsetXLeft: 200,
+        watchOffsetXRight: 200
+    });
+
     $.getScript('/sldd.version.js', function() {
         delayed.delay(function() {
             if (version != hanviet.version) {
