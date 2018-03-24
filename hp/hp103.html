@@ -9,7 +9,7 @@
   <title>Harry Potter 1 Chapter 03</title>
   <meta name="description" content="Harry Potter">
 
-  <script type="text/javascript" src="jquery.min.js"></script>
+  <script type="text/javascript" src="/jquery.min.js"></script>
   
   <!--
   <link href="https://fonts.googleapis.com/css?family=Gentium+Book+Basic" rel="stylesheet">
@@ -157,7 +157,7 @@
     });
 
     if (isAndroid || isLinux) {
-      getData('mincho.json', true).then(
+      getData('/mincho.json', true).then(
         function(value) {
           var sheetMincho = document.createElement('style');
             sheetMincho.innerHTML = "@font-face{font-family:YuMin;src:url(data:font/ttf;base64," + value.mincho + ")}";
