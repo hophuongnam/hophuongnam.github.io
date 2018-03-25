@@ -300,11 +300,13 @@ function dataReady() {
         $('#back').data("disabled", "false");
     }
 
-    setInterval(function() {
-        if ( $("#sideBar").css('left') != "0px" ) {
-            displayTOC(toc);
-        }
-    }, 1000);
+    if ( !isiOS) {
+        setInterval(function() {
+            if ( $("#sideBar").css('left') != "0px" ) {
+                displayTOC(toc);
+            }
+        }, 1000);
+    }
 
     $.getScript('bunkei.ziten.version.js', function() {
         delayed.delay(function() {

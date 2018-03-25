@@ -115,15 +115,21 @@ async function getData(filename, same) {
 function dataReady() {
     swInstance = new ScrollWatch({
         watchOnce: false,
-        onElementInView: function(obj){
-            $(obj.el).css("visibility", "visible");
+        onElementInView: function(obj) {
+            $(obj.el).css({
+                "visibility": "visible",
+                "opacity": "1",
+                "transition-delay": "0s"
+            });
         },
-        onElementOutOfView: function(obj){
-            $(obj.el).css("visibility", "hidden");
+        onElementOutOfView: function(obj) {
+            $(obj.el).css({
+                "visibility": "hidden",
+                "opacity": "0",
+                "transition": "visibility 0s linear 0.5s, opacity 0.5s linear"
+            });
         },
-        debounce: true,
-        watchOffsetXLeft: 200,
-        watchOffsetXRight: 200
+        debounce: true
     });
 
     $.getScript('/sldd.version.js', function() {
