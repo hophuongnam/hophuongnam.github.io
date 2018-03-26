@@ -243,7 +243,7 @@ async function getData(filename, same) {
 }
 
 function closeSideBar() {
-    if ( $("#sideBar").css('left') == "0px" ) {
+    if ( $("#sideBar").hasClass("open") ) {
         $("#sideBar").removeClass("open");
         $("#pullout").removeClass("open");
     }
@@ -300,13 +300,13 @@ function dataReady() {
         $('#back').data("disabled", "false");
     }
 
-    if ( !isiOS) {
+    //if ( !isiOS) {
         setInterval(function() {
-            if ( $("#sideBar").css('left') != "0px" ) {
+            if ( !$("#sideBar").hasClass("open") ) {
                 displayTOC(toc);
             }
         }, 1000);
-    }
+    //}
 
     $.getScript('bunkei.ziten.version.js', function() {
         delayed.delay(function() {
@@ -352,7 +352,7 @@ function dataReady() {
     $("#pullout").click(() => {
         // $("#tocFooter").text("Last updated " + vagueTime.get({to: dict.version * 1000, from: Date.now()}) + ".");
         $("#tocFooter").html("Last updated " + vagueTime.get({to: dict.version * 1000, from: Date.now()}) + "." + "<br>" + "Last checked at " + timeChecked + ".");
-        if ( $("#sideBar").css('left') != "0px" ) {
+        if ( !$("#sideBar").hasClass("open") ) {
             $("#search").val("");
             displayTOC(toc);
             $("#" + currentHeading)[0].scrollIntoView({block: sitvff});
