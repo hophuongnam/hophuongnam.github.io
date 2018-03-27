@@ -298,7 +298,7 @@ $( document ).ready(() => {
             tudien  = values[1];
 
             dataReady();
-            $(".spinner").remove();
+            $("#spinnerContainer").remove();
             $("#mainContent").css("visibility", "visible");
         }
     )
