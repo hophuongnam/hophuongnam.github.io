@@ -8,7 +8,7 @@ var backward = [];
 var currentKeyword;
 var scrolling = false;
 var version;
-var swInstance;
+// var swInstance;
 
 const cacheAvailable = 'caches' in self;
 
@@ -113,7 +113,7 @@ async function getData(filename, same) {
 }
 
 function dataReady() {
-    swInstance = new ScrollWatch({
+    /*swInstance = new ScrollWatch({
         watchOnce: false,
         onElementInView: function(obj) {
             $(obj.el).css({
@@ -130,7 +130,7 @@ function dataReady() {
             });
         },
         debounce: true
-    });
+    });*/
 
     $.getScript('/sldd.version.js', function() {
         delayed.delay(function() {

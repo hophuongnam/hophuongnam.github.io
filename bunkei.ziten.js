@@ -22,7 +22,7 @@ var minchoReady = false;
 var gothicReady = false;
 var textReady = false;
 var containerMonitor;
-var monitorsTOC = [];
+// var monitorsTOC = [];
 var timeChecked;
 
 var touch = 'ontouchstart' in document.documentElement
@@ -265,7 +265,7 @@ function dataReady() {
         document.body.appendChild(sheet);
     }
 
-    containerMonitor = scrollMonitor.createContainer( $("#toc") );
+    // containerMonitor = scrollMonitor.createContainer( $("#toc") );
 
     language = store.get("language", "jp");
     switch(language) {

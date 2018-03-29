@@ -26,7 +26,7 @@ body {
 .paragraph {
     text-indent: 2em;
     margin: 0 2em;
-    visibility: hidden;
+    /*visibility: hidden;*/
 }
 
 #back {
@@ -35,8 +35,8 @@ body {
 }
 
 .tooltipser {
-    //position: absolute;
-    //display: inline-block;
+    /*position: absolute;*/
+    /*display: inline-block;*/
     visibility: hidden;
     white-space: nowrap;
     z-index: 1;

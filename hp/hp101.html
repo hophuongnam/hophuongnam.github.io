@@ -49,7 +49,7 @@
     .mt {
       text-indent: 2em;
       margin: 0 1em;
-      visibility: hidden;
+      /*visibility: hidden;*/
     }
 
     digit {
@@ -81,7 +81,7 @@
   var isAndroid = /(android)/i.test(navigator.userAgent);
   var isLinux = /linux/i.test(navigator.userAgent);
 
-  var swInstance;
+  // var swInstance;
 
   const cacheAvailable = 'caches' in self;
   var cacheName = 'bunkei';
@@ -181,7 +181,7 @@
       document.body.appendChild(sheet);*/
     }
 
-    swInstance = new ScrollWatch({
+    /*swInstance = new ScrollWatch({
         watchOnce: false,
         onElementInView: function(obj) {
             $(obj.el).css({
@@ -198,7 +198,7 @@
             });
         },
         debounce: true
-    });
+    });*/
 
   });
 </script>

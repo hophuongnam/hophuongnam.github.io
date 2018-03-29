@@ -155,7 +155,7 @@ input::placeholder {
     display: list-item;
     color: #777;
     padding: 10px;
-    //visibility: hidden;
+    /*visibility: hidden;*/
 }
 
 #toc a:hover {
