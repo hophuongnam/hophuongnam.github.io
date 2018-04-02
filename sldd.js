@@ -239,7 +239,7 @@ function dataReady() {
                     )
             );
             
-            var tooltip = $('#' + ttID);
+            var tooltip = $(`#${ttID}`);
 
             // div tooltip container will have 0x0 dimension (don't know why)
             // need to set manually

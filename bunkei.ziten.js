@@ -31,7 +31,7 @@ var touch = 'ontouchstart' in document.documentElement
 
 const cacheAvailable = 'caches' in self;
 
-var toFullWidth = str => str.replace(/[!-~]/g, c => String.fromCharCode(c.charCodeAt(0) + 0xFEE0)).replace("\u3000", " ");
+var toFullWidth = str => str.replace(/[!-~]/g, c => String.fromCharCode(c.charCodeAt(0) + 0xFEE0));
 var toHalfWidth = str => str.replace(/[！-～]/g, c => String.fromCharCode(c.charCodeAt(0) - 0xFEE0));
 
 function getUrlVars() {
@@ -145,7 +145,7 @@ function updateMainContent(item) {
     while (match = pt.exec(newContent)) {
         var a
         if (match[0].length > 5) {
-            a = toHalfWidth( match[0].replace("＃", "").replace("＆", "") );
+            a = toHalfWidth( match[0].replace("＃", "").replace("＆", "").replace(/\u3000/g, " ") );
         } else {
             if ( CSS.supports("text-combine-upright", "all") ) {
                 a = toHalfWidth( match[0].replace("＃", "<digit>").replace("＆", "</digit>") );
