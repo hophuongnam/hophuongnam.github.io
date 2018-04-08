@@ -19,11 +19,7 @@ body {
     margin: 1em;
 }
 
-#mainContent a {
-    display: inline-block;
-}
-
-.paragraph {
+.zh {
     text-indent: 2em;
     margin: 0 2em;
     /*visibility: hidden;*/

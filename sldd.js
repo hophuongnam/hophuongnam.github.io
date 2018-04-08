@@ -1,14 +1,10 @@
 var cacheName = 'sldd';
-var store = new xStore("sldd:", localStorage);
-var storedVersion = store.get("version");
 var hanviet;
 var tudien;
 var scrollPos;
 var backward = [];
 var currentKeyword;
 var scrolling = false;
-var version;
-// var swInstance;
 
 const cacheAvailable = 'caches' in self;
 
@@ -113,45 +109,9 @@ async function getData(filename, same) {
 }
 
 function dataReady() {
-    /*swInstance = new ScrollWatch({
-        watchOnce: false,
-        onElementInView: function(obj) {
-            $(obj.el).css({
-                "visibility": "visible",
-                "opacity": "1",
-                "transition-delay": "0s"
-            });
-        },
-        onElementOutOfView: function(obj) {
-            $(obj.el).css({
-                "visibility": "hidden",
-                "opacity": "0",
-                "transition": "visibility 0s linear 0.5s, opacity 0.5s linear"
-            });
-        },
-        debounce: true
-    });*/
-
-    $.getScript('/sldd.version.js', function() {
-        delayed.delay(function() {
-            if (version != hanviet.version) {
-                Promise.all([getData('/hanviet.json', false), getData('/tudien.json', false)]).then(
-                    (values) => {
-                        hanviet = values[0];
-                        tudien  = values[1];
-
-                        dataReady();
-                        $(".spinner").remove();
-                        $("#mainContent").css("visibility", "visible");
-                    }
-                )
-            }
-        }, 1000);
-    });
-
-    scrollPos = "scroll" + $('#chapter-number').data("chapter");
-    if (store.get(scrollPos)) {
-        $(window).scrollLeft(store.get(scrollPos));
+    scrollPos = $('#scroll-position').data("scroll");
+    if (localStorage && localStorage.getItem(scrollPos)) {
+        $('body, html').scrollLeft(localStorage.getItem(scrollPos));
     }
 
     $(window).scroll(() => {
@@ -161,7 +121,7 @@ function dataReady() {
     setInterval(() => {
         if (scrolling) {
             scrolling = false;
-            store.set(scrollPos, $(window).scrollLeft());
+            localStorage.setItem(scrollPos, $(window).scrollLeft());
         }
     }, 100);
 
@@ -172,50 +132,9 @@ function dataReady() {
         backward = [];
     });
 
-    $('.vietnamese').click(function() {
-        showModal((Base64.decode( $(this).data('vietnamese'))));
+    $(".vi").click(function() {
+        showModal( $(this).data('vi') );
     });
-
-    /*$("#mainContent").click(function(e) {
-        var that = $(e.target);
-        if (that.text() == "") {return}
-        if ( !that.attr('tooltip') ) {
-            that.attr('tooltip', 'y');
-
-            ttID = guid();
-            $('body').append(
-                $("<div/>")
-                    .attr("id", ttID)
-                    .addClass("tooltipser")
-                    .append(
-                        $("<span/>")
-                            .addClass("tooltipsertext arrowRight")
-                            .text(hanviet[that.text()])
-                    )
-            );
-            var tooltip = $('#' + ttID);
-
-            tooltip.css("top", that.offset().top);
-            tooltip.css("left", that.offset().left + that.clientRect().width + 5);
-
-            var windowBoundLeft = $(window).scrollLeft();
-            var windowBoundRight = windowBoundLeft + document.documentElement.clientWidth;
-            var elemBoundLeft = that.offset().left + that.clientRect().width + 5;
-            var elemBoundRight = elemBoundLeft + tooltip.find("span").width() + 10;
-
-            if (elemBoundRight > windowBoundRight) {
-                tooltip.css("left", that.offset().left - tooltip.find("span").width() - 15);
-                tooltip.find("span").removeClass("arrowRight").addClass("arrowLeft");
-            }
-
-            tooltip.css('visibility', 'visible');
-
-            delayed.delay(removeTooltip, 10000, null, that, tooltip);
-        } else {
-            currentKeyword = that.text();
-            showModal(tudien[currentKeyword]);
-        }
-    });*/
 
     $("#mainContent").click(function(e) {
         if (e.target == this) {return}
@@ -286,6 +205,7 @@ function dataReady() {
             showModal(tudien[currentKeyword]);
         }
     });
+
 }
 
 $( document ).ready(() => { 
