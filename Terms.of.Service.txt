@@ -1,0 +1,55 @@
+Terms of Service
+Effective Date: December 23, 2024
+Last Updated: December 23, 2024
+
+Welcome to Room Reservation ("the App"). By accessing or using the App during the testing phase, you agree to these Terms of Service ("Terms"). If you do not agree with these Terms, you must not use the App.
+
+1. Purpose of the App
+The App is currently in a testing phase and is provided to selected test users for evaluation purposes only. The primary goal is to identify bugs, improve features, and enhance user experience before public release.
+
+2. Eligibility
+To use the App, you must:
+
+Be added as an authorized test user.
+Use your Google account for authentication.
+Agree to these Terms.
+3. Use of the App
+3.1 Limited License
+We grant you a limited, non-exclusive, non-transferable license to access and use the App solely for testing purposes.
+
+3.2 Prohibited Conduct
+You agree not to:
+
+Use the App for any illegal or unauthorized purposes.
+Share your access with unauthorized users.
+Exploit bugs or vulnerabilities for personal gain or malicious intent.
+3.3 Feedback
+By using the App, you agree to provide feedback, including bug reports, suggestions, and other observations to help us improve the App. All feedback becomes the property of the App's owner.
+
+4. Account Responsibility
+You are responsible for maintaining the confidentiality of your Google account and any activities that occur under it. Notify us immediately if you suspect unauthorized access.
+
+5. Data Collection and Privacy
+We collect and use your data as described in our Privacy Policy. By using the App, you consent to our data practices.
+
+6. No Warranty
+The App is provided "as is" without any warranties, express or implied. As this is a testing phase, there may be bugs, errors, or interruptions in service.
+
+7. Limitation of Liability
+To the fullest extent permitted by law, we are not liable for any damages arising from your use of the App, including but not limited to:
+
+Data loss
+Service interruptions
+Security breaches
+8. Termination
+We reserve the right to suspend or terminate your access to the App at any time, without notice, for any reason, including but not limited to violations of these Terms.
+
+9. Changes to These Terms
+We may update these Terms from time to time. You will be notified of any significant changes, and the "Last Updated" date will reflect the most recent version.
+
+10. Governing Law
+These Terms are governed by and construed in accordance with the laws of Vietnam. Any disputes will be resolved exclusively in the courts of Vietnam.
+
+11. Contact Us
+If you have questions or concerns about these Terms, please contact us at:
+Email: hophuongnam@gmail.com
