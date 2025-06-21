@@ -31,8 +31,8 @@
         
         .parent {
             writing-mode: vertical-rl;
-            font-size: 24px;
-            text-indent: 20px;
+            font-size: 36px;
+            text-indent: 30px;
             line-height: 1.6;  
             position: relative;
             display: grid;
@@ -73,10 +73,10 @@
 
         .tooltip {
             position: fixed;
-            padding: 5px 10px;
+            padding: 8px 15px;
             background-color: rgba(0, 0, 0, 0.8);
             color: white;
-            font-size: 14px;
+            font-size: 21px;
             border-radius: 5px;
             pointer-events: none; /* Avoid interfering with mouse events */
             visibility: hidden; /* Hidden by default */
@@ -122,11 +122,11 @@
             background-color: #fff;
             border-radius: 10px;
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-            padding: 15px;
+            padding: 20px;
             box-sizing: border-box;
             overflow: auto;
             font-family: math;
-            font-size: 14px;
+            font-size: 21px;
         }
         
         @media (min-width: 401px) {
@@ -329,7 +329,7 @@ const lookupTable={"卓":{"sim":"卓","pinyin":"zhuō","hanviet":"trác"},"木":
                         document.body.classList.remove('no-scroll');
                     } else {
                         const modalBox = document.querySelector('.modal-box');
-                        modalBox.innerHTML = "<h2 style='font-size: 18px;'>Help</h2><ul style='font-size: 14px;'><li>Nhấn B/b để bật tắt bộ thủ.</li><li>Nhấn C/c để ẩn/hiển bopomofo.</li><li>Chạm vào từng đoạn để xem bản dịch tiếng Việt.</li></ul>";
+                        modalBox.innerHTML = "<h2 style='font-size: 27px;'>Help</h2><ul style='font-size: 21px;'><li>Nhấn B/b để bật tắt bộ thủ.</li><li>Nhấn C/c để ẩn/hiển bopomofo.</li><li>Chạm vào từng đoạn để xem bản dịch tiếng Việt.</li></ul>";
                         helpOverlay.classList.add('visible');
                         document.body.classList.add('no-scroll');
                     }
