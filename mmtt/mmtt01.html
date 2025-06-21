@@ -3,7 +3,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>藏地密碼</title>
     <style>
         @font-face {
@@ -20,13 +20,33 @@
             font-style: normal;
         }
 
+        @media (max-width: 400px) {
+            body {
+                margin: 0;
+                padding: 0;
+                overflow-x: auto;
+                overflow-y: hidden;
+            }
+        }
+        
         .parent {
             writing-mode: vertical-rl;
-            font-size: 40px;
-            text-indent: 50px;
-            line-height: 2;  
+            font-size: 24px;
+            text-indent: 20px;
+            line-height: 1.6;  
             position: relative;
             display: grid;
+            padding: 10px;
+            height: 100vh;
+            box-sizing: border-box;
+        }
+        
+        @media (min-width: 401px) {
+            .parent {
+                font-size: 40px;
+                text-indent: 50px;
+                line-height: 2;
+            }
         }
 
         .childClass {
@@ -56,7 +76,7 @@
             padding: 5px 10px;
             background-color: rgba(0, 0, 0, 0.8);
             color: white;
-            font-size: 20px;
+            font-size: 14px;
             border-radius: 5px;
             pointer-events: none; /* Avoid interfering with mouse events */
             visibility: hidden; /* Hidden by default */
@@ -97,15 +117,25 @@
 
         /* Modal Box */
         .modal-box {
-            width: 50vw; /* 90% of viewport width */
-            height: 50vh; /* 90% of viewport height */
+            width: 90vw;
+            height: 80vh;
             background-color: #fff;
             border-radius: 10px;
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-            padding: 20px;
+            padding: 15px;
             box-sizing: border-box;
-            overflow: auto; /* Handle overflow content */
+            overflow: auto;
             font-family: math;
+            font-size: 14px;
+        }
+        
+        @media (min-width: 401px) {
+            .modal-box {
+                width: 50vw;
+                height: 50vh;
+                padding: 20px;
+                font-size: inherit;
+            }
         }
 
         body.no-scroll {
@@ -196,26 +226,53 @@ const lookupTable={"卓":{"sim":"卓","pinyin":"zhuō","hanviet":"trác"},"木":
     <script>
         const tooltip = document.getElementById('tooltip');
 
-        document.addEventListener('mouseover', function (event) {
-            const target = event.target;
-            // Check if the hovered element is a <span> inside #c2
+        // Handle both mouse and touch events
+        function showTooltip(event, target) {
             if (target.tagName === 'SPAN' && target.closest('#c2')) {
                 const text = target.textContent.trim();
                 if (lookupTable[text]) {
                     const { sim, pinyin, hanviet } = lookupTable[text];
                     tooltip.innerText = `拼音: ${pinyin}\n简体: ${sim}\nHV: ${hanviet}`;
                     tooltip.style.visibility = 'visible';
-                    tooltip.style.top = `${event.clientY + 10}px`;
-                    tooltip.style.left = `${event.clientX + 10}px`;
+                    
+                    // Get coordinates from either mouse or touch event
+                    const clientY = event.clientY || (event.touches && event.touches[0].clientY);
+                    const clientX = event.clientX || (event.touches && event.touches[0].clientX);
+                    
+                    tooltip.style.top = `${clientY + 10}px`;
+                    tooltip.style.left = `${clientX + 10}px`;
                 }
             }
+        }
+        
+        // Mouse events
+        document.addEventListener('mouseover', function (event) {
+            showTooltip(event, event.target);
         });
 
-        // Hide tooltip on mouseout
         document.addEventListener('mouseout', function (event) {
             if (event.target.tagName === 'SPAN') {
                 tooltip.style.visibility = 'hidden';
             }
+        });
+        
+        // Touch events for mobile
+        let touchTimeout;
+        document.addEventListener('touchstart', function (event) {
+            const target = event.target;
+            if (target.tagName === 'SPAN' && target.closest('#c2')) {
+                event.preventDefault();
+                showTooltip(event, target);
+                
+                // Auto-hide tooltip after 3 seconds
+                touchTimeout = setTimeout(() => {
+                    tooltip.style.visibility = 'hidden';
+                }, 3000);
+            }
+        });
+        
+        document.addEventListener('touchend', function () {
+            clearTimeout(touchTimeout);
         });
 
         document.addEventListener('mousemove', function (event) {
@@ -272,7 +329,7 @@ const lookupTable={"卓":{"sim":"卓","pinyin":"zhuō","hanviet":"trác"},"木":
                         document.body.classList.remove('no-scroll');
                     } else {
                         const modalBox = document.querySelector('.modal-box');
-                        modalBox.innerHTML = "<h2>Help</h2><ul><li>Nhấn B/b để bật tắt bộ thủ.</li><li>Nhấn C/c để ẩn/hiển bopomofo.</li></ul>";
+                        modalBox.innerHTML = "<h2 style='font-size: 18px;'>Help</h2><ul style='font-size: 14px;'><li>Nhấn B/b để bật tắt bộ thủ.</li><li>Nhấn C/c để ẩn/hiển bopomofo.</li><li>Chạm vào từng đoạn để xem bản dịch tiếng Việt.</li></ul>";
                         helpOverlay.classList.add('visible');
                         document.body.classList.add('no-scroll');
                     }
