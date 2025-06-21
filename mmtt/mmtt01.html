@@ -27,6 +27,10 @@
                 overflow-x: auto;
                 overflow-y: hidden;
             }
+            
+            .parent {
+                padding-bottom: 30px;
+            }
         }
         
         .parent {
@@ -38,6 +42,9 @@
             display: grid;
             padding: 10px;
             height: 100vh;
+            height: calc(100vh - env(safe-area-inset-bottom));
+            height: -webkit-fill-available;
+            min-height: 100vh;
             box-sizing: border-box;
         }
         
