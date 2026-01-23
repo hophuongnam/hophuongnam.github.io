@@ -1,0 +1,2723 @@
+<!DOCTYPE html>
+<!-- PCI DSS Script Control Selector v2.0.0 | 2026-01-23 -->
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="version" content="2.0.0">
+    <title>PCI DSS Script Control Selector | SecuCompliance</title>
+    <style>
+        :root {
+            --primary: #1e3a5f;
+            --primary-light: #2d5a8a;
+            --success: #22c55e;
+            --warning: #f59e0b;
+            --danger: #ef4444;
+            --gray-50: #f9fafb;
+            --gray-100: #f3f4f6;
+            --gray-200: #e5e7eb;
+            --gray-300: #d1d5db;
+            --gray-500: #6b7280;
+            --gray-600: #4b5563;
+            --gray-700: #374151;
+            --gray-800: #1f2937;
+            --gray-900: #111827;
+            --radius: 8px;
+            --shadow: 0 4px 6px -1px rgba(0,0,0,0.1), 0 2px 4px -1px rgba(0,0,0,0.06);
+            --shadow-lg: 0 10px 15px -3px rgba(0,0,0,0.1), 0 4px 6px -2px rgba(0,0,0,0.05);
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            background: var(--gray-100);
+            color: var(--gray-800);
+            line-height: 1.6;
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 2rem 1rem;
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+
+        header .company-name {
+            font-size: 1rem;
+            font-weight: 600;
+            letter-spacing: 0.025em;
+            color: var(--primary);
+            margin-bottom: 0.75rem;
+        }
+
+        header h1 {
+            color: var(--primary);
+            font-size: 1.75rem;
+            margin-bottom: 0.5rem;
+        }
+
+        header p {
+            color: var(--gray-600);
+            font-size: 0.95rem;
+        }
+
+        .card {
+            background: white;
+            border-radius: var(--radius);
+            box-shadow: var(--shadow);
+            padding: 1.5rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .card h2 {
+            font-size: 1.1rem;
+            color: var(--gray-800);
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .card h2 .step {
+            background: var(--primary);
+            color: white;
+            width: 1.5rem;
+            height: 1.5rem;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.8rem;
+        }
+
+        .selection-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+            gap: 0.75rem;
+        }
+
+        .selection-card {
+            border: 2px solid var(--gray-200);
+            border-radius: var(--radius);
+            padding: 1rem;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            text-align: center;
+            position: relative;
+        }
+
+        .selection-card:hover {
+            border-color: var(--primary-light);
+            background: var(--gray-50);
+        }
+
+        .selection-card.selected {
+            border-color: var(--primary);
+            background: #e8f0f8;
+        }
+
+        .selection-card.selected::after {
+            content: '✓';
+            position: absolute;
+            top: 0.5rem;
+            right: 0.5rem;
+            background: var(--primary);
+            color: white;
+            width: 1.25rem;
+            height: 1.25rem;
+            border-radius: 50%;
+            font-size: 0.75rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .selection-card h3 {
+            font-size: 0.95rem;
+            color: var(--gray-800);
+            margin-bottom: 0.25rem;
+        }
+
+        .selection-card p {
+            font-size: 0.8rem;
+            color: var(--gray-500);
+        }
+
+        /* Tag Manager Info Box */
+        .tag-manager-info {
+            background: linear-gradient(135deg, #fef3c7 0%, #fff7ed 100%);
+            border: 2px solid #f59e0b;
+            border-radius: var(--radius);
+            margin-bottom: 1.5rem;
+            overflow: hidden;
+        }
+
+        .tag-manager-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 1rem 1.25rem;
+            background: rgba(245, 158, 11, 0.15);
+            cursor: pointer;
+            transition: background 0.2s ease;
+        }
+
+        .tag-manager-header:hover {
+            background: rgba(245, 158, 11, 0.25);
+        }
+
+        .tag-manager-header-left {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+
+        .tag-manager-icon {
+            font-size: 1.25rem;
+        }
+
+        .tag-manager-header h3 {
+            font-size: 1rem;
+            color: #92400e;
+            margin: 0;
+        }
+
+        .tag-manager-header .risk-badge {
+            display: inline-block;
+            padding: 0.25rem 0.625rem;
+            background: #fee2e2;
+            border: 1px solid #ef4444;
+            border-radius: 100px;
+            font-size: 0.7rem;
+            font-weight: 600;
+            color: #991b1b;
+            text-transform: uppercase;
+            letter-spacing: 0.025em;
+        }
+
+        .tag-manager-toggle {
+            color: #92400e;
+            transition: transform 0.2s ease;
+        }
+
+        .tag-manager-toggle.expanded {
+            transform: rotate(180deg);
+        }
+
+        .tag-manager-content {
+            display: none;
+            padding: 1.25rem;
+            border-top: 1px solid rgba(245, 158, 11, 0.3);
+        }
+
+        .tag-manager-content.visible {
+            display: block;
+        }
+
+        .tag-manager-content h4 {
+            font-size: 0.9rem;
+            color: #92400e;
+            margin: 0 0 0.5rem 0;
+        }
+
+        .tag-manager-content p {
+            font-size: 0.85rem;
+            color: #78350f;
+            margin: 0 0 1rem 0;
+            line-height: 1.6;
+        }
+
+        .tag-manager-content ul {
+            list-style: none;
+            padding: 0;
+            margin: 0 0 1rem 0;
+        }
+
+        .tag-manager-content li {
+            font-size: 0.85rem;
+            color: #78350f;
+            padding: 0.375rem 0 0.375rem 1.5rem;
+            position: relative;
+        }
+
+        .tag-manager-content li::before {
+            content: '⚠';
+            position: absolute;
+            left: 0;
+            font-size: 0.75rem;
+        }
+
+        .tag-manager-content .examples {
+            background: rgba(255, 255, 255, 0.6);
+            border-radius: 6px;
+            padding: 0.75rem 1rem;
+            margin-bottom: 1rem;
+        }
+
+        .tag-manager-content .examples span {
+            display: inline-block;
+            background: white;
+            border: 1px solid #fcd34d;
+            border-radius: 4px;
+            padding: 0.25rem 0.5rem;
+            margin: 0.25rem 0.25rem 0.25rem 0;
+            font-size: 0.8rem;
+            color: #92400e;
+            font-weight: 500;
+        }
+
+        .tag-manager-content .recommendation {
+            background: #fee2e2;
+            border: 1px solid #fca5a5;
+            border-radius: 6px;
+            padding: 0.875rem 1rem;
+        }
+
+        .tag-manager-content .recommendation strong {
+            color: #991b1b;
+            font-size: 0.85rem;
+        }
+
+        .tag-manager-content .recommendation p {
+            color: #991b1b;
+            margin: 0.5rem 0 0 0;
+        }
+
+        /* Decision Tree Box */
+        .decision-tree-box {
+            background: linear-gradient(135deg, #e0f2fe 0%, #f0f9ff 100%);
+            border: 2px solid #0ea5e9;
+            border-radius: var(--radius);
+            margin-bottom: 1.5rem;
+            overflow: hidden;
+        }
+
+        .decision-tree-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0.875rem 1.25rem;
+            background: rgba(14, 165, 233, 0.15);
+            cursor: pointer;
+            transition: background 0.2s ease;
+        }
+
+        .decision-tree-header:hover {
+            background: rgba(14, 165, 233, 0.25);
+        }
+
+        .decision-tree-header-left {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+
+        .decision-tree-icon {
+            font-size: 1.1rem;
+        }
+
+        .decision-tree-header h3 {
+            font-size: 0.95rem;
+            color: #0369a1;
+            margin: 0;
+        }
+
+        .decision-tree-toggle {
+            color: #0369a1;
+            transition: transform 0.2s ease;
+        }
+
+        .decision-tree-toggle.expanded {
+            transform: rotate(180deg);
+        }
+
+        .decision-tree-content {
+            display: none;
+            padding: 1rem 1.25rem;
+            border-top: 1px solid rgba(14, 165, 233, 0.3);
+        }
+
+        .decision-tree-content.visible {
+            display: block;
+        }
+
+        .generate-btn {
+            background: var(--primary);
+            color: white;
+            border: none;
+            padding: 0.875rem 2rem;
+            font-size: 1rem;
+            border-radius: var(--radius);
+            cursor: pointer;
+            width: 100%;
+            font-weight: 600;
+            transition: all 0.2s ease;
+        }
+
+        .generate-btn:hover:not(:disabled) {
+            background: var(--primary-light);
+        }
+
+        .generate-btn:disabled {
+            background: var(--gray-300);
+            cursor: not-allowed;
+        }
+
+        #results {
+            display: none;
+        }
+
+        #results.visible {
+            display: block;
+        }
+
+        .summary-header {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1rem;
+            align-items: center;
+            margin-bottom: 1.25rem;
+            padding-bottom: 1rem;
+            border-bottom: 1px solid var(--gray-200);
+        }
+
+        .summary-header h3 {
+            font-size: 1.1rem;
+            color: var(--gray-800);
+        }
+
+        .badge {
+            display: inline-block;
+            padding: 0.25rem 0.75rem;
+            border-radius: 100px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.025em;
+            cursor: help;
+        }
+
+        .complexity-label {
+            font-size: 0.75rem;
+            color: var(--gray-500);
+            font-weight: normal;
+        }
+
+        .badge-low {
+            background: #dcfce7;
+            color: #166534;
+        }
+
+        .badge-medium {
+            background: #fef3c7;
+            color: #92400e;
+        }
+
+        .badge-high {
+            background: #fee2e2;
+            color: #991b1b;
+        }
+
+        .controls-list {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .control-tag {
+            background: var(--gray-100);
+            color: var(--gray-700);
+            padding: 0.25rem 0.625rem;
+            border-radius: 4px;
+            font-size: 0.8rem;
+            font-family: 'SF Mono', Monaco, 'Cascadia Code', monospace;
+        }
+
+        .warning-box {
+            background: #fef3c7;
+            border: 1px solid #f59e0b;
+            border-radius: var(--radius);
+            padding: 1rem;
+            margin-bottom: 1rem;
+            display: none;
+        }
+
+        .warning-box.visible {
+            display: block;
+        }
+
+        .warning-box h4 {
+            color: #92400e;
+            font-size: 0.9rem;
+            margin-bottom: 0.5rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .warning-box p {
+            color: #92400e;
+            font-size: 0.85rem;
+        }
+
+        .tabs {
+            display: flex;
+            border-bottom: 2px solid var(--gray-200);
+            margin-bottom: 1rem;
+            overflow-x: auto;
+            overflow-y: hidden;
+        }
+
+        .tab-btn {
+            background: none;
+            border: none;
+            padding: 0.75rem 1.25rem;
+            font-size: 0.9rem;
+            color: var(--gray-500);
+            cursor: pointer;
+            border-bottom: 2px solid transparent;
+            margin-bottom: -2px;
+            white-space: nowrap;
+            transition: all 0.2s ease;
+        }
+
+        .tab-btn:hover {
+            color: var(--gray-700);
+        }
+
+        .tab-btn.active {
+            color: var(--primary);
+            border-bottom-color: var(--primary);
+            font-weight: 600;
+        }
+
+        .tab-content {
+            display: none;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
+        .code-block {
+            position: relative;
+            background: var(--gray-900);
+            border-radius: var(--radius);
+            margin-bottom: 1rem;
+            overflow: hidden;
+        }
+
+        .code-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0.5rem 1rem;
+            background: var(--gray-800);
+            border-bottom: 1px solid var(--gray-700);
+        }
+
+        .code-header span {
+            color: var(--gray-400);
+            font-size: 0.8rem;
+            font-family: 'SF Mono', Monaco, 'Cascadia Code', monospace;
+        }
+
+        .copy-btn {
+            background: var(--gray-700);
+            color: var(--gray-300);
+            border: none;
+            padding: 0.375rem 0.75rem;
+            font-size: 0.75rem;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .copy-btn:hover {
+            background: var(--gray-600);
+            color: white;
+        }
+
+        .copy-btn.copied {
+            background: var(--success);
+            color: white;
+        }
+
+        .code-block pre {
+            margin: 0;
+            padding: 1rem;
+            overflow-x: auto;
+            font-family: 'SF Mono', Monaco, 'Cascadia Code', monospace;
+            font-size: 0.85rem;
+            line-height: 1.5;
+        }
+
+        .code-block code {
+            color: #e5e7eb;
+        }
+
+        .notes {
+            background: var(--gray-50);
+            border-radius: var(--radius);
+            padding: 1rem;
+            margin-top: 1rem;
+        }
+
+        .notes h4 {
+            font-size: 0.9rem;
+            color: var(--gray-700);
+            margin-bottom: 0.75rem;
+        }
+
+        .notes ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        .notes li {
+            font-size: 0.85rem;
+            color: var(--gray-600);
+            padding-left: 1.25rem;
+            position: relative;
+            margin-bottom: 0.5rem;
+        }
+
+        .notes li::before {
+            content: '→';
+            position: absolute;
+            left: 0;
+            color: var(--primary);
+        }
+
+        .req-mapping {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1rem;
+            margin-bottom: 1rem;
+        }
+
+        .req-box {
+            background: var(--gray-50);
+            border-radius: var(--radius);
+            padding: 1rem;
+            border-left: 3px solid var(--primary);
+        }
+
+        .req-box h4 {
+            font-size: 0.85rem;
+            color: var(--primary);
+            margin-bottom: 0.5rem;
+        }
+
+        .req-box p {
+            font-size: 0.8rem;
+            color: var(--gray-600);
+        }
+
+        footer {
+            text-align: center;
+            padding: 2rem 1rem;
+            color: var(--gray-500);
+            font-size: 0.85rem;
+        }
+
+        /* Directive Reference Styles */
+        .directive-reference {
+            margin-top: 1rem;
+            border: 1px solid var(--gray-200);
+            border-radius: var(--radius);
+            overflow: hidden;
+        }
+
+        .directive-toggle {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0.75rem 1rem;
+            background: var(--gray-50);
+            border: none;
+            width: 100%;
+            cursor: pointer;
+            font-size: 0.85rem;
+            font-weight: 600;
+            color: var(--gray-700);
+            transition: background 0.2s ease;
+        }
+
+        .directive-toggle:hover {
+            background: var(--gray-100);
+        }
+
+        .directive-toggle .toggle-icon {
+            transition: transform 0.2s ease;
+        }
+
+        .directive-toggle.expanded .toggle-icon {
+            transform: rotate(180deg);
+        }
+
+        .directive-list {
+            display: none;
+            padding: 0;
+            margin: 0;
+            list-style: none;
+            max-height: 400px;
+            overflow-y: auto;
+        }
+
+        .directive-list.visible {
+            display: block;
+        }
+
+        .directive-item {
+            display: flex;
+            padding: 0.75rem 1rem;
+            border-top: 1px solid var(--gray-200);
+            gap: 1rem;
+            align-items: flex-start;
+        }
+
+        .directive-item:hover {
+            background: var(--gray-50);
+        }
+
+        .directive-name {
+            font-family: 'SF Mono', Monaco, 'Cascadia Code', monospace;
+            font-size: 0.8rem;
+            font-weight: 600;
+            color: var(--primary);
+            min-width: 140px;
+            flex-shrink: 0;
+        }
+
+        .directive-desc {
+            font-size: 0.8rem;
+            color: var(--gray-600);
+            line-height: 1.5;
+        }
+
+        .directive-desc code {
+            background: var(--gray-100);
+            padding: 0.125rem 0.375rem;
+            border-radius: 3px;
+            font-family: 'SF Mono', Monaco, 'Cascadia Code', monospace;
+            font-size: 0.75rem;
+            color: var(--gray-700);
+        }
+
+        .directive-category {
+            padding: 0.5rem 1rem;
+            background: var(--gray-100);
+            font-size: 0.75rem;
+            font-weight: 600;
+            color: var(--gray-500);
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            border-top: 1px solid var(--gray-200);
+        }
+
+        @media (max-width: 600px) {
+            .directive-item {
+                flex-direction: column;
+                gap: 0.25rem;
+            }
+
+            .directive-name {
+                min-width: auto;
+            }
+        }
+
+        @media (max-width: 600px) {
+            .container {
+                padding: 1rem;
+            }
+
+            header h1 {
+                font-size: 1.4rem;
+            }
+
+            .selection-grid {
+                grid-template-columns: 1fr 1fr;
+            }
+
+            .tab-btn {
+                padding: 0.625rem 0.875rem;
+                font-size: 0.85rem;
+            }
+        }
+    </style>
+    <script src="https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.min.js"></script>
+    <script>mermaid.initialize({startOnLoad: false, theme: 'base', themeVariables: {primaryColor: '#e0f2fe', primaryTextColor: '#0369a1', primaryBorderColor: '#0ea5e9', lineColor: '#64748b', secondaryColor: '#f1f5f9', tertiaryColor: '#fff'}});</script>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <p class="company-name"><a href="https://www.secucompliance.com" style="color: inherit; text-decoration: none;">SecuCompliance</a></p>
+            <h1>PCI DSS Script Control Selector</h1>
+            <p>Requirements 6.4.3 & 11.6.1 — simplified</p>
+        </header>
+
+        <div class="tag-manager-info">
+            <div class="tag-manager-header" id="tag-manager-toggle">
+                <div class="tag-manager-header-left">
+                    <span class="tag-manager-icon">⚠️</span>
+                    <h3>Using a Tag Manager? Read This First</h3>
+                    <span class="risk-badge">High Risk</span>
+                </div>
+                <span class="tag-manager-toggle" id="tag-manager-arrow">▼</span>
+            </div>
+            <div class="tag-manager-content" id="tag-manager-content">
+                <h4>What is a Tag Manager?</h4>
+                <p>A tag manager is a platform that lets marketing teams add tracking scripts to your website <strong>without deploying code changes</strong>. You add one "container" script, and then anyone with dashboard access can inject additional scripts (analytics, ads, chat widgets, A/B tests) that go live immediately.</p>
+
+                <div class="examples">
+                    <strong style="font-size: 0.8rem; color: #78350f;">Common Examples:</strong><br>
+                    <span>Google Tag Manager (GTM)</span>
+                    <span>Adobe Launch</span>
+                    <span>Tealium</span>
+                    <span>Segment</span>
+                    <span>Ensighten</span>
+                </div>
+
+                <h4>Why It's the Highest Risk for PCI DSS</h4>
+                <ul>
+                    <li>Anyone with dashboard access can inject ANY JavaScript onto your payment page</li>
+                    <li>Scripts can read form inputs (including card numbers), cookies, and page content</li>
+                    <li>Changes bypass your code review, security testing, and deployment process</li>
+                    <li>A compromised tag manager account = compromised payment page</li>
+                    <li>CSP only limits WHERE scripts load from, not WHAT they do once loaded</li>
+                    <li>You may not know what scripts are actually running on your page</li>
+                </ul>
+
+                <div class="recommendation">
+                    <strong>Strong Recommendation:</strong>
+                    <p>Remove tag managers from payment pages entirely. Use server-side tagging (GTM Server-Side, Segment Functions) or direct API calls from your backend for analytics needs.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Decision Tree Reference -->
+        <div class="decision-tree-box">
+            <div class="decision-tree-header" id="decision-tree-header">
+                <div class="decision-tree-header-left">
+                    <span class="decision-tree-icon">🌳</span>
+                    <h3>Quick Reference: Which Control Do I Need?</h3>
+                </div>
+                <span class="decision-tree-toggle" id="decision-tree-toggle">▼</span>
+            </div>
+            <div class="decision-tree-content" id="decision-tree-content">
+                <div class="tree-diagram" style="background: var(--gray-50); padding: 1.5rem; border-radius: var(--radius); border: 1px solid var(--gray-200); overflow-x: auto;">
+                    <pre class="mermaid">
+flowchart TD
+    subgraph Legend[" "]
+        direction LR
+        L1[/Script Type/]
+        L2{Decision}
+        L3[Technical Control]
+    end
+
+    START[/Script on Payment Page/]
+    START --> Q0
+
+    Q0{External<br/>or<br/>Inline?}
+
+    Q0 -->|External| Q1{First Party<br/>or<br/>Third Party?}
+    Q0 -->|Inline| Q5{Static<br/>or<br/>Dynamic?}
+
+    Q1 -->|First Party| Q2{Static<br/>or<br/>Dynamic?}
+    Q1 -->|Third Party| Q3{Static<br/>or<br/>Dynamic?}
+
+    Q2 -->|Static| C1[✅ CSP 'self'<br/>✅ SRI hash<br/><br/><i>Both recommended</i>]
+    Q2 -->|Dynamic| C2[✅ CSP nonce<br/>✅ SRI for external file<br/><br/><i>Nonce for auth,<br/>SRI for integrity</i>]
+
+    Q3 -->|Static| Q4{Updates<br/>predictable &<br/>infrequent?}
+    Q3 -->|Dynamic| C3[✅ CSP URL allow-list<br/>❌ SRI not practical<br/>❌ Nonce impractical<br/><br/><i>Content changes<br/>unpredictably</i>]
+
+    Q4 -->|Yes| C4[✅ CSP domain<br/>✅ SRI hash<br/><br/><i>Update hashes when<br/>vendor releases new version</i>]
+    Q4 -->|No| C5[✅ CSP URL allow-list<br/>❌ SRI not practical<br/><br/><i>Frequent changes<br/>break hash integrity</i>]
+
+    Q5 -->|Static| C6[✅ CSP hash<br/><br/><i>Hash IS the integrity<br/>Any change = new hash</i>]
+    Q5 -->|Dynamic| C7[✅ CSP nonce<br/><br/><i>Nonce validates origin<br/>not content</i>]
+
+    style Legend fill:#ffffff,stroke:#cccccc
+    style L1 fill:#ffffcc,stroke:#999966
+    style L2 fill:#ffffcc,stroke:#999966
+    style L3 fill:#ffffff,stroke:#333333
+
+    style START fill:#5dade2,stroke:#2874a6,color:#000000
+
+    style Q0 fill:#f9e79f,stroke:#b7950b,color:#000000
+    style Q1 fill:#f9e79f,stroke:#b7950b,color:#000000
+    style Q2 fill:#f9e79f,stroke:#b7950b,color:#000000
+    style Q3 fill:#f9e79f,stroke:#b7950b,color:#000000
+    style Q4 fill:#fcf3cf,stroke:#b7950b,color:#000000
+    style Q5 fill:#f9e79f,stroke:#b7950b,color:#000000
+
+    style C1 fill:#a9dfbf,stroke:#1e8449,color:#000000
+    style C2 fill:#a9dfbf,stroke:#1e8449,color:#000000
+    style C3 fill:#f5b7b1,stroke:#922b21,color:#000000
+    style C4 fill:#a9dfbf,stroke:#1e8449,color:#000000
+    style C5 fill:#f5b7b1,stroke:#922b21,color:#000000
+    style C6 fill:#a9dfbf,stroke:#1e8449,color:#000000
+    style C7 fill:#a9dfbf,stroke:#1e8449,color:#000000
+                    </pre>
+                </div>
+
+                <div class="decision-summary" style="margin-top: 1rem;">
+                    <h4 style="margin: 0 0 0.5rem 0; font-size: 0.9rem; color: var(--gray-700);">Key Takeaways</h4>
+                    <div style="display: grid; gap: 0.5rem; font-size: 0.85rem;">
+                        <div style="display: flex; gap: 0.5rem; padding: 0.5rem 0.75rem; background: #dcfce7; border-radius: 4px;">
+                            <span style="font-weight: 600; color: #166534; min-width: 55px;">SRI</span>
+                            <span style="color: #166534;">Only for <strong>static external scripts</strong> (1st-party or versioned 3rd-party). Hash the file at deploy time.</span>
+                        </div>
+                        <div style="display: flex; gap: 0.5rem; padding: 0.5rem 0.75rem; background: #dbeafe; border-radius: 4px;">
+                            <span style="font-weight: 600; color: #1e40af; min-width: 55px;">Nonce</span>
+                            <span style="color: #1e40af;">For <strong>dynamic scripts</strong> (1st-party external or inline). Can't inject nonce into 3rd-party responses.</span>
+                        </div>
+                        <div style="display: flex; gap: 0.5rem; padding: 0.5rem 0.75rem; background: #fef3c7; border-radius: 4px;">
+                            <span style="font-weight: 600; color: #92400e; min-width: 55px;">CSP Hash</span>
+                            <span style="color: #92400e;">Best for <strong>inline static scripts</strong>. Hash IS the integrity—any change requires new hash in CSP.</span>
+                        </div>
+                        <div style="display: flex; gap: 0.5rem; padding: 0.5rem 0.75rem; background: #fee2e2; border-radius: 4px;">
+                            <span style="font-weight: 600; color: #991b1b; min-width: 55px;">Domain</span>
+                            <span style="color: #991b1b;">For <strong>auto-updating 3rd-party</strong>, CSP domain allowlist is often the only option. <strong>Requires monitoring.</strong></span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="decision-table" style="margin-top: 1rem;">
+                    <h4 style="margin: 0 0 0.5rem 0; font-size: 0.9rem; color: var(--gray-700);">Quick Reference Matrix</h4>
+                    <div style="overflow-x: auto;">
+                        <table style="width: 100%; border-collapse: collapse; font-size: 0.75rem;">
+                            <thead>
+                                <tr style="background: var(--gray-100);">
+                                    <th style="padding: 0.5rem; text-align: left; border: 1px solid var(--gray-200);">Script Type</th>
+                                    <th style="padding: 0.5rem; text-align: center; border: 1px solid var(--gray-200);">CSP Hash</th>
+                                    <th style="padding: 0.5rem; text-align: center; border: 1px solid var(--gray-200);">SRI</th>
+                                    <th style="padding: 0.5rem; text-align: center; border: 1px solid var(--gray-200);">Nonce</th>
+                                    <th style="padding: 0.5rem; text-align: center; border: 1px solid var(--gray-200);">CSP Domain</th>
+                                    <th style="padding: 0.5rem; text-align: center; border: 1px solid var(--gray-200);">Monitoring</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr style="background: #f0f9ff;">
+                                    <td style="padding: 0.5rem; border: 1px solid var(--gray-200); font-weight: 600;" colspan="6">External Scripts</td>
+                                </tr>
+                                <tr>
+                                    <td style="padding: 0.5rem; border: 1px solid var(--gray-200);">1st-party static</td>
+                                    <td style="padding: 0.5rem; text-align: center; border: 1px solid var(--gray-200); color: var(--gray-400);">—</td>
+                                    <td style="padding: 0.5rem; text-align: center; border: 1px solid var(--gray-200); color: var(--success);">✓ Best</td>
+                                    <td style="padding: 0.5rem; text-align: center; border: 1px solid var(--gray-200); color: var(--gray-400);">Optional</td>
+                                    <td style="padding: 0.5rem; text-align: center; border: 1px solid var(--gray-200);">'self'</td>
+                                    <td style="padding: 0.5rem; text-align: center; border: 1px solid var(--gray-200);">Headers</td>
+                                </tr>
+                                <tr style="background: var(--gray-50);">
+                                    <td style="padding: 0.5rem; border: 1px solid var(--gray-200);">1st-party dynamic</td>
+                                    <td style="padding: 0.5rem; text-align: center; border: 1px solid var(--gray-200); color: var(--gray-400);">—</td>
+                                    <td style="padding: 0.5rem; text-align: center; border: 1px solid var(--gray-200); color: var(--success);">✓ File</td>
+                                    <td style="padding: 0.5rem; text-align: center; border: 1px solid var(--gray-200); color: var(--success);">✓ Best</td>
+                                    <td style="padding: 0.5rem; text-align: center; border: 1px solid var(--gray-200);">'self'</td>
+                                    <td style="padding: 0.5rem; text-align: center; border: 1px solid var(--gray-200);">Headers</td>
+                                </tr>
+                                <tr>
+                                    <td style="padding: 0.5rem; border: 1px solid var(--gray-200);">3rd-party versioned</td>
+                                    <td style="padding: 0.5rem; text-align: center; border: 1px solid var(--gray-200); color: var(--gray-400);">—</td>
+                                    <td style="padding: 0.5rem; text-align: center; border: 1px solid var(--gray-200); color: var(--success);">✓ Best</td>
+                                    <td style="padding: 0.5rem; text-align: center; border: 1px solid var(--gray-200); color: var(--gray-400);">N/A</td>
+                                    <td style="padding: 0.5rem; text-align: center; border: 1px solid var(--gray-200);">Required</td>
+                                    <td style="padding: 0.5rem; text-align: center; border: 1px solid var(--gray-200);">Content</td>
+                                </tr>
+                                <tr style="background: var(--gray-50);">
+                                    <td style="padding: 0.5rem; border: 1px solid var(--gray-200);">3rd-party auto-update</td>
+                                    <td style="padding: 0.5rem; text-align: center; border: 1px solid var(--gray-200); color: var(--gray-400);">—</td>
+                                    <td style="padding: 0.5rem; text-align: center; border: 1px solid var(--gray-200); color: var(--danger);">✗ Breaks</td>
+                                    <td style="padding: 0.5rem; text-align: center; border: 1px solid var(--gray-200); color: var(--gray-400);">N/A</td>
+                                    <td style="padding: 0.5rem; text-align: center; border: 1px solid var(--gray-200); color: var(--warning);">⚠ Only</td>
+                                    <td style="padding: 0.5rem; text-align: center; border: 1px solid var(--gray-200); color: var(--danger); font-weight: 600;">Required</td>
+                                </tr>
+                                <tr style="background: #fef3c7;">
+                                    <td style="padding: 0.5rem; border: 1px solid var(--gray-200); font-weight: 600;" colspan="6">Inline Scripts</td>
+                                </tr>
+                                <tr>
+                                    <td style="padding: 0.5rem; border: 1px solid var(--gray-200);">Inline static</td>
+                                    <td style="padding: 0.5rem; text-align: center; border: 1px solid var(--gray-200); color: var(--success);">✓ Best</td>
+                                    <td style="padding: 0.5rem; text-align: center; border: 1px solid var(--gray-200); color: var(--gray-400);">N/A</td>
+                                    <td style="padding: 0.5rem; text-align: center; border: 1px solid var(--gray-200); color: var(--gray-400);">Optional</td>
+                                    <td style="padding: 0.5rem; text-align: center; border: 1px solid var(--gray-200); color: var(--gray-400);">—</td>
+                                    <td style="padding: 0.5rem; text-align: center; border: 1px solid var(--gray-200);">Headers</td>
+                                </tr>
+                                <tr style="background: var(--gray-50);">
+                                    <td style="padding: 0.5rem; border: 1px solid var(--gray-200);">Inline dynamic</td>
+                                    <td style="padding: 0.5rem; text-align: center; border: 1px solid var(--gray-200); color: var(--gray-400);">N/A</td>
+                                    <td style="padding: 0.5rem; text-align: center; border: 1px solid var(--gray-200); color: var(--gray-400);">N/A</td>
+                                    <td style="padding: 0.5rem; text-align: center; border: 1px solid var(--gray-200); color: var(--success);">✓ Best</td>
+                                    <td style="padding: 0.5rem; text-align: center; border: 1px solid var(--gray-200); color: var(--gray-400);">—</td>
+                                    <td style="padding: 0.5rem; text-align: center; border: 1px solid var(--gray-200);">Headers</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="card">
+            <h2><span class="step">1</span> Select Script Origin</h2>
+            <div class="selection-grid" id="origin-selection">
+                <div class="selection-card" data-value="first-party">
+                    <h3>First-Party</h3>
+                    <p>Hosted on your domain</p>
+                </div>
+                <div class="selection-card" data-value="third-party">
+                    <h3>Third-Party</h3>
+                    <p>External domains</p>
+                </div>
+                <div class="selection-card" data-value="mixed">
+                    <h3>Mixed</h3>
+                    <p>First + Third-party</p>
+                </div>
+                <div class="selection-card" data-value="inline">
+                    <h3>Inline</h3>
+                    <p>Embedded in HTML</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="card">
+            <h2><span class="step">2</span> Select Script Behavior</h2>
+            <div class="selection-grid" id="behavior-selection">
+                <div class="selection-card" data-value="static">
+                    <h3>Static</h3>
+                    <p>Content never changes</p>
+                </div>
+                <div class="selection-card" data-value="dynamic">
+                    <h3>Dynamic</h3>
+                    <p>Content changes over time</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="card">
+            <button class="generate-btn" id="generate-btn" disabled>Generate Configuration</button>
+        </div>
+
+        <div id="results" class="card">
+            <div class="summary-header">
+                <h3 id="config-title">Configuration</h3>
+                <span class="complexity-label">Complexity:</span>
+                <span class="badge" id="complexity-badge" title="Implementation complexity level">Low</span>
+            </div>
+
+            <div class="req-mapping">
+                <div class="req-box">
+                    <h4>6.4.3 Authorization</h4>
+                    <p id="auth-control">-</p>
+                </div>
+                <div class="req-box">
+                    <h4>6.4.3 Integrity</h4>
+                    <p id="integrity-control">-</p>
+                </div>
+                <div class="req-box">
+                    <h4>11.6.1 Monitoring</h4>
+                    <p id="monitor-control">-</p>
+                </div>
+            </div>
+
+            <div class="warning-box" id="warning-box">
+                <h4>⚠ High-Risk Configuration</h4>
+                <p id="warning-text"></p>
+            </div>
+
+            <div class="tabs">
+                <button class="tab-btn active" data-tab="csp">CSP Header</button>
+                <button class="tab-btn" data-tab="html">HTML Example</button>
+                <button class="tab-btn" data-tab="monitor">Monitor Script</button>
+            </div>
+
+            <div class="tab-content active" id="tab-csp">
+                <div class="code-block">
+                    <div class="code-header">
+                        <span>Content-Security-Policy</span>
+                        <button class="copy-btn" data-target="csp-code">Copy</button>
+                    </div>
+                    <pre><code id="csp-code"></code></pre>
+                </div>
+
+                <div class="directive-reference">
+                    <button class="directive-toggle" id="directive-toggle">
+                        <span>CSP Directive Reference</span>
+                        <span class="toggle-icon">▼</span>
+                    </button>
+                    <ul class="directive-list" id="directive-list">
+                        <li class="directive-category">Fetch Directives (Control resource loading)</li>
+                        <li class="directive-item">
+                            <span class="directive-name">default-src</span>
+                            <span class="directive-desc">Fallback for all fetch directives not explicitly set. <code>'none'</code> blocks everything by default, requiring explicit allowlisting. This is the recommended secure starting point.</span>
+                        </li>
+                        <li class="directive-item">
+                            <span class="directive-name">script-src</span>
+                            <span class="directive-desc">Controls which scripts can execute. Key values: <code>'self'</code> (same origin), <code>'nonce-xxx'</code> (server-generated token), <code>'sha256-xxx'</code> (hash of inline script), or specific domains. Critical for 6.4.3 compliance.</span>
+                        </li>
+                        <li class="directive-item">
+                            <span class="directive-name">style-src</span>
+                            <span class="directive-desc">Controls which stylesheets can be applied. <code>'self'</code> allows same-origin styles. <code>'unsafe-inline'</code> allows inline styles (less secure, sometimes needed for third-party widgets).</span>
+                        </li>
+                        <li class="directive-item">
+                            <span class="directive-name">img-src</span>
+                            <span class="directive-desc">Controls which images can load. <code>https:</code> allows any HTTPS image, <code>data:</code> allows base64-encoded images. Common for payment page logos and icons.</span>
+                        </li>
+                        <li class="directive-item">
+                            <span class="directive-name">font-src</span>
+                            <span class="directive-desc">Controls which fonts can load. Usually <code>'self'</code> or CDN domains like Google Fonts.</span>
+                        </li>
+                        <li class="directive-item">
+                            <span class="directive-name">connect-src</span>
+                            <span class="directive-desc">Controls destinations for fetch(), XMLHttpRequest, WebSocket, and EventSource. Must include API endpoints your scripts call (e.g., <code>https://api.stripe.com</code>).</span>
+                        </li>
+                        <li class="directive-item">
+                            <span class="directive-name">frame-src</span>
+                            <span class="directive-desc">Controls which URLs can be loaded in iframes. Payment providers like Stripe often use iframes for secure card input fields.</span>
+                        </li>
+
+                        <li class="directive-category">Document Directives (Control document properties)</li>
+                        <li class="directive-item">
+                            <span class="directive-name">base-uri</span>
+                            <span class="directive-desc">Restricts URLs for the <code>&lt;base&gt;</code> element. Set to <code>'self'</code> to prevent attackers from changing the base URL for relative links.</span>
+                        </li>
+                        <li class="directive-item">
+                            <span class="directive-name">form-action</span>
+                            <span class="directive-desc">Restricts URLs that forms can submit to. <code>'self'</code> prevents form hijacking where attackers redirect form data to malicious servers.</span>
+                        </li>
+                        <li class="directive-item">
+                            <span class="directive-name">frame-ancestors</span>
+                            <span class="directive-desc">Controls which sites can embed your page in an iframe. <code>'none'</code> prevents clickjacking attacks. Replaces X-Frame-Options header.</span>
+                        </li>
+
+                        <li class="directive-category">Reporting Directives (Monitor violations)</li>
+                        <li class="directive-item">
+                            <span class="directive-name">report-uri</span>
+                            <span class="directive-desc">URL to receive JSON reports when CSP is violated. Essential for 11.6.1 monitoring. Reports include blocked resource, violated directive, and page URL.</span>
+                        </li>
+
+                        <li class="directive-category">Source Values (Used in directives)</li>
+                        <li class="directive-item">
+                            <span class="directive-name">'self'</span>
+                            <span class="directive-desc">Matches the page's own origin (scheme + host + port). The most common starting point for secure policies.</span>
+                        </li>
+                        <li class="directive-item">
+                            <span class="directive-name">'none'</span>
+                            <span class="directive-desc">Blocks all sources. Used in <code>default-src</code> to create a deny-by-default policy.</span>
+                        </li>
+                        <li class="directive-item">
+                            <span class="directive-name">'nonce-{value}'</span>
+                            <span class="directive-desc">Allows scripts/styles with matching <code>nonce</code> attribute. Must be cryptographically random (128+ bits) and unique per page load. For dynamic scripts.</span>
+                        </li>
+                        <li class="directive-item">
+                            <span class="directive-name">'sha256-{hash}'</span>
+                            <span class="directive-desc">Allows inline scripts/styles matching the hash. Content must be identical (including whitespace). For static inline scripts.</span>
+                        </li>
+                        <li class="directive-item">
+                            <span class="directive-name">'unsafe-inline'</span>
+                            <span class="directive-desc">Allows all inline scripts/styles. AVOID for scripts - defeats XSS protection. Sometimes needed for styles with third-party widgets.</span>
+                        </li>
+                        <li class="directive-item">
+                            <span class="directive-name">https://domain.com</span>
+                            <span class="directive-desc">Allows resources from specific domain. Be specific - avoid wildcards like <code>*.example.com</code> which expand attack surface.</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="tab-content" id="tab-html">
+                <div class="code-block">
+                    <div class="code-header">
+                        <span>HTML</span>
+                        <button class="copy-btn" data-target="html-code">Copy</button>
+                    </div>
+                    <pre><code id="html-code"></code></pre>
+                </div>
+
+                <div class="directive-reference">
+                    <button class="directive-toggle" id="html-attr-toggle">
+                        <span>Script Tag Attribute Reference</span>
+                        <span class="toggle-icon">▼</span>
+                    </button>
+                    <ul class="directive-list" id="html-attr-list">
+                        <li class="directive-category">Script Loading Attributes</li>
+                        <li class="directive-item">
+                            <span class="directive-name">src</span>
+                            <span class="directive-desc">URL of external script file. Can be relative (<code>/js/app.js</code>) or absolute (<code>https://cdn.example.com/lib.js</code>). For PCI DSS, document all script sources in your inventory.</span>
+                        </li>
+                        <li class="directive-item">
+                            <span class="directive-name">async</span>
+                            <span class="directive-desc">Script downloads in parallel and executes as soon as available, without blocking HTML parsing. Order not guaranteed. Good for independent analytics scripts.</span>
+                        </li>
+                        <li class="directive-item">
+                            <span class="directive-name">defer</span>
+                            <span class="directive-desc">Script downloads in parallel but executes after HTML parsing completes, in document order. Good for scripts that need the DOM ready.</span>
+                        </li>
+
+                        <li class="directive-category">Subresource Integrity (SRI)</li>
+                        <li class="directive-item">
+                            <span class="directive-name">integrity</span>
+                            <span class="directive-desc">Cryptographic hash of expected script content. Format: <code>sha384-{base64hash}</code>. Browser blocks script if hash doesn't match. Critical for 6.4.3 integrity verification. Generate with: <code>openssl dgst -sha384 -binary file.js | openssl base64 -A</code></span>
+                        </li>
+                        <li class="directive-item">
+                            <span class="directive-name">crossorigin</span>
+                            <span class="directive-desc">Required when using <code>integrity</code> with cross-origin scripts. Value <code>anonymous</code> sends no credentials. Enables CORS error reporting. Without this, SRI failures are silent.</span>
+                        </li>
+
+                        <li class="directive-category">CSP Nonce</li>
+                        <li class="directive-item">
+                            <span class="directive-name">nonce</span>
+                            <span class="directive-desc">Server-generated random token that must match CSP header's <code>'nonce-xxx'</code> value. Must be unique per page load, cryptographically random (min 128 bits). Authorizes script execution without relying on content hash.</span>
+                        </li>
+
+                        <li class="directive-category">Security Attributes</li>
+                        <li class="directive-item">
+                            <span class="directive-name">type="module"</span>
+                            <span class="directive-desc">Treats script as ES6 module. Modules are deferred by default, have strict mode enabled, and support import/export. CORS required for cross-origin modules.</span>
+                        </li>
+                        <li class="directive-item">
+                            <span class="directive-name">nomodule</span>
+                            <span class="directive-desc">Script only runs in browsers that don't support ES6 modules. Used for fallback scripts serving older browsers.</span>
+                        </li>
+
+                        <li class="directive-category">SRI Hash Algorithms</li>
+                        <li class="directive-item">
+                            <span class="directive-name">sha256</span>
+                            <span class="directive-desc">Minimum recommended hash algorithm. Fast to compute. Example: <code>integrity="sha256-abc123..."</code></span>
+                        </li>
+                        <li class="directive-item">
+                            <span class="directive-name">sha384</span>
+                            <span class="directive-desc">Recommended balance of security and performance. Most commonly used for SRI. Example: <code>integrity="sha384-xyz789..."</code></span>
+                        </li>
+                        <li class="directive-item">
+                            <span class="directive-name">sha512</span>
+                            <span class="directive-desc">Strongest hash, slightly slower. Use when maximum security is required. Example: <code>integrity="sha512-def456..."</code></span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="tab-content" id="tab-monitor">
+                <div class="code-block">
+                    <div class="code-header">
+                        <span>Python</span>
+                        <button class="copy-btn" data-target="monitor-code">Copy</button>
+                    </div>
+                    <pre><code id="monitor-code"></code></pre>
+                </div>
+
+                <div class="directive-reference">
+                    <button class="directive-toggle" id="monitor-ref-toggle">
+                        <span>11.6.1 Monitoring Reference</span>
+                        <span class="toggle-icon">▼</span>
+                    </button>
+                    <ul class="directive-list" id="monitor-ref-list">
+                        <li class="directive-category">PCI DSS 11.6.1 Requirements</li>
+                        <li class="directive-item">
+                            <span class="directive-name">Change Detection</span>
+                            <span class="directive-desc">Mechanism to detect unauthorized modifications to HTTP headers and script content on payment pages. Must alert personnel to investigate changes.</span>
+                        </li>
+                        <li class="directive-item">
+                            <span class="directive-name">Frequency</span>
+                            <span class="directive-desc">Monitoring must occur at least weekly, but more frequent monitoring (hourly, daily) is recommended for higher-risk configurations. High-risk setups may need real-time monitoring.</span>
+                        </li>
+                        <li class="directive-item">
+                            <span class="directive-name">Alerting</span>
+                            <span class="directive-desc">Changes must trigger alerts to security personnel within a defined timeframe. Document your alert thresholds and response procedures.</span>
+                        </li>
+
+                        <li class="directive-category">Monitoring Levels</li>
+                        <li class="directive-item">
+                            <span class="directive-name">Basic (Headers)</span>
+                            <span class="directive-desc">Monitors HTTP security headers (CSP, HSTS, X-Frame-Options). Low overhead, catches policy changes. Suitable for first-party static scripts.</span>
+                        </li>
+                        <li class="directive-item">
+                            <span class="directive-name">Content</span>
+                            <span class="directive-desc">Monitors headers plus external script file content via hash comparison. Detects when third-party vendors update their scripts. Medium overhead.</span>
+                        </li>
+                        <li class="directive-item">
+                            <span class="directive-name">Full Page</span>
+                            <span class="directive-desc">Parses HTML to detect new scripts, monitors headers and content. Catches injected scripts from compromised third-parties. Highest coverage for tag manager scenarios.</span>
+                        </li>
+
+                        <li class="directive-category">Headers to Monitor</li>
+                        <li class="directive-item">
+                            <span class="directive-name">Content-Security-Policy</span>
+                            <span class="directive-desc">Critical for 6.4.3. Changes could allow unauthorized scripts. Any modification should trigger immediate investigation.</span>
+                        </li>
+                        <li class="directive-item">
+                            <span class="directive-name">Strict-Transport-Security</span>
+                            <span class="directive-desc">HSTS header. Removal could enable downgrade attacks. Monitor for weakened or removed max-age values.</span>
+                        </li>
+                        <li class="directive-item">
+                            <span class="directive-name">X-Frame-Options</span>
+                            <span class="directive-desc">Clickjacking protection. Changes could enable UI redress attacks on payment forms.</span>
+                        </li>
+                        <li class="directive-item">
+                            <span class="directive-name">X-Content-Type-Options</span>
+                            <span class="directive-desc">Should be <code>nosniff</code>. Prevents MIME type sniffing attacks.</span>
+                        </li>
+
+                        <li class="directive-category">CSP Violation Reporting</li>
+                        <li class="directive-item">
+                            <span class="directive-name">report-uri</span>
+                            <span class="directive-desc">Endpoint receiving JSON violation reports. Deprecated but widely supported. Format: <code>report-uri https://yoursite.com/csp-reports</code></span>
+                        </li>
+                        <li class="directive-item">
+                            <span class="directive-name">report-to</span>
+                            <span class="directive-desc">Modern reporting API using Reporting-Endpoints header. More flexible but less browser support. Use both for compatibility.</span>
+                        </li>
+                        <li class="directive-item">
+                            <span class="directive-name">Report Contents</span>
+                            <span class="directive-desc">Reports include: blocked URI, violated directive, document URI, source file, line number. Use to identify unauthorized script attempts.</span>
+                        </li>
+
+                        <li class="directive-category">Implementation Options</li>
+                        <li class="directive-item">
+                            <span class="directive-name">Cron Job</span>
+                            <span class="directive-desc">Simple scheduled task running monitoring script. Example: <code>0 * * * * python monitor.py</code> runs hourly. Good for basic/content monitoring.</span>
+                        </li>
+                        <li class="directive-item">
+                            <span class="directive-name">Commercial Tools</span>
+                            <span class="directive-desc">Jscrambler, PerimeterX, Akamai Page Integrity Manager. Provide real-time monitoring, detailed analytics, and managed alerting for high-risk scenarios.</span>
+                        </li>
+                        <li class="directive-item">
+                            <span class="directive-name">Report Collector</span>
+                            <span class="directive-desc">Service to receive and analyze CSP violation reports. Can be self-hosted or use services like report-uri.com, Sentry, or custom webhook endpoints.</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="notes" id="notes-section">
+                <h4>Implementation Notes</h4>
+                <ul id="notes-list"></ul>
+            </div>
+        </div>
+
+        <footer>
+            <p>This tool provides minimum technical controls. Always maintain a script inventory and document business justifications as required by PCI DSS.</p>
+            <p style="margin-top: 1rem;">
+                <a href="https://www.secucompliance.com" style="color: var(--primary); text-decoration: none; font-weight: 600;">SecuCompliance</a>
+                <span style="color: var(--gray-400);"> · PCI DSS QSA Company</span>
+            </p>
+            <p style="margin-top: 0.25rem; font-size: 0.75rem; color: var(--gray-400);">v2.0.0</p>
+        </footer>
+    </div>
+
+    <script>
+        const configs = {
+            'first-party-static': {
+                title: 'First-Party Static Scripts',
+                complexity: 'low',
+                auth: "CSP script-src 'self'",
+                integrity: 'SRI hash on script tags',
+                monitor: 'CSP report-uri + header monitoring',
+                csp: `Content-Security-Policy:
+  default-src 'none';
+  script-src 'self';
+  style-src 'self';
+  img-src 'self' https: data:;
+  font-src 'self';
+  connect-src 'self';
+  form-action 'self';
+  base-uri 'self';
+  frame-ancestors 'none';
+  report-uri https://yoursite.com/csp-reports;`,
+                html: `════════════════════════════════════════════════════════════════
+TECHNICAL CONTROLS SUMMARY
+════════════════════════════════════════════════════════════════
+Requirement      │ Control              │ Implementation
+─────────────────┼──────────────────────┼─────────────────────────
+6.4.3 Authorize  │ CSP script-src       │ 'self'
+6.4.3 Integrity  │ SRI hash             │ integrity="sha384-..."
+11.6.1 Detect    │ Header monitoring    │ Weekly + CSP report-uri
+════════════════════════════════════════════════════════════════
+
+
+════════════════════════════════════════════════════════════════
+BROWSER/QSA VIEW (View Source in browser)
+════════════════════════════════════════════════════════════════
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Payment Page</title>
+    <link rel="stylesheet" href="/css/payment.css">
+    <scr` + `ipt
+        src="/js/payment.js"
+        integrity="sha384-oqVuAfXRKap7fdgcCY5uykM6+R9GqQ8K/uykM6xxxxx"
+        crossorigin="anonymous">
+    </scr` + `ipt>
+</head>
+<body>
+    <form id="payment-form" action="/api/process-payment" method="POST">
+        <div id="card-number"></div>
+        <div id="card-expiry"></div>
+        <div id="card-cvc"></div>
+        <button type="submit">Pay Now</button>
+    </form>
+</body>
+</html>
+
+HTTP Response Header:
+Content-Security-Policy:
+  default-src 'none';
+  script-src 'self';
+  style-src 'self';
+  img-src 'self' https: data:;
+  connect-src 'self';
+  form-action 'self';
+  base-uri 'self';
+  frame-ancestors 'none';
+  report-uri https://example.com/csp-reports;
+
+QSA CHECK: External scripts have integrity attribute (SRI)
+QSA CHECK: CSP script-src 'self' restricts to same origin (authorization)
+QSA CHECK: Change-detection mechanism deployed and alerting (11.6.1)
+QSA CHECK: Monitoring performed at least weekly or per TRA (11.6.1)
+
+
+════════════════════════════════════════════════════════════════
+DEVELOPER VIEW (Server-side code)
+════════════════════════════════════════════════════════════════
+
+<!-- Generate SRI hash: -->
+<!-- openssl dgst -sha384 -binary payment.js | openssl base64 -A -->
+<!-- Or use: https://www.srihash.org/ -->
+
+<scr` + `ipt
+    src="/js/payment.js"
+    integrity="sha384-{generated-hash-here}"
+    crossorigin="anonymous">
+</scr` + `ipt>`,
+                monitorLevel: 'basic',
+                notes: [
+                    'Use SRI for all static scripts to ensure integrity',
+                    'Generate new SRI hashes whenever scripts are updated',
+                    'CSP violations automatically reported to your endpoint',
+                    'Run header monitor via cron: 0 * * * * python monitor.py'
+                ]
+            },
+            'first-party-dynamic': {
+                title: 'First-Party Dynamic Scripts',
+                complexity: 'medium',
+                auth: "CSP script-src 'self' + nonce",
+                integrity: 'Nonce validates origin (not content)',
+                monitor: 'CSP report-uri + header monitoring',
+                csp: `Content-Security-Policy:
+  default-src 'none';
+  script-src 'self' 'nonce-{SERVER_GENERATED_NONCE}';
+  style-src 'self';
+  img-src 'self' https: data:;
+  font-src 'self';
+  connect-src 'self';
+  form-action 'self';
+  base-uri 'self';
+  frame-ancestors 'none';
+  report-uri https://yoursite.com/csp-reports;`,
+                html: `════════════════════════════════════════════════════════════════
+TECHNICAL CONTROLS SUMMARY
+════════════════════════════════════════════════════════════════
+Requirement              │ Control              │ Implementation
+─────────────────────────┼──────────────────────┼─────────────────────────
+6.4.3 Authorize          │ CSP nonce            │ 'nonce-xxx' + nonce attr
+6.4.3 Integrity (extern) │ SRI hash             │ integrity="sha384-..."
+6.4.3 Integrity (inline) │ Nonce                │ Origin validated only
+11.6.1 Detect            │ Header monitoring    │ Weekly + CSP report-uri
+════════════════════════════════════════════════════════════════
+
+
+════════════════════════════════════════════════════════════════
+BROWSER/QSA VIEW (View Source in browser)
+════════════════════════════════════════════════════════════════
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Payment Page</title>
+    <link rel="stylesheet" href="/css/payment.css">
+    <!-- Inline dynamic: nonce for authorization (content changes per request) -->
+    <scr` + `ipt nonce="R4nd0mN0nc3V4lu3==">
+        const sessionData = {"userId":"12345","cartId":"abc"};
+        const csrfToken = 'x9y8z7w6v5u4';
+    </scr` + `ipt>
+    <!-- External static: nonce for authorization + SRI for integrity -->
+    <scr` + `ipt src="/js/payment.js"
+        nonce="R4nd0mN0nc3V4lu3=="
+        integrity="sha384-oqVuAfXRKap7fdgcCY5uykM6+R9GqQ8K/uxAxxxxx"
+        crossorigin="anonymous">
+    </scr` + `ipt>
+</head>
+<body>
+    <form id="payment-form" action="/api/process-payment" method="POST">
+        <input type="hidden" name="_csrf" value="x9y8z7w6v5u4">
+        <div id="card-number"></div>
+        <div id="card-expiry"></div>
+        <div id="card-cvc"></div>
+        <button type="submit">Pay Now</button>
+    </form>
+</body>
+</html>
+
+HTTP Response Header:
+Content-Security-Policy:
+  default-src 'none';
+  script-src 'self' 'nonce-R4nd0mN0nc3V4lu3==';
+  style-src 'self';
+  img-src 'self' https: data:;
+  connect-src 'self';
+  form-action 'self';
+  base-uri 'self';
+  frame-ancestors 'none';
+  report-uri https://example.com/csp-reports;
+
+QSA CHECK: Nonce in header MUST match nonce attributes in HTML
+QSA CHECK: Nonce MUST be different on each page refresh
+QSA CHECK: External scripts have integrity attribute (SRI) for integrity
+QSA CHECK: Inline dynamic scripts use nonce (content changes, SRI not possible)
+QSA CHECK: Change-detection mechanism deployed and alerting (11.6.1)
+QSA CHECK: Monitoring performed at least weekly or per TRA (11.6.1)
+
+
+════════════════════════════════════════════════════════════════
+DEVELOPER VIEW (Node.js/Express with EJS)
+════════════════════════════════════════════════════════════════
+
+<% const nonce = crypto.randomBytes(16).toString('base64'); %>
+
+<!-- Inline dynamic: nonce only (content changes per request) -->
+<scr` + `ipt nonce="<%= nonce %>">
+    const sessionData = <%= JSON.stringify(session) %>;
+    const csrfToken = '<%= csrfToken %>';
+</scr` + `ipt>
+
+<!-- External static: nonce + SRI (file content is static) -->
+<scr` + `ipt src="/js/payment.js"
+    nonce="<%= nonce %>"
+    integrity="sha384-{hash}"
+    crossorigin="anonymous">
+</scr` + `ipt>`,
+                monitorLevel: 'basic',
+                notes: [
+                    'Nonce must be cryptographically random (min 128 bits / 16 bytes)',
+                    'Generate new nonce on every page load',
+                    'Requires server-side rendering (SSR)',
+                    'Cannot use with static/cached pages',
+                    'Same nonce value in CSP header and script tag'
+                ]
+            },
+            'third-party-static': {
+                title: 'Third-Party Static Scripts',
+                complexity: 'medium',
+                auth: 'CSP domain allowlist',
+                integrity: 'SRI hash (if vendor supports)',
+                monitor: 'CSP report-uri + header/content monitoring',
+                csp: `Content-Security-Policy:
+  default-src 'none';
+  script-src 'self' https://js.stripe.com https://cdn.example.com;
+  style-src 'self';
+  img-src 'self' https: data:;
+  font-src 'self';
+  connect-src 'self' https://api.stripe.com;
+  frame-src https://js.stripe.com;
+  form-action 'self';
+  base-uri 'self';
+  frame-ancestors 'none';
+  report-uri https://yoursite.com/csp-reports;`,
+                html: `════════════════════════════════════════════════════════════════
+TECHNICAL CONTROLS SUMMARY
+════════════════════════════════════════════════════════════════
+Requirement                  │ Control              │ Implementation
+─────────────────────────────┼──────────────────────┼─────────────────────────
+6.4.3 Authorize              │ CSP domain allowlist │ https://js.stripe.com
+6.4.3 Integrity (if stable)  │ SRI hash             │ integrity="sha384-..."
+6.4.3 Integrity (auto-upd)   │ Content monitoring   │ Hash script content
+6.4.3 Integrity (inline)     │ CSP hash             │ 'sha256-...' in CSP
+11.6.1 Detect                │ Content monitoring   │ Weekly + CSP report-uri
+════════════════════════════════════════════════════════════════
+
+
+════════════════════════════════════════════════════════════════
+BROWSER/QSA VIEW (View Source in browser)
+════════════════════════════════════════════════════════════════
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Payment Page</title>
+    <link rel="stylesheet" href="/css/payment.css">
+    <!-- Third-party: no SRI (auto-updates), requires content monitoring -->
+    <scr` + `ipt src="https://js.stripe.com/v3/"></scr` + `ipt>
+</head>
+<body>
+    <form id="payment-form">
+        <div id="card-element"></div>
+        <div id="card-errors" role="alert"></div>
+        <button type="submit">Pay</button>
+    </form>
+    <!-- Inline static: authorized by CSP hash -->
+    <scr` + `ipt>
+        const stripe = Stripe('pk_live_xxxxx');
+        const elements = stripe.elements();
+        elements.create('card').mount('#card-element');
+    </scr` + `ipt>
+</body>
+</html>
+
+HTTP Response Header:
+Content-Security-Policy:
+  default-src 'none';
+  script-src 'self' https://js.stripe.com 'sha256-inlineScriptHashHere==';
+  style-src 'self';
+  img-src 'self' https: data:;
+  connect-src 'self' https://api.stripe.com;
+  frame-src https://js.stripe.com;
+  form-action 'self';
+  base-uri 'self';
+  frame-ancestors 'none';
+  report-uri https://example.com/csp-reports;
+
+QSA CHECK: script-src includes exact third-party domain (authorization)
+QSA CHECK: Inline script authorized by CSP hash 'sha256-...' (integrity)
+QSA CHECK: Third-party without SRI requires content monitoring (integrity)
+QSA CHECK: frame-src needed if third-party uses iframes (Stripe does)
+QSA CHECK: connect-src needed for API calls to third-party
+QSA CHECK: Change-detection mechanism deployed and alerting (11.6.1)
+QSA CHECK: Monitoring performed at least weekly or per TRA (11.6.1)
+
+
+════════════════════════════════════════════════════════════════
+DEVELOPER VIEW (with versioned CDN + SRI when possible)
+════════════════════════════════════════════════════════════════
+
+<!-- Stripe updates frequently - SRI impractical -->
+<scr` + `ipt src="https://js.stripe.com/v3/"></scr` + `ipt>
+
+<!-- For versioned CDNs that don't auto-update, add SRI -->
+<scr` + `ipt
+    src="https://cdn.example.com/lib@1.2.3/script.min.js"
+    integrity="sha384-{hash}"
+    crossorigin="anonymous">
+</scr` + `ipt>`,
+                monitorLevel: 'content',
+                notes: [
+                    'Only allowlist specific domains, never use wildcards',
+                    'SRI only works if content is identical every time',
+                    'Many vendors (Stripe, Google) update scripts frequently - SRI may break',
+                    'Use versioned URLs when available for SRI compatibility',
+                    'Monitor external script content for changes'
+                ]
+            },
+            'third-party-dynamic': {
+                title: 'Third-Party Dynamic Scripts',
+                complexity: 'high',
+                auth: 'CSP domain allowlist',
+                integrity: 'Behavior monitoring only',
+                monitor: 'Full page monitoring + commercial tools recommended',
+                csp: `Content-Security-Policy:
+  default-src 'none';
+  script-src 'self' https://js.stripe.com https://www.paypal.com https://www.paypalobjects.com;
+  style-src 'self' 'unsafe-inline';
+  img-src 'self' https: data:;
+  font-src 'self' https:;
+  connect-src 'self' https://api.stripe.com https://www.paypal.com;
+  frame-src https://js.stripe.com https://www.paypal.com https://www.sandbox.paypal.com;
+  form-action 'self';
+  base-uri 'self';
+  frame-ancestors 'none';
+  report-uri https://yoursite.com/csp-reports;
+
+/* WARNING: These scripts auto-update - SRI cannot be used */
+/* Monitor script content changes for 11.6.1 compliance */`,
+                html: `════════════════════════════════════════════════════════════════
+TECHNICAL CONTROLS SUMMARY
+════════════════════════════════════════════════════════════════
+Requirement              │ Control              │ Implementation
+─────────────────────────┼──────────────────────┼─────────────────────────
+6.4.3 Authorize          │ CSP domain allowlist │ https://js.stripe.com
+6.4.3 Integrity (extern) │ Content monitoring   │ SRI not possible
+6.4.3 Integrity (inline) │ CSP hash             │ 'sha256-...' in CSP
+11.6.1 Detect            │ Content monitoring   │ Weekly + CSP report-uri
+════════════════════════════════════════════════════════════════
+
+
+════════════════════════════════════════════════════════════════
+BROWSER/QSA VIEW (View Source in browser)
+════════════════════════════════════════════════════════════════
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Payment Page</title>
+    <link rel="stylesheet" href="/css/payment.css">
+    <!-- Third-party: no SRI (auto-updates), requires content monitoring -->
+    <scr` + `ipt src="https://js.stripe.com/v3/"></scr` + `ipt>
+    <scr` + `ipt src="https://www.paypal.com/sdk/js?client-id=AaBbCc123"></scr` + `ipt>
+</head>
+<body>
+    <form id="payment-form">
+        <div id="card-element"></div>
+        <div id="paypal-button-container"></div>
+        <button type="submit">Pay with Card</button>
+    </form>
+    <!-- Inline static: authorized by CSP hash -->
+    <scr` + `ipt>
+        const stripe = Stripe('pk_live_xxxxx');
+        stripe.elements().create('card').mount('#card-element');
+        paypal.Buttons({ createOrder: function(data, actions) {
+            return actions.order.create({ purchase_units: [{ amount: { value: '10.00' } }] });
+        }}).render('#paypal-button-container');
+    </scr` + `ipt>
+</body>
+</html>
+
+HTTP Response Header:
+Content-Security-Policy:
+  default-src 'none';
+  script-src 'self' https://js.stripe.com https://www.paypal.com https://www.paypalobjects.com 'sha256-inlineScriptHashHere==';
+  style-src 'self' 'unsafe-inline';
+  img-src 'self' https: data:;
+  connect-src 'self' https://api.stripe.com https://www.paypal.com;
+  frame-src https://js.stripe.com https://www.paypal.com;
+  form-action 'self';
+  base-uri 'self';
+  frame-ancestors 'none';
+  report-uri https://example.com/csp-reports;
+
+QSA CHECK: All third-party domains explicitly listed in CSP (authorization)
+QSA CHECK: Inline script authorized by CSP hash 'sha256-...' (integrity)
+QSA CHECK: No SRI on third-party (auto-update) - content monitoring required
+QSA CHECK: Change-detection mechanism deployed and alerting (11.6.1)
+QSA CHECK: Content monitoring active for third-party scripts (11.6.1)
+QSA CHECK: Monitoring performed at least weekly or per TRA (11.6.1)
+
+
+════════════════════════════════════════════════════════════════
+DEVELOPER NOTES
+════════════════════════════════════════════════════════════════
+
+⚠️ HIGH RISK CONFIGURATION
+
+These third-party scripts auto-update without notice.
+- SRI integrity checks CANNOT be used
+- CSP only limits WHERE scripts load, NOT what they do
+- Must implement content monitoring for 11.6.1 compliance
+- Consider commercial monitoring tools for high-value pages`,
+                monitorLevel: 'full',
+                warning: 'Third-party scripts that auto-update (like payment SDKs) cannot use SRI for integrity verification. You must rely on domain allowlisting and behavioral monitoring. These scripts can change without notice.',
+                notes: [
+                    'SRI cannot be used - vendors update scripts without notice',
+                    'CSP provides authorization (WHERE) but not integrity (WHAT)',
+                    'Must monitor script content for changes (11.6.1 requirement)',
+                    'Use versioned URLs when available (e.g., /v3/ instead of /latest/)',
+                    'Document each third-party script with business justification',
+                    'Review third-party scripts quarterly for necessity',
+                    'Consider commercial monitoring for high-value transactions',
+                    'Full page monitoring recommended to detect behavioral changes',
+                    'If using tag managers, see the warning section at top of page'
+                ]
+            },
+            'mixed-static': {
+                title: 'Mixed Static Scripts (First-Party + Third-Party)',
+                complexity: 'medium',
+                auth: "CSP 'self' + domain allowlist",
+                integrity: 'SRI hash on all scripts',
+                monitor: 'CSP report-uri + content monitoring',
+                csp: `Content-Security-Policy:
+  default-src 'none';
+  script-src 'self' https://js.stripe.com https://cdn.jsdelivr.net;
+  style-src 'self';
+  img-src 'self' https: data:;
+  font-src 'self';
+  connect-src 'self' https://api.stripe.com;
+  frame-src https://js.stripe.com;
+  form-action 'self';
+  base-uri 'self';
+  frame-ancestors 'none';
+  report-uri https://yoursite.com/csp-reports;
+
+/* 'self' = first-party scripts from your domain */
+/* Explicit domains = approved third-party sources */`,
+                html: `════════════════════════════════════════════════════════════════
+TECHNICAL CONTROLS SUMMARY
+════════════════════════════════════════════════════════════════
+Requirement                  │ Control              │ Implementation
+─────────────────────────────┼──────────────────────┼─────────────────────────
+6.4.3 Authorize              │ CSP                  │ 'self' + domain allowlist
+6.4.3 Integrity (1st party)  │ SRI hash             │ integrity="sha384-..."
+6.4.3 Integrity (3rd vers.)  │ SRI hash             │ integrity="sha384-..."
+6.4.3 Integrity (3rd auto)   │ Content monitoring   │ Hash script content
+6.4.3 Integrity (inline)     │ CSP hash             │ 'sha256-...' in CSP
+11.6.1 Detect                │ Content monitoring   │ Weekly + CSP report-uri
+════════════════════════════════════════════════════════════════
+
+
+════════════════════════════════════════════════════════════════
+BROWSER/QSA VIEW (View Source in browser)
+════════════════════════════════════════════════════════════════
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Payment Page</title>
+    <link rel="stylesheet" href="/css/payment.css">
+    <!-- First-party static: SRI for integrity -->
+    <scr` + `ipt
+        src="/js/checkout.js"
+        integrity="sha384-oqVuAfXRKap7fdgcCY5uykM6+R9GqQ8K/uxAxxxxx"
+        crossorigin="anonymous">
+    </scr` + `ipt>
+    <!-- Versioned CDN: SRI for integrity -->
+    <scr` + `ipt
+        src="https://cdn.jsdelivr.net/npm/library@2.1.0/dist/lib.min.js"
+        integrity="sha384-xYz789AbCdEfGhIjKlMnOpQrStUvWxYzxxxxx"
+        crossorigin="anonymous">
+    </scr` + `ipt>
+    <!-- Auto-updating third-party: no SRI, requires content monitoring -->
+    <scr` + `ipt src="https://js.stripe.com/v3/"></scr` + `ipt>
+</head>
+<body>
+    <form id="payment-form">
+        <div id="card-element"></div>
+        <button type="submit">Pay</button>
+    </form>
+    <!-- Inline static: authorized by CSP hash -->
+    <scr` + `ipt>
+        const stripe = Stripe('pk_live_xxxxx');
+        stripe.elements().create('card').mount('#card-element');
+    </scr` + `ipt>
+</body>
+</html>
+
+HTTP Response Header:
+Content-Security-Policy:
+  default-src 'none';
+  script-src 'self' https://js.stripe.com https://cdn.jsdelivr.net 'sha256-inlineScriptHashHere==';
+  style-src 'self';
+  img-src 'self' https: data:;
+  connect-src 'self' https://api.stripe.com;
+  frame-src https://js.stripe.com;
+  form-action 'self';
+  base-uri 'self';
+  frame-ancestors 'none';
+  report-uri https://example.com/csp-reports;
+
+QSA CHECK: First-party scripts have integrity attribute (SRI)
+QSA CHECK: Versioned CDN scripts have integrity attribute (SRI)
+QSA CHECK: Inline script authorized by CSP hash 'sha256-...' (integrity)
+QSA CHECK: Auto-updating third-party (Stripe) requires content monitoring
+QSA CHECK: Change-detection mechanism deployed and alerting (11.6.1)
+QSA CHECK: Monitoring performed at least weekly or per TRA (11.6.1)
+
+
+════════════════════════════════════════════════════════════════
+DEVELOPER VIEW
+════════════════════════════════════════════════════════════════
+
+<!-- First-party: generate SRI hash when you deploy -->
+openssl dgst -sha384 -binary checkout.js | openssl base64 -A
+
+<!-- Versioned CDN: get hash from srihash.org -->
+<scr` + `ipt
+    src="https://cdn.jsdelivr.net/npm/library@2.1.0/dist/lib.min.js"
+    integrity="sha384-{hash}"
+    crossorigin="anonymous">
+</scr` + `ipt>
+
+<!-- Auto-updating third-party: SRI not possible -->
+<scr` + `ipt src="https://js.stripe.com/v3/"></scr` + `ipt>`,
+                monitorLevel: 'content',
+                notes: [
+                    'Use SRI for all scripts where possible (first-party and versioned third-party)',
+                    'Only allowlist specific third-party domains - never use wildcards',
+                    'Third-party scripts without SRI need content monitoring',
+                    'Maintain inventory of all scripts with business justification',
+                    'Update SRI hashes when first-party scripts change',
+                    'Consider using versioned CDN URLs for third-party to enable SRI'
+                ]
+            },
+            'mixed-dynamic': {
+                title: 'Mixed Dynamic Scripts (First-Party + Third-Party)',
+                complexity: 'high',
+                auth: "CSP nonce + domain allowlist",
+                integrity: 'Nonce (first-party) + monitoring (third-party)',
+                monitor: 'Full page monitoring recommended',
+                csp: `Content-Security-Policy:
+  default-src 'none';
+  script-src 'self' 'nonce-{SERVER_GENERATED_NONCE}' https://js.stripe.com https://www.googletagmanager.com;
+  style-src 'self' 'nonce-{SERVER_GENERATED_NONCE}';
+  img-src 'self' https: data:;
+  font-src 'self' https:;
+  connect-src 'self' https://api.stripe.com https://www.google-analytics.com;
+  frame-src https://js.stripe.com https://www.googletagmanager.com;
+  form-action 'self';
+  base-uri 'self';
+  frame-ancestors 'none';
+  report-uri https://yoursite.com/csp-reports;
+
+/* Nonce covers dynamic first-party and inline scripts */
+/* Domain allowlist covers third-party scripts */`,
+                html: `════════════════════════════════════════════════════════════════
+TECHNICAL CONTROLS SUMMARY
+════════════════════════════════════════════════════════════════
+Requirement                  │ Control              │ Implementation
+─────────────────────────────┼──────────────────────┼─────────────────────────
+6.4.3 Authorize (1st party)  │ CSP nonce            │ 'nonce-xxx'
+6.4.3 Authorize (3rd party)  │ CSP domain           │ https://js.stripe.com
+6.4.3 Integrity (1st ext)    │ SRI hash             │ integrity="sha384-..."
+6.4.3 Integrity (1st inline) │ Nonce                │ Origin only
+6.4.3 Integrity (3rd party)  │ Content monitoring   │ SRI not possible
+11.6.1 Detect                │ Content monitoring   │ Weekly + CSP report-uri
+════════════════════════════════════════════════════════════════
+
+
+════════════════════════════════════════════════════════════════
+BROWSER/QSA VIEW (View Source in browser)
+════════════════════════════════════════════════════════════════
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Payment Page</title>
+    <link rel="stylesheet" href="/css/payment.css">
+    <!-- Inline dynamic: nonce only (content changes per request) -->
+    <scr` + `ipt nonce="R4nd0mN0nc3V4lu3==">
+        const userData = {"userId":"12345"};
+        const cartItems = [{"id":"prod1","qty":2}];
+    </scr` + `ipt>
+    <!-- First-party external: nonce + SRI for integrity -->
+    <scr` + `ipt src="/js/checkout.js"
+        nonce="R4nd0mN0nc3V4lu3=="
+        integrity="sha384-oqVuAfXRKap7fdgcCY5uykM6xxxxx"
+        crossorigin="anonymous">
+    </scr` + `ipt>
+    <!-- Third-party: domain-authorized, no SRI (auto-updates) -->
+    <scr` + `ipt src="https://js.stripe.com/v3/"></scr` + `ipt>
+</head>
+<body>
+    <form id="payment-form">
+        <div id="card-element"></div>
+        <button type="submit">Pay</button>
+    </form>
+    <scr` + `ipt nonce="R4nd0mN0nc3V4lu3==">
+        initCheckout(userData, cartItems);
+        const stripe = Stripe('pk_live_xxxxx');
+    </scr` + `ipt>
+</body>
+</html>
+
+HTTP Response Header:
+Content-Security-Policy:
+  default-src 'none';
+  script-src 'self' 'nonce-R4nd0mN0nc3V4lu3==' https://js.stripe.com;
+  style-src 'self' 'nonce-R4nd0mN0nc3V4lu3==';
+  img-src 'self' https: data:;
+  connect-src 'self' https://api.stripe.com;
+  frame-src https://js.stripe.com;
+  form-action 'self';
+  base-uri 'self';
+  frame-ancestors 'none';
+  report-uri https://example.com/csp-reports;
+
+QSA CHECK: First-party external scripts have nonce + integrity (SRI)
+QSA CHECK: Inline dynamic scripts have nonce only (content changes)
+QSA CHECK: Third-party scripts: domain-authorized, NO SRI (auto-updates)
+QSA CHECK: Nonce in CSP header matches nonce in HTML
+QSA CHECK: Nonce MUST change on every page refresh
+QSA CHECK: Content monitoring active for third-party scripts (11.6.1)
+QSA CHECK: Change-detection mechanism deployed and alerting (11.6.1)
+QSA CHECK: Monitoring performed at least weekly or per TRA (11.6.1)
+
+
+════════════════════════════════════════════════════════════════
+DEVELOPER VIEW (Node.js/Express with EJS)
+════════════════════════════════════════════════════════════════
+
+<% const nonce = crypto.randomBytes(16).toString('base64'); %>
+
+<!-- Inline dynamic: nonce only -->
+<scr` + `ipt nonce="<%= nonce %>">
+    const userData = <%= JSON.stringify(userSession) %>;
+</scr` + `ipt>
+
+<!-- First-party external: nonce + SRI -->
+<scr` + `ipt src="/js/checkout.js"
+    nonce="<%= nonce %>"
+    integrity="sha384-{hash}"
+    crossorigin="anonymous">
+</scr` + `ipt>
+
+<!-- Third-party: domain-authorized, no SRI possible -->
+<scr` + `ipt src="https://js.stripe.com/v3/"></scr` + `ipt>`,
+                monitorLevel: 'full',
+                warning: 'Combining dynamic first-party scripts with third-party scripts creates a complex attack surface. Third-party scripts (especially tag managers) can load additional scripts dynamically. CSP provides authorization but limited integrity protection for third-party content.',
+                notes: [
+                    'Nonce protects first-party dynamic scripts',
+                    'Third-party scripts authorized by domain, not by nonce',
+                    'Third-party scripts can still load anything from allowed domains',
+                    'Consider separating payment page from marketing/analytics scripts',
+                    'Full page monitoring recommended to detect injected scripts',
+                    'Document business justification for each third-party script',
+                    'Review third-party scripts quarterly for necessity',
+                    'Consider commercial monitoring for high-value transactions'
+                ]
+            },
+            'inline-static': {
+                title: 'Inline Static Scripts',
+                complexity: 'low',
+                auth: "CSP hash ('sha256-xxx')",
+                integrity: 'CSP hash validates exact content',
+                monitor: 'CSP report-uri + header monitoring',
+                csp: `Content-Security-Policy:
+  default-src 'none';
+  script-src 'self' 'sha256-abc123...=' 'sha256-def456...=';
+  style-src 'self';
+  img-src 'self' https: data:;
+  font-src 'self';
+  connect-src 'self';
+  form-action 'self';
+  base-uri 'self';
+  frame-ancestors 'none';
+  report-uri https://yoursite.com/csp-reports;
+
+/* Generate hash: echo -n "script content" | openssl dgst -sha256 -binary | openssl base64 -A */`,
+                html: `════════════════════════════════════════════════════════════════
+TECHNICAL CONTROLS SUMMARY
+════════════════════════════════════════════════════════════════
+Requirement              │ Control              │ Implementation
+─────────────────────────┼──────────────────────┼─────────────────────────
+6.4.3 Authorize          │ CSP hash             │ 'sha256-...' in CSP
+6.4.3 Integrity (inline) │ CSP hash             │ Hash IS the integrity
+6.4.3 Integrity (extern) │ SRI hash             │ integrity="sha384-..."
+11.6.1 Detect            │ Header monitoring    │ Weekly + CSP report-uri
+════════════════════════════════════════════════════════════════
+
+
+════════════════════════════════════════════════════════════════
+BROWSER/QSA VIEW (View Source in browser)
+════════════════════════════════════════════════════════════════
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Payment Page</title>
+    <link rel="stylesheet" href="/css/payment.css">
+    <!-- Inline static: authorized by CSP hash -->
+    <scr` + `ipt>
+        const CONFIG = {
+            apiEndpoint: '/api/v1',
+            timeout: 30000
+        };
+    </scr` + `ipt>
+    <!-- Inline static: authorized by CSP hash -->
+    <scr` + `ipt>
+        document.addEventListener('DOMContentLoaded', function() {
+            initPaymentForm(CONFIG);
+        });
+    </scr` + `ipt>
+    <!-- External static: SRI for integrity -->
+    <scr` + `ipt src="/js/payment.js"
+        integrity="sha384-oqVuAfXRKap7fdgcCY5uykM6xxxxx"
+        crossorigin="anonymous">
+    </scr` + `ipt>
+</head>
+<body>
+    <form id="payment-form" action="/api/process-payment" method="POST">
+        <div id="card-number"></div>
+        <div id="card-expiry"></div>
+        <div id="card-cvc"></div>
+        <button type="submit">Pay</button>
+    </form>
+</body>
+</html>
+
+HTTP Response Header:
+Content-Security-Policy:
+  default-src 'none';
+  script-src 'self' 'sha256-abc123hashOfFirstScript==' 'sha256-def456hashOfSecondScript==';
+  style-src 'self';
+  img-src 'self' https: data:;
+  connect-src 'self';
+  form-action 'self';
+  base-uri 'self';
+  frame-ancestors 'none';
+  report-uri https://example.com/csp-reports;
+
+QSA CHECK: CSP header contains sha256 hash for EACH inline script (integrity)
+QSA CHECK: Hash must match EXACT script content (including whitespace)
+QSA CHECK: External script allowed by 'self' with SRI (authorization + integrity)
+QSA CHECK: Change-detection mechanism deployed and alerting (11.6.1)
+QSA CHECK: Monitoring performed at least weekly or per TRA (11.6.1)
+
+
+════════════════════════════════════════════════════════════════
+DEVELOPER VIEW
+════════════════════════════════════════════════════════════════
+
+Generate hash for each inline script:
+
+# Step 1: Copy exact content between <scr` + `ipt> tags
+# Step 2: Generate hash (preserve exact whitespace!)
+
+echo -n '
+        const CONFIG = {
+            apiEndpoint: '\\'/api/v1'\\'',
+            timeout: 30000
+        };
+    ' | openssl dgst -sha256 -binary | openssl base64 -A
+
+# Step 3: Add 'sha256-{result}' to CSP header`,
+                monitorLevel: 'basic',
+                notes: [
+                    'Hash must match exact script content (including whitespace)',
+                    'Any change to script requires updating CSP hash',
+                    'Hash includes only content between script tags',
+                    'Use for configuration objects or small static code',
+                    'Multiple inline scripts = multiple hashes in CSP'
+                ]
+            },
+            'inline-dynamic': {
+                title: 'Inline Dynamic Scripts',
+                complexity: 'medium',
+                auth: 'CSP nonce',
+                integrity: 'Nonce validates origin (not content)',
+                monitor: 'CSP report-uri + header monitoring',
+                csp: `Content-Security-Policy:
+  default-src 'none';
+  script-src 'self' 'nonce-{SERVER_GENERATED_NONCE}';
+  style-src 'self';
+  img-src 'self' https: data:;
+  font-src 'self';
+  connect-src 'self';
+  form-action 'self';
+  base-uri 'self';
+  frame-ancestors 'none';
+  report-uri https://yoursite.com/csp-reports;`,
+                html: `════════════════════════════════════════════════════════════════
+TECHNICAL CONTROLS SUMMARY
+════════════════════════════════════════════════════════════════
+Requirement              │ Control              │ Implementation
+─────────────────────────┼──────────────────────┼─────────────────────────
+6.4.3 Authorize          │ CSP nonce            │ 'nonce-xxx'
+6.4.3 Integrity (inline) │ Nonce                │ Origin only, not content
+6.4.3 Integrity (extern) │ SRI hash             │ integrity="sha384-..."
+11.6.1 Detect            │ Header monitoring    │ Weekly + CSP report-uri
+════════════════════════════════════════════════════════════════
+
+
+════════════════════════════════════════════════════════════════
+BROWSER/QSA VIEW (View Source in browser)
+════════════════════════════════════════════════════════════════
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Payment Page</title>
+    <link rel="stylesheet" href="/css/payment.css">
+    <!-- Inline dynamic: nonce only (content changes per request) -->
+    <scr` + `ipt nonce="R4nd0mN0nc3V4lu3==">
+        const userData = {"userId":"u123","email":"user@example.com"};
+        const csrfToken = 'x9y8z7w6v5u4';
+        const cartTotal = 99.99;
+    </scr` + `ipt>
+    <!-- External static: nonce + SRI for integrity -->
+    <scr` + `ipt src="/js/payment.js"
+        nonce="R4nd0mN0nc3V4lu3=="
+        integrity="sha384-oqVuAfXRKap7fdgcCY5uykM6xxxxx"
+        crossorigin="anonymous">
+    </scr` + `ipt>
+</head>
+<body>
+    <form id="payment-form" action="/api/process-payment" method="POST">
+        <input type="hidden" name="_csrf" value="x9y8z7w6v5u4">
+        <div id="card-number"></div>
+        <div id="card-expiry"></div>
+        <div id="card-cvc"></div>
+        <button type="submit">Pay $99.99</button>
+    </form>
+    <scr` + `ipt nonce="R4nd0mN0nc3V4lu3==">
+        initializePayment(userData, cartTotal);
+    </scr` + `ipt>
+</body>
+</html>
+
+HTTP Response Header:
+Content-Security-Policy:
+  default-src 'none';
+  script-src 'self' 'nonce-R4nd0mN0nc3V4lu3==';
+  style-src 'self';
+  img-src 'self' https: data:;
+  connect-src 'self';
+  form-action 'self';
+  base-uri 'self';
+  frame-ancestors 'none';
+  report-uri https://example.com/csp-reports;
+
+QSA CHECK: Inline dynamic scripts have nonce (authorization, content changes)
+QSA CHECK: External scripts have nonce + integrity (SRI) for integrity
+QSA CHECK: Nonce in CSP header matches nonce in HTML
+QSA CHECK: Nonce MUST be different on every page refresh
+QSA CHECK: Change-detection mechanism deployed and alerting (11.6.1)
+QSA CHECK: Monitoring performed at least weekly or per TRA (11.6.1)
+
+
+════════════════════════════════════════════════════════════════
+DEVELOPER VIEW (PHP example)
+════════════════════════════════════════════════════════════════
+
+<?php $nonce = base64_encode(random_bytes(16)); ?>
+
+<!-- Inline dynamic: nonce only -->
+<scr` + `ipt nonce="<?= $nonce ?>">
+    const userData = <?= json_encode($user_data) ?>;
+    const csrfToken = '<?= $csrf_token ?>';
+    const cartTotal = <?= $cart_total ?>;
+</scr` + `ipt>
+
+<!-- External static: nonce + SRI -->
+<scr` + `ipt src="/js/payment.js"
+    nonce="<?= $nonce ?>"
+    integrity="sha384-{hash}"
+    crossorigin="anonymous">
+</scr` + `ipt>
+
+<!-- Flask: nonce="{{ nonce }}" -->
+<!-- Django: nonce="{{ request.csp_nonce }}" -->
+<!-- Express/EJS: nonce="<%= nonce %>" -->`,
+                monitorLevel: 'basic',
+                notes: [
+                    'Nonce must be cryptographically random (min 128 bits)',
+                    'New nonce required for every page load',
+                    'Same nonce in CSP header and all script tags',
+                    'Requires server-side rendering',
+                    'Nonce validates origin, not content integrity'
+                ]
+            }
+        };
+
+        const monitorScripts = {
+            basic: `#!/usr/bin/env python3
+"""
+PCI DSS 11.6.1 - Basic Header Monitor
+Monitors HTTP security headers for changes.
+Run via cron: 0 * * * * /usr/bin/python3 /path/to/monitor.py
+"""
+import hashlib
+import json
+import requests
+from datetime import datetime
+from pathlib import Path
+
+PAYMENT_PAGE_URL = "https://yoursite.com/checkout"
+BASELINE_FILE = Path("/var/lib/pci-monitor/baseline.json")
+ALERT_WEBHOOK = "https://yoursite.com/alerts"
+
+MONITORED_HEADERS = [
+    "content-security-policy",
+    "strict-transport-security",
+    "x-frame-options",
+    "x-content-type-options",
+    "permissions-policy"
+]
+
+def get_headers():
+    """Fetch and extract security headers."""
+    resp = requests.get(PAYMENT_PAGE_URL, timeout=30)
+    return {h: resp.headers.get(h, "") for h in MONITORED_HEADERS}
+
+def hash_headers(headers: dict) -> str:
+    """Create deterministic hash of headers."""
+    content = json.dumps(headers, sort_keys=True)
+    return hashlib.sha256(content.encode()).hexdigest()
+
+def load_baseline() -> dict:
+    """Load or create baseline."""
+    if BASELINE_FILE.exists():
+        return json.loads(BASELINE_FILE.read_text())
+    return {}
+
+def save_baseline(headers: dict, hash_val: str):
+    """Save current state as baseline."""
+    BASELINE_FILE.parent.mkdir(parents=True, exist_ok=True)
+    BASELINE_FILE.write_text(json.dumps({
+        "headers": headers,
+        "hash": hash_val,
+        "timestamp": datetime.utcnow().isoformat()
+    }))
+
+def alert(message: str, details: dict):
+    """Send alert via webhook."""
+    requests.post(ALERT_WEBHOOK, json={
+        "severity": "high",
+        "message": message,
+        "details": details,
+        "timestamp": datetime.utcnow().isoformat()
+    }, timeout=10)
+
+def main():
+    headers = get_headers()
+    current_hash = hash_headers(headers)
+    baseline = load_baseline()
+
+    if not baseline:
+        save_baseline(headers, current_hash)
+        print(f"Baseline created: {current_hash[:16]}...")
+        return
+
+    if current_hash != baseline["hash"]:
+        changes = {h: {"old": baseline["headers"].get(h), "new": headers.get(h)}
+                   for h in MONITORED_HEADERS
+                   if baseline["headers"].get(h) != headers.get(h)}
+        alert("Security header change detected", changes)
+        save_baseline(headers, current_hash)
+        print(f"ALERT: Headers changed! {changes}")
+    else:
+        print(f"OK: Headers unchanged ({current_hash[:16]}...)")
+
+if __name__ == "__main__":
+    main()`,
+            content: `#!/usr/bin/env python3
+"""
+PCI DSS 11.6.1 - Content Monitor
+Monitors HTTP headers AND external script content.
+Run via cron: 0 * * * * /usr/bin/python3 /path/to/monitor.py
+"""
+import hashlib
+import json
+import requests
+from datetime import datetime
+from pathlib import Path
+from urllib.parse import urljoin
+
+PAYMENT_PAGE_URL = "https://yoursite.com/checkout"
+BASELINE_FILE = Path("/var/lib/pci-monitor/baseline.json")
+ALERT_WEBHOOK = "https://yoursite.com/alerts"
+
+MONITORED_HEADERS = [
+    "content-security-policy",
+    "strict-transport-security",
+    "x-frame-options"
+]
+
+# External scripts to monitor for content changes
+EXTERNAL_SCRIPTS = [
+    "https://js.stripe.com/v3/",
+    "https://yoursite.com/js/payment.js"
+]
+
+def get_headers():
+    """Fetch and extract security headers."""
+    resp = requests.get(PAYMENT_PAGE_URL, timeout=30)
+    return {h: resp.headers.get(h, "") for h in MONITORED_HEADERS}
+
+def get_script_hashes() -> dict:
+    """Fetch and hash external scripts."""
+    hashes = {}
+    for url in EXTERNAL_SCRIPTS:
+        try:
+            resp = requests.get(url, timeout=30)
+            hashes[url] = hashlib.sha256(resp.content).hexdigest()
+        except Exception as e:
+            hashes[url] = f"error: {e}"
+    return hashes
+
+def create_fingerprint(headers: dict, scripts: dict) -> str:
+    """Create combined fingerprint."""
+    content = json.dumps({"headers": headers, "scripts": scripts}, sort_keys=True)
+    return hashlib.sha256(content.encode()).hexdigest()
+
+def load_baseline() -> dict:
+    if BASELINE_FILE.exists():
+        return json.loads(BASELINE_FILE.read_text())
+    return {}
+
+def save_baseline(headers: dict, scripts: dict, hash_val: str):
+    BASELINE_FILE.parent.mkdir(parents=True, exist_ok=True)
+    BASELINE_FILE.write_text(json.dumps({
+        "headers": headers,
+        "scripts": scripts,
+        "hash": hash_val,
+        "timestamp": datetime.utcnow().isoformat()
+    }))
+
+def alert(message: str, details: dict):
+    requests.post(ALERT_WEBHOOK, json={
+        "severity": "high",
+        "message": message,
+        "details": details,
+        "timestamp": datetime.utcnow().isoformat()
+    }, timeout=10)
+
+def main():
+    headers = get_headers()
+    scripts = get_script_hashes()
+    current_hash = create_fingerprint(headers, scripts)
+    baseline = load_baseline()
+
+    if not baseline:
+        save_baseline(headers, scripts, current_hash)
+        print(f"Baseline created: {current_hash[:16]}...")
+        return
+
+    if current_hash != baseline["hash"]:
+        changes = {"headers": {}, "scripts": {}}
+
+        for h in MONITORED_HEADERS:
+            if baseline["headers"].get(h) != headers.get(h):
+                changes["headers"][h] = {
+                    "old": baseline["headers"].get(h),
+                    "new": headers.get(h)
+                }
+
+        for url in EXTERNAL_SCRIPTS:
+            if baseline["scripts"].get(url) != scripts.get(url):
+                changes["scripts"][url] = {
+                    "old": baseline["scripts"].get(url)[:16] + "...",
+                    "new": scripts.get(url)[:16] + "..."
+                }
+
+        alert("Payment page change detected", changes)
+        save_baseline(headers, scripts, current_hash)
+        print(f"ALERT: Changes detected! {json.dumps(changes, indent=2)}")
+    else:
+        print(f"OK: No changes ({current_hash[:16]}...)")
+
+if __name__ == "__main__":
+    main()`,
+            full: `#!/usr/bin/env python3
+"""
+PCI DSS 11.6.1 - Full Page Monitor
+Monitors headers, scripts, and parses page for new script injections.
+For high-risk configurations (tag managers, third-party dynamic).
+Run via cron: */15 * * * * /usr/bin/python3 /path/to/monitor.py
+"""
+import hashlib
+import json
+import re
+import requests
+from bs4 import BeautifulSoup
+from datetime import datetime
+from pathlib import Path
+from urllib.parse import urljoin, urlparse
+
+PAYMENT_PAGE_URL = "https://yoursite.com/checkout"
+BASELINE_FILE = Path("/var/lib/pci-monitor/baseline.json")
+ALERT_WEBHOOK = "https://yoursite.com/alerts"
+
+MONITORED_HEADERS = [
+    "content-security-policy",
+    "strict-transport-security",
+    "x-frame-options"
+]
+
+# Known-good script domains
+ALLOWED_DOMAINS = [
+    "yoursite.com",
+    "www.googletagmanager.com",
+    "js.stripe.com"
+]
+
+def get_page():
+    """Fetch payment page."""
+    return requests.get(PAYMENT_PAGE_URL, timeout=30)
+
+def extract_headers(resp) -> dict:
+    """Extract security headers."""
+    return {h: resp.headers.get(h, "") for h in MONITORED_HEADERS}
+
+def extract_scripts(resp) -> dict:
+    """Parse page and extract all script sources."""
+    soup = BeautifulSoup(resp.text, 'html.parser')
+    scripts = {"external": [], "inline_hashes": []}
+
+    for tag in soup.find_all('script'):
+        if tag.get('src'):
+            src = urljoin(PAYMENT_PAGE_URL, tag['src'])
+            scripts["external"].append(src)
+        elif tag.string:
+            content_hash = hashlib.sha256(tag.string.encode()).hexdigest()
+            scripts["inline_hashes"].append(content_hash[:16])
+
+    return scripts
+
+def check_unauthorized_domains(scripts: dict) -> list:
+    """Check for scripts from unauthorized domains."""
+    unauthorized = []
+    for url in scripts["external"]:
+        domain = urlparse(url).netloc
+        if not any(domain.endswith(allowed) for allowed in ALLOWED_DOMAINS):
+            unauthorized.append(url)
+    return unauthorized
+
+def create_fingerprint(headers: dict, scripts: dict) -> str:
+    content = json.dumps({
+        "headers": headers,
+        "external_scripts": sorted(scripts["external"]),
+        "inline_count": len(scripts["inline_hashes"])
+    }, sort_keys=True)
+    return hashlib.sha256(content.encode()).hexdigest()
+
+def load_baseline() -> dict:
+    if BASELINE_FILE.exists():
+        return json.loads(BASELINE_FILE.read_text())
+    return {}
+
+def save_baseline(headers: dict, scripts: dict, hash_val: str):
+    BASELINE_FILE.parent.mkdir(parents=True, exist_ok=True)
+    BASELINE_FILE.write_text(json.dumps({
+        "headers": headers,
+        "scripts": scripts,
+        "hash": hash_val,
+        "timestamp": datetime.utcnow().isoformat()
+    }))
+
+def alert(message: str, severity: str, details: dict):
+    requests.post(ALERT_WEBHOOK, json={
+        "severity": severity,
+        "message": message,
+        "details": details,
+        "timestamp": datetime.utcnow().isoformat()
+    }, timeout=10)
+
+def main():
+    resp = get_page()
+    headers = extract_headers(resp)
+    scripts = extract_scripts(resp)
+    current_hash = create_fingerprint(headers, scripts)
+    baseline = load_baseline()
+
+    # Check for unauthorized domains (immediate alert)
+    unauthorized = check_unauthorized_domains(scripts)
+    if unauthorized:
+        alert(
+            "CRITICAL: Unauthorized script domain detected",
+            "critical",
+            {"unauthorized_scripts": unauthorized}
+        )
+        print(f"CRITICAL: Unauthorized scripts: {unauthorized}")
+
+    if not baseline:
+        save_baseline(headers, scripts, current_hash)
+        print(f"Baseline created: {current_hash[:16]}...")
+        print(f"  External scripts: {len(scripts['external'])}")
+        print(f"  Inline scripts: {len(scripts['inline_hashes'])}")
+        return
+
+    if current_hash != baseline["hash"]:
+        changes = {"headers": {}, "scripts_added": [], "scripts_removed": []}
+
+        # Header changes
+        for h in MONITORED_HEADERS:
+            if baseline["headers"].get(h) != headers.get(h):
+                changes["headers"][h] = {
+                    "old": baseline["headers"].get(h),
+                    "new": headers.get(h)
+                }
+
+        # Script changes
+        old_scripts = set(baseline["scripts"]["external"])
+        new_scripts = set(scripts["external"])
+        changes["scripts_added"] = list(new_scripts - old_scripts)
+        changes["scripts_removed"] = list(old_scripts - new_scripts)
+
+        # Inline script count change
+        old_inline = len(baseline["scripts"]["inline_hashes"])
+        new_inline = len(scripts["inline_hashes"])
+        if old_inline != new_inline:
+            changes["inline_count_change"] = {"old": old_inline, "new": new_inline}
+
+        severity = "critical" if changes["scripts_added"] else "high"
+        alert("Payment page change detected", severity, changes)
+        save_baseline(headers, scripts, current_hash)
+        print(f"ALERT ({severity}): {json.dumps(changes, indent=2)}")
+    else:
+        print(f"OK: No changes ({current_hash[:16]}...)")
+
+if __name__ == "__main__":
+    main()
+
+# Additional: For high-risk environments, also consider:
+# - Commercial solutions: Jscrambler, PerimeterX, Akamai Page Integrity
+# - Subresource Integrity monitoring
+# - Real-time CSP violation analysis
+# - Network traffic analysis for data exfiltration`
+        };
+
+        let selectedOrigin = null;
+        let selectedBehavior = null;
+
+        // Selection handlers
+        document.getElementById('origin-selection').addEventListener('click', (e) => {
+            const card = e.target.closest('.selection-card');
+            if (!card) return;
+
+            document.querySelectorAll('#origin-selection .selection-card').forEach(c => c.classList.remove('selected'));
+            card.classList.add('selected');
+            selectedOrigin = card.dataset.value;
+            updateGenerateButton();
+        });
+
+        document.getElementById('behavior-selection').addEventListener('click', (e) => {
+            const card = e.target.closest('.selection-card');
+            if (!card) return;
+
+            document.querySelectorAll('#behavior-selection .selection-card').forEach(c => c.classList.remove('selected'));
+            card.classList.add('selected');
+            selectedBehavior = card.dataset.value;
+            updateGenerateButton();
+        });
+
+        function updateGenerateButton() {
+            document.getElementById('generate-btn').disabled = !(selectedOrigin && selectedBehavior);
+        }
+
+        // Tab handlers
+        document.querySelectorAll('.tab-btn').forEach(btn => {
+            btn.addEventListener('click', () => {
+                document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+                document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
+                btn.classList.add('active');
+                document.getElementById('tab-' + btn.dataset.tab).classList.add('active');
+            });
+        });
+
+        // Tag manager info toggle
+        document.getElementById('tag-manager-toggle').addEventListener('click', () => {
+            const arrow = document.getElementById('tag-manager-arrow');
+            const content = document.getElementById('tag-manager-content');
+            arrow.classList.toggle('expanded');
+            content.classList.toggle('visible');
+        });
+
+        // Decision tree toggle
+        let mermaidRendered = false;
+        document.getElementById('decision-tree-header').addEventListener('click', () => {
+            const toggle = document.getElementById('decision-tree-toggle');
+            const content = document.getElementById('decision-tree-content');
+            toggle.classList.toggle('expanded');
+            content.classList.toggle('visible');
+            if (!mermaidRendered && content.classList.contains('visible')) {
+                mermaid.run({ nodes: content.querySelectorAll('.mermaid') });
+                mermaidRendered = true;
+            }
+        });
+
+        // Directive reference toggle
+        document.getElementById('directive-toggle').addEventListener('click', () => {
+            const toggle = document.getElementById('directive-toggle');
+            const list = document.getElementById('directive-list');
+            toggle.classList.toggle('expanded');
+            list.classList.toggle('visible');
+        });
+
+        // HTML attribute reference toggle
+        document.getElementById('html-attr-toggle').addEventListener('click', () => {
+            const toggle = document.getElementById('html-attr-toggle');
+            const list = document.getElementById('html-attr-list');
+            toggle.classList.toggle('expanded');
+            list.classList.toggle('visible');
+        });
+
+        // Monitor reference toggle
+        document.getElementById('monitor-ref-toggle').addEventListener('click', () => {
+            const toggle = document.getElementById('monitor-ref-toggle');
+            const list = document.getElementById('monitor-ref-list');
+            toggle.classList.toggle('expanded');
+            list.classList.toggle('visible');
+        });
+
+        // Copy handlers
+        document.querySelectorAll('.copy-btn').forEach(btn => {
+            btn.addEventListener('click', () => {
+                const target = document.getElementById(btn.dataset.target);
+                navigator.clipboard.writeText(target.textContent).then(() => {
+                    btn.textContent = 'Copied!';
+                    btn.classList.add('copied');
+                    setTimeout(() => {
+                        btn.textContent = 'Copy';
+                        btn.classList.remove('copied');
+                    }, 2000);
+                });
+            });
+        });
+
+        // Generate configuration
+        document.getElementById('generate-btn').addEventListener('click', () => {
+            const key = `${selectedOrigin}-${selectedBehavior}`;
+            const config = configs[key];
+
+            if (!config) return;
+
+            // Update summary
+            document.getElementById('config-title').textContent = config.title;
+
+            const badge = document.getElementById('complexity-badge');
+            badge.textContent = config.complexity.charAt(0).toUpperCase() + config.complexity.slice(1);
+            badge.className = 'badge badge-' + config.complexity;
+
+            document.getElementById('auth-control').textContent = config.auth;
+            document.getElementById('integrity-control').textContent = config.integrity;
+            document.getElementById('monitor-control').textContent = config.monitor;
+
+            // Warning box
+            const warningBox = document.getElementById('warning-box');
+            if (config.warning) {
+                document.getElementById('warning-text').textContent = config.warning;
+                warningBox.classList.add('visible');
+            } else {
+                warningBox.classList.remove('visible');
+            }
+
+            // Code blocks
+            document.getElementById('csp-code').textContent = config.csp;
+            document.getElementById('html-code').textContent = config.html;
+            document.getElementById('monitor-code').textContent = monitorScripts[config.monitorLevel];
+
+            // Notes
+            const notesList = document.getElementById('notes-list');
+            notesList.innerHTML = config.notes.map(note => `<li>${note}</li>`).join('');
+
+            // Show results
+            document.getElementById('results').classList.add('visible');
+            document.getElementById('results').scrollIntoView({ behavior: 'smooth' });
+
+            // Reset to first tab
+            document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+            document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
+            document.querySelector('.tab-btn').classList.add('active');
+            document.getElementById('tab-csp').classList.add('active');
+        });
+    </script>
+</body>
+</html>
