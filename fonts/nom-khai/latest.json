@@ -1,0 +1,13 @@
+{
+  "version": "0.5.1",
+  "approvedBaseline": "0.5.1",
+  "css": "nom-khai.css",
+  "pinnedCSS": "versions/0.5.1.css",
+  "woff2": "assets/nom-khai-0.5.1-c9c38d527c65d821.woff2",
+  "ttf": "assets/nom-khai-0.5.1-a90358a2204b0759.ttf",
+  "glyphs": 61,
+  "fallback": "Nom Na Tong 5.170",
+  "fallbackGlyphs": 32947,
+  "fallbackChunks": 455,
+  "sourceHash": "24a5463c34e148979b0d959e3c5715cc5251bab6a6c8d528acf62cf16b19779e"
+}
