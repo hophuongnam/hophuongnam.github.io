@@ -1,0 +1,12 @@
+{
+  "version": "0.6.2",
+  "release": "releases/0.6.2",
+  "status": "user-approved",
+  "scope": "Studio selected characters: 𪢣吶枝節添姅時空; other approved glyphs unchanged",
+  "referenceSentence": "../../experiments/nom-khai/sentence-03/sentence.txt",
+  "weightReport": "releases/0.5.0/weight-report.json",
+  "guidance": "Preserve approved glyphs. Match sentence appearance visually; xưa/nay use lighter horizontal strokes and must not be forced to median 60.",
+  "previousApprovedVersion": "0.6.1",
+  "approval": "Studio explicit publish action; 002bdbfc51e045b2a71a686f",
+  "referenceText": "鏬𧱓𱓊䠨羅𠚢大添於𰈦㕿頭艀𫑓卣韩"
+}
