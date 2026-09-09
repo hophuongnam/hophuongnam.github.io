@@ -1,0 +1,12 @@
+{
+  "version": "0.6.3",
+  "release": "releases/0.6.3",
+  "status": "user-approved",
+  "scope": "Studio selected characters: 庄沛挨共𨔈㕑𥃞耒鈔; other approved glyphs unchanged",
+  "referenceSentence": "../../experiments/nom-khai/sentence-03/sentence.txt",
+  "weightReport": "releases/0.5.0/weight-report.json",
+  "guidance": "Preserve approved glyphs. Match sentence appearance visually; xưa/nay use lighter horizontal strokes and must not be forced to median 60.",
+  "previousApprovedVersion": "0.6.2",
+  "approval": "Studio explicit publish action; a0a214e4091e4f40909969ba",
+  "referenceText": "冨鿮㑺𪝳覺胆鈔卩𪝳𰯋蔧箷翁𥊚"
+}
