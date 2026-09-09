@@ -1,9 +1,7 @@
-# Nôm Khải on GitHub Pages
+Serve only this directory, over HTTPS. Entry: /nom-khai.css.
 
-Stable CSS: https://hophuongnam.github.io/fonts/nom-khai/nom-khai.css
+Set Access-Control-Allow-Origin: * on CSS and fonts. Stable nom-khai.css and latest.json: Cache-Control: public, max-age=300, must-revalidate (or no-cache with ETag). /assets/ and /versions/: Cache-Control: public, max-age=31536000, immutable. Do not route missing .woff2 files to HTML; return 404. MIME: text/css, font/woff2, font/ttf.
 
-Generated from the approved baseline in the Nomverse repository using scripts/package-nom-khai-web.py. Copy the generated assets, licenses, versions, latest.json, asset-manifest.json and nom-khai.css here. Preserve old assets and version CSS. Publish by committing to master; GitHub Pages serves the repository root. The landing page must use paths relative to this directory.
+Deploy assets and pinned CSS first; verify hashes; replace nom-khai.css last atomically. Retain previous asset files. Roll back by restoring the stable CSS from the desired pinned version (adjust ../assets/ to ./assets/). Projects use the same URL and receive approved updates within the cache period; already-open pages need reload. Downloaded/copied font files never update themselves.
 
-GitHub Pages controls response headers; observed cache max-age is 600 seconds. Check HTTPS status, MIME, Access-Control-Allow-Origin and browser font loading after each deployment. Do not use an Apache .htaccess or _headers file to configure Pages.
-
-Nom Khai: SIL OFL; fallback Nom Na Tong: MIT. License files are in licenses/.
+Usage: <link rel="stylesheet" href="https://YOUR-HOST/nom-khai.css"> then use class="nom-khai" or font-family: "Nom Khai", serif. No global body styles are imposed. Unsupported glyphs fall back through CSS to chunked Nom Na Tong; chunks download only when their Unicode ranges are used.
