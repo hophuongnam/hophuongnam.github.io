@@ -1,0 +1,115 @@
+[
+  {
+    "character": "𦤾",
+    "bounds": [
+      83,
+      -52,
+      920,
+      737
+    ],
+    "points": 348,
+    "offCurvePoints": 0,
+    "contours": 6,
+    "withinMetrics": true,
+    "roundtrip": "passed",
+    "hinting": "none; gasp smoothing only",
+    "pairs": [
+      {
+        "a": 0,
+        "b": 1,
+        "gap": 33.0,
+        "overlapArea": 0.0,
+        "rows": [
+          {
+            "y": -40,
+            "gap": 318.0
+          },
+          {
+            "y": 0,
+            "gap": 182.7
+          },
+          {
+            "y": 40,
+            "gap": 466.9
+          },
+          {
+            "y": 160,
+            "gap": 219.6
+          },
+          {
+            "y": 200,
+            "gap": 218.7
+          },
+          {
+            "y": 240,
+            "gap": 78.8
+          },
+          {
+            "y": 280,
+            "gap": 217.6
+          },
+          {
+            "y": 320,
+            "gap": 216.1
+          },
+          {
+            "y": 360,
+            "gap": 214.6
+          },
+          {
+            "y": 400,
+            "gap": 73.6
+          },
+          {
+            "y": 440,
+            "gap": 73.0
+          },
+          {
+            "y": 480,
+            "gap": 92.9
+          },
+          {
+            "y": 520,
+            "gap": 114.0
+          },
+          {
+            "y": 560,
+            "gap": 137.5
+          },
+          {
+            "y": 600,
+            "gap": 248.7
+          },
+          {
+            "y": 640,
+            "gap": 234.6
+          },
+          {
+            "y": 680,
+            "gap": 36.5
+          },
+          {
+            "y": 720,
+            "gap": 49.5
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "character": "翁",
+    "bounds": [
+      44,
+      -106,
+      966,
+      821
+    ],
+    "points": 206,
+    "offCurvePoints": 122,
+    "contours": 7,
+    "withinMetrics": true,
+    "roundtrip": "passed",
+    "hinting": "none; gasp smoothing only",
+    "pairs": []
+  }
+]

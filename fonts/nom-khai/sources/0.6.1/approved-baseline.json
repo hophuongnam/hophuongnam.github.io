@@ -1,0 +1,12 @@
+{
+  "version": "0.6.1",
+  "release": "releases/0.6.1",
+  "status": "user-approved",
+  "scope": "Studio selected characters: 𦤾翁; other approved glyphs unchanged",
+  "referenceSentence": "../../experiments/nom-khai/sentence-03/sentence.txt",
+  "weightReport": "releases/0.5.0/weight-report.json",
+  "guidance": "Preserve approved glyphs. Match sentence appearance visually; xưa/nay use lighter horizontal strokes and must not be forced to median 60.",
+  "previousApprovedVersion": "0.6.0",
+  "approval": "Studio explicit publish action; bfb059a467ff4fd0b5c82d35",
+  "referenceText": "理凡𢪲𥗜𨢇, 𥆾𡌽文武伯關𦤾𪢣壽帙謹大凊; 唒㐌於歲𠸗𠉞儉, 𪝳吻不覺得意."
+}
