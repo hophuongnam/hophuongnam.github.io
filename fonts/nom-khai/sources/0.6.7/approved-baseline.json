@@ -1,0 +1,12 @@
+{
+  "version": "0.6.7",
+  "release": "releases/0.6.7",
+  "status": "user-approved",
+  "scope": "Studio selected characters: 𨑗𠇍膻道𠓨𠓀拪眜𧡊; other approved glyphs unchanged",
+  "referenceSentence": "../../experiments/nom-khai/sentence-03/sentence.txt",
+  "weightReport": "releases/0.5.0/weight-report.json",
+  "guidance": "Preserve approved glyphs. Match sentence appearance visually; xưa/nay use lighter horizontal strokes and must not be forced to median 60.",
+  "previousApprovedVersion": "0.6.6",
+  "approval": "Studio explicit publish action; 4f1af6770b72430a984ec72d",
+  "referenceText": "𨑗𠇍膻道𠓨𠓀拪眜𧡊奄"
+}
