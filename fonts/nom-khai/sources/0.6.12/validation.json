@@ -1,0 +1,162 @@
+[
+  {
+    "character": "時",
+    "bounds": [
+      76,
+      -109,
+      994,
+      828
+    ],
+    "points": 151,
+    "offCurvePoints": 73,
+    "contours": 5,
+    "withinMetrics": true,
+    "roundtrip": "passed",
+    "hinting": "none; gasp smoothing only",
+    "pairs": []
+  },
+  {
+    "character": "欣",
+    "bounds": [
+      30,
+      -101,
+      988,
+      811
+    ],
+    "points": 124,
+    "offCurvePoints": 67,
+    "contours": 3,
+    "withinMetrics": true,
+    "roundtrip": "passed",
+    "hinting": "none; gasp smoothing only",
+    "pairs": []
+  },
+  {
+    "character": "某",
+    "bounds": [
+      48,
+      -106,
+      974,
+      838
+    ],
+    "points": 130,
+    "offCurvePoints": 60,
+    "contours": 4,
+    "withinMetrics": true,
+    "roundtrip": "passed",
+    "hinting": "none; gasp smoothing only",
+    "pairs": []
+  },
+  {
+    "character": "欺",
+    "bounds": [
+      35,
+      -98,
+      993,
+      803
+    ],
+    "points": 180,
+    "offCurvePoints": 90,
+    "contours": 8,
+    "withinMetrics": true,
+    "roundtrip": "passed",
+    "hinting": "none; gasp smoothing only",
+    "pairs": []
+  },
+  {
+    "character": "底",
+    "bounds": [
+      33,
+      -107,
+      969,
+      833
+    ],
+    "points": 138,
+    "offCurvePoints": 78,
+    "contours": 4,
+    "withinMetrics": true,
+    "roundtrip": "passed",
+    "hinting": "none; gasp smoothing only",
+    "pairs": []
+  },
+  {
+    "character": "家",
+    "bounds": [
+      77,
+      -111,
+      977,
+      821
+    ],
+    "points": 151,
+    "offCurvePoints": 84,
+    "contours": 2,
+    "withinMetrics": true,
+    "roundtrip": "passed",
+    "hinting": "none; gasp smoothing only",
+    "pairs": []
+  },
+  {
+    "character": "意",
+    "bounds": [
+      67,
+      -74,
+      948,
+      823
+    ],
+    "points": 550,
+    "offCurvePoints": 2,
+    "contours": 8,
+    "withinMetrics": true,
+    "roundtrip": "passed",
+    "hinting": "none; gasp smoothing only",
+    "pairs": []
+  },
+  {
+    "character": "房",
+    "bounds": [
+      53,
+      -100,
+      927,
+      825
+    ],
+    "points": 370,
+    "offCurvePoints": 4,
+    "contours": 3,
+    "withinMetrics": true,
+    "roundtrip": "passed",
+    "hinting": "none; gasp smoothing only",
+    "pairs": []
+  },
+  {
+    "character": "揞",
+    "bounds": [
+      42,
+      -108,
+      969,
+      804
+    ],
+    "points": 503,
+    "offCurvePoints": 3,
+    "contours": 6,
+    "withinMetrics": true,
+    "roundtrip": "passed",
+    "hinting": "none; gasp smoothing only",
+    "pairs": []
+  },
+  {
+    "character": "文",
+    "bounds": [
+      56,
+      -87,
+      956,
+      789
+    ],
+    "points": 244,
+    "offCurvePoints": 2,
+    "contours": 1,
+    "withinMetrics": true,
+    "roundtrip": "passed",
+    "hinting": "none; gasp smoothing only",
+    "pairs": []
+  }
+]
