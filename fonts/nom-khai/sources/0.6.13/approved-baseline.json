@@ -1,0 +1,12 @@
+{
+  "version": "0.6.13",
+  "release": "releases/0.6.13",
+  "status": "user-approved",
+  "scope": "Studio selected characters: 異碎眜當調人身細辰𣅶武歲省眣; other approved glyphs unchanged",
+  "referenceSentence": "../../experiments/nom-khai/sentence-03/sentence.txt",
+  "weightReport": "releases/0.5.0/weight-report.json",
+  "guidance": "Preserve approved glyphs. Match sentence appearance visually; xưa/nay use lighter horizontal strokes and must not be forced to median 60.",
+  "previousApprovedVersion": "0.6.12",
+  "approval": "Studio explicit publish action; f4aae83f99cc49d18bfc438f",
+  "referenceText": "異碎眜當調人身細辰𣅶武歲省眣"
+}
