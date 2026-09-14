@@ -1,0 +1,608 @@
+[
+  {
+    "character": "高",
+    "bounds": [
+      100,
+      -96,
+      878,
+      820
+    ],
+    "points": 130,
+    "offCurvePoints": 65,
+    "contours": 6,
+    "withinMetrics": true,
+    "roundtrip": "passed",
+    "hinting": "none; gasp smoothing only",
+    "pairs": []
+  },
+  {
+    "character": "主",
+    "bounds": [
+      54,
+      -40,
+      946,
+      817
+    ],
+    "points": 85,
+    "offCurvePoints": 42,
+    "contours": 2,
+    "withinMetrics": true,
+    "roundtrip": "passed",
+    "hinting": "none; gasp smoothing only",
+    "pairs": []
+  },
+  {
+    "character": "本",
+    "bounds": [
+      29,
+      -101,
+      992,
+      825
+    ],
+    "points": 90,
+    "offCurvePoints": 48,
+    "contours": 1,
+    "withinMetrics": true,
+    "roundtrip": "passed",
+    "hinting": "none; gasp smoothing only",
+    "pairs": []
+  },
+  {
+    "character": "𢧲",
+    "bounds": [
+      50,
+      -87,
+      968,
+      815
+    ],
+    "points": 296,
+    "offCurvePoints": 152,
+    "contours": 6,
+    "withinMetrics": true,
+    "roundtrip": "passed",
+    "hinting": "none; gasp smoothing only",
+    "pairs": [
+      {
+        "a": 0,
+        "b": 1,
+        "gap": 30.0,
+        "overlapArea": 0.0,
+        "rows": [
+          {
+            "y": 560,
+            "gap": 87.9
+          },
+          {
+            "y": 600,
+            "gap": 70.8
+          },
+          {
+            "y": 640,
+            "gap": 52.9
+          },
+          {
+            "y": 680,
+            "gap": 32.5
+          },
+          {
+            "y": 720,
+            "gap": 44.0
+          }
+        ]
+      },
+      {
+        "a": 0,
+        "b": 2,
+        "gap": 1.6,
+        "overlapArea": 0.0,
+        "rows": [
+          {
+            "y": -40,
+            "gap": 17.1
+          },
+          {
+            "y": 0,
+            "gap": 2.1
+          },
+          {
+            "y": 120,
+            "gap": 93.4
+          },
+          {
+            "y": 160,
+            "gap": 76.6
+          },
+          {
+            "y": 200,
+            "gap": 417.0
+          },
+          {
+            "y": 240,
+            "gap": 88.3
+          },
+          {
+            "y": 280,
+            "gap": 61.2
+          },
+          {
+            "y": 320,
+            "gap": 105.1
+          },
+          {
+            "y": 360,
+            "gap": 94.1
+          },
+          {
+            "y": 400,
+            "gap": 92.0
+          },
+          {
+            "y": 440,
+            "gap": 192.3
+          },
+          {
+            "y": 480,
+            "gap": 50.3
+          },
+          {
+            "y": 520,
+            "gap": 71.4
+          },
+          {
+            "y": 560,
+            "gap": 202.5
+          },
+          {
+            "y": 600,
+            "gap": 201.9
+          },
+          {
+            "y": 640,
+            "gap": 280.5
+          },
+          {
+            "y": 680,
+            "gap": 282.4
+          },
+          {
+            "y": 720,
+            "gap": 284.1
+          },
+          {
+            "y": 760,
+            "gap": 278.6
+          }
+        ]
+      },
+      {
+        "a": 1,
+        "b": 2,
+        "gap": 86.7,
+        "overlapArea": 0.0,
+        "rows": [
+          {
+            "y": 560,
+            "gap": 107.9
+          },
+          {
+            "y": 600,
+            "gap": 90.4
+          },
+          {
+            "y": 640,
+            "gap": 183.5
+          },
+          {
+            "y": 680,
+            "gap": 205.6
+          },
+          {
+            "y": 720,
+            "gap": 232.2
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "character": "坭",
+    "bounds": [
+      37,
+      -84,
+      958,
+      774
+    ],
+    "points": 135,
+    "offCurvePoints": 75,
+    "contours": 3,
+    "withinMetrics": true,
+    "roundtrip": "passed",
+    "hinting": "none; gasp smoothing only",
+    "pairs": []
+  },
+  {
+    "character": "接",
+    "bounds": [
+      29,
+      -90,
+      964,
+      794
+    ],
+    "points": 216,
+    "offCurvePoints": 110,
+    "contours": 3,
+    "withinMetrics": true,
+    "roundtrip": "passed",
+    "hinting": "none; gasp smoothing only",
+    "pairs": []
+  },
+  {
+    "character": "𪨈",
+    "bounds": [
+      98,
+      -72,
+      910,
+      824
+    ],
+    "points": 245,
+    "offCurvePoints": 133,
+    "contours": 7,
+    "withinMetrics": true,
+    "roundtrip": "passed",
+    "hinting": "none; gasp smoothing only",
+    "pairs": [
+      {
+        "a": 0,
+        "b": 1,
+        "gap": 33.6,
+        "overlapArea": 0.0,
+        "rows": [
+          {
+            "y": 600,
+            "gap": 102.6
+          },
+          {
+            "y": 640,
+            "gap": 68.2
+          },
+          {
+            "y": 680,
+            "gap": 34.3
+          }
+        ]
+      },
+      {
+        "a": 0,
+        "b": 2,
+        "gap": 11.9,
+        "overlapArea": 0.0,
+        "rows": [
+          {
+            "y": -40,
+            "gap": 221.1
+          },
+          {
+            "y": 0,
+            "gap": 175.0
+          },
+          {
+            "y": 40,
+            "gap": 153.8
+          },
+          {
+            "y": 80,
+            "gap": 139.6
+          },
+          {
+            "y": 120,
+            "gap": 127.8
+          },
+          {
+            "y": 160,
+            "gap": 117.6
+          },
+          {
+            "y": 200,
+            "gap": 109.4
+          },
+          {
+            "y": 240,
+            "gap": 102.8
+          },
+          {
+            "y": 280,
+            "gap": 97.6
+          },
+          {
+            "y": 320,
+            "gap": 93.8
+          },
+          {
+            "y": 360,
+            "gap": 91.0
+          },
+          {
+            "y": 400,
+            "gap": 86.7
+          },
+          {
+            "y": 440,
+            "gap": 72.6
+          }
+        ]
+      },
+      {
+        "a": 0,
+        "b": 3,
+        "gap": 53.0,
+        "overlapArea": 0.0,
+        "rows": [
+          {
+            "y": 120,
+            "gap": 554.1
+          },
+          {
+            "y": 160,
+            "gap": 210.5
+          },
+          {
+            "y": 200,
+            "gap": 350.4
+          },
+          {
+            "y": 240,
+            "gap": 349.6
+          },
+          {
+            "y": 280,
+            "gap": 249.4
+          },
+          {
+            "y": 320,
+            "gap": 227.3
+          },
+          {
+            "y": 360,
+            "gap": 223.1
+          },
+          {
+            "y": 400,
+            "gap": 218.4
+          },
+          {
+            "y": 440,
+            "gap": 213.8
+          },
+          {
+            "y": 480,
+            "gap": 81.1
+          },
+          {
+            "y": 520,
+            "gap": 57.0
+          },
+          {
+            "y": 560,
+            "gap": 259.2
+          },
+          {
+            "y": 600,
+            "gap": 235.1
+          },
+          {
+            "y": 640,
+            "gap": 234.7
+          },
+          {
+            "y": 680,
+            "gap": 230.0
+          },
+          {
+            "y": 720,
+            "gap": 225.7
+          },
+          {
+            "y": 760,
+            "gap": 221.1
+          },
+          {
+            "y": 800,
+            "gap": 240.2
+          }
+        ]
+      },
+      {
+        "a": 1,
+        "b": 2,
+        "gap": 136.3,
+        "overlapArea": 0.0,
+        "rows": []
+      },
+      {
+        "a": 1,
+        "b": 3,
+        "gap": 95.0,
+        "overlapArea": 0.0,
+        "rows": [
+          {
+            "y": 600,
+            "gap": 97.7
+          },
+          {
+            "y": 640,
+            "gap": 109.0
+          },
+          {
+            "y": 680,
+            "gap": 143.1
+          }
+        ]
+      },
+      {
+        "a": 2,
+        "b": 3,
+        "gap": 26.7,
+        "overlapArea": 0.0,
+        "rows": [
+          {
+            "y": 120,
+            "gap": 50.0
+          },
+          {
+            "y": 160,
+            "gap": 31.9
+          },
+          {
+            "y": 200,
+            "gap": 84.1
+          },
+          {
+            "y": 240,
+            "gap": 115.5
+          },
+          {
+            "y": 280,
+            "gap": 91.4
+          },
+          {
+            "y": 320,
+            "gap": 73.2
+          },
+          {
+            "y": 360,
+            "gap": 72.0
+          },
+          {
+            "y": 400,
+            "gap": 69.6
+          },
+          {
+            "y": 440,
+            "gap": 87.0
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "character": "磨",
+    "bounds": [
+      33,
+      -102,
+      962,
+      824
+    ],
+    "points": 220,
+    "offCurvePoints": 113,
+    "contours": 4,
+    "withinMetrics": true,
+    "roundtrip": "passed",
+    "hinting": "none; gasp smoothing only",
+    "pairs": []
+  },
+  {
+    "character": "𨀈",
+    "bounds": [
+      61,
+      -66,
+      959,
+      796
+    ],
+    "points": 163,
+    "offCurvePoints": 85,
+    "contours": 4,
+    "withinMetrics": true,
+    "roundtrip": "passed",
+    "hinting": "none; gasp smoothing only",
+    "pairs": [
+      {
+        "a": 0,
+        "b": 1,
+        "gap": 2.5,
+        "overlapArea": 0.0,
+        "rows": [
+          {
+            "y": 0,
+            "gap": 376.8
+          },
+          {
+            "y": 40,
+            "gap": 301.5
+          },
+          {
+            "y": 80,
+            "gap": 103.2
+          },
+          {
+            "y": 120,
+            "gap": 16.6
+          },
+          {
+            "y": 160,
+            "gap": 158.5
+          },
+          {
+            "y": 200,
+            "gap": 242.8
+          },
+          {
+            "y": 240,
+            "gap": 274.8
+          },
+          {
+            "y": 280,
+            "gap": 274.6
+          },
+          {
+            "y": 320,
+            "gap": 172.0
+          },
+          {
+            "y": 360,
+            "gap": 180.3
+          },
+          {
+            "y": 400,
+            "gap": 274.5
+          },
+          {
+            "y": 440,
+            "gap": 149.3
+          },
+          {
+            "y": 480,
+            "gap": 133.0
+          },
+          {
+            "y": 520,
+            "gap": 178.2
+          },
+          {
+            "y": 560,
+            "gap": 192.2
+          },
+          {
+            "y": 600,
+            "gap": 187.9
+          },
+          {
+            "y": 640,
+            "gap": 183.4
+          },
+          {
+            "y": 680,
+            "gap": 178.8
+          },
+          {
+            "y": 720,
+            "gap": 171.0
+          },
+          {
+            "y": 760,
+            "gap": 178.1
+          }
+        ]
+      }
+    ]
+  }
+]
