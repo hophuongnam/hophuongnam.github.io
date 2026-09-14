@@ -1,0 +1,12 @@
+{
+  "version": "0.6.24",
+  "release": "releases/0.6.24",
+  "status": "user-approved",
+  "scope": "Studio selected characters: 化唐𣦍怃𠓑王有每妨信; other approved glyphs unchanged",
+  "referenceSentence": "../../experiments/nom-khai/sentence-03/sentence.txt",
+  "weightReport": "releases/0.5.0/weight-report.json",
+  "guidance": "Preserve approved glyphs. Match sentence appearance visually; xưa/nay use lighter horizontal strokes and must not be forced to median 60.",
+  "previousApprovedVersion": "0.6.23",
+  "approval": "Studio explicit publish action; 4dea2ca1a1be436d9988d7e9",
+  "referenceText": "化唐𣦍怃𠓑王有每妨信"
+}

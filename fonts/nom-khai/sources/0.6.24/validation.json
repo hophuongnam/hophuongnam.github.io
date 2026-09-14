@@ -1,0 +1,344 @@
+[
+  {
+    "character": "化",
+    "bounds": [
+      37,
+      -82,
+      944,
+      786
+    ],
+    "points": 87,
+    "offCurvePoints": 46,
+    "contours": 2,
+    "withinMetrics": true,
+    "roundtrip": "passed",
+    "hinting": "none; gasp smoothing only",
+    "pairs": []
+  },
+  {
+    "character": "唐",
+    "bounds": [
+      40,
+      -114,
+      955,
+      828
+    ],
+    "points": 162,
+    "offCurvePoints": 78,
+    "contours": 5,
+    "withinMetrics": true,
+    "roundtrip": "passed",
+    "hinting": "none; gasp smoothing only",
+    "pairs": []
+  },
+  {
+    "character": "𣦍",
+    "bounds": [
+      103,
+      -33,
+      928,
+      840
+    ],
+    "points": 149,
+    "offCurvePoints": 73,
+    "contours": 6,
+    "withinMetrics": true,
+    "roundtrip": "passed",
+    "hinting": "none; gasp smoothing only",
+    "pairs": [
+      {
+        "a": 0,
+        "b": 1,
+        "gap": 24.6,
+        "overlapArea": 0.0,
+        "rows": [
+          {
+            "y": 0,
+            "gap": 243.6
+          },
+          {
+            "y": 40,
+            "gap": 142.8
+          },
+          {
+            "y": 80,
+            "gap": 123.7
+          },
+          {
+            "y": 120,
+            "gap": 29.2
+          },
+          {
+            "y": 160,
+            "gap": 143.5
+          },
+          {
+            "y": 200,
+            "gap": 142.8
+          },
+          {
+            "y": 240,
+            "gap": 142.0
+          },
+          {
+            "y": 280,
+            "gap": 141.3
+          },
+          {
+            "y": 320,
+            "gap": 140.5
+          },
+          {
+            "y": 360,
+            "gap": 139.7
+          },
+          {
+            "y": 400,
+            "gap": 138.8
+          },
+          {
+            "y": 440,
+            "gap": 137.8
+          },
+          {
+            "y": 480,
+            "gap": 135.1
+          },
+          {
+            "y": 520,
+            "gap": 89.7
+          },
+          {
+            "y": 560,
+            "gap": 191.5
+          },
+          {
+            "y": 600,
+            "gap": 176.9
+          },
+          {
+            "y": 640,
+            "gap": 163.4
+          },
+          {
+            "y": 680,
+            "gap": 156.8
+          },
+          {
+            "y": 720,
+            "gap": 174.3
+          },
+          {
+            "y": 760,
+            "gap": 297.6
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "character": "怃",
+    "bounds": [
+      43,
+      -99,
+      967,
+      814
+    ],
+    "points": 143,
+    "offCurvePoints": 84,
+    "contours": 4,
+    "withinMetrics": true,
+    "roundtrip": "passed",
+    "hinting": "none; gasp smoothing only",
+    "pairs": []
+  },
+  {
+    "character": "𠓑",
+    "bounds": [
+      50,
+      -76,
+      928,
+      835
+    ],
+    "points": 263,
+    "offCurvePoints": 133,
+    "contours": 16,
+    "withinMetrics": true,
+    "roundtrip": "passed",
+    "hinting": "none; gasp smoothing only",
+    "pairs": [
+      {
+        "a": 0,
+        "b": 1,
+        "gap": 9.7,
+        "overlapArea": 0.0,
+        "rows": [
+          {
+            "y": 0,
+            "gap": 222.5
+          },
+          {
+            "y": 40,
+            "gap": 204.7
+          },
+          {
+            "y": 80,
+            "gap": 187.9
+          },
+          {
+            "y": 120,
+            "gap": 171.9
+          },
+          {
+            "y": 160,
+            "gap": 156.3
+          },
+          {
+            "y": 200,
+            "gap": 140.9
+          },
+          {
+            "y": 240,
+            "gap": 15.4
+          },
+          {
+            "y": 280,
+            "gap": 18.3
+          },
+          {
+            "y": 320,
+            "gap": 164.7
+          },
+          {
+            "y": 360,
+            "gap": 184.3
+          },
+          {
+            "y": 400,
+            "gap": 202.3
+          },
+          {
+            "y": 440,
+            "gap": 87.0
+          },
+          {
+            "y": 480,
+            "gap": 123.2
+          },
+          {
+            "y": 520,
+            "gap": 189.2
+          },
+          {
+            "y": 560,
+            "gap": 112.6
+          },
+          {
+            "y": 600,
+            "gap": 106.7
+          },
+          {
+            "y": 640,
+            "gap": 119.5
+          },
+          {
+            "y": 680,
+            "gap": 130.9
+          },
+          {
+            "y": 720,
+            "gap": 159.9
+          },
+          {
+            "y": 760,
+            "gap": 304.2
+          },
+          {
+            "y": 800,
+            "gap": 331.1
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "character": "王",
+    "bounds": [
+      65,
+      -28,
+      944,
+      707
+    ],
+    "points": 66,
+    "offCurvePoints": 35,
+    "contours": 1,
+    "withinMetrics": true,
+    "roundtrip": "passed",
+    "hinting": "none; gasp smoothing only",
+    "pairs": []
+  },
+  {
+    "character": "有",
+    "bounds": [
+      43,
+      -93,
+      926,
+      827
+    ],
+    "points": 85,
+    "offCurvePoints": 40,
+    "contours": 3,
+    "withinMetrics": true,
+    "roundtrip": "passed",
+    "hinting": "none; gasp smoothing only",
+    "pairs": []
+  },
+  {
+    "character": "每",
+    "bounds": [
+      34,
+      -104,
+      981,
+      823
+    ],
+    "points": 144,
+    "offCurvePoints": 82,
+    "contours": 5,
+    "withinMetrics": true,
+    "roundtrip": "passed",
+    "hinting": "none; gasp smoothing only",
+    "pairs": []
+  },
+  {
+    "character": "妨",
+    "bounds": [
+      33,
+      -90,
+      979,
+      786
+    ],
+    "points": 147,
+    "offCurvePoints": 76,
+    "contours": 3,
+    "withinMetrics": true,
+    "roundtrip": "passed",
+    "hinting": "none; gasp smoothing only",
+    "pairs": []
+  },
+  {
+    "character": "信",
+    "bounds": [
+      27,
+      -96,
+      948,
+      807
+    ],
+    "points": 143,
+    "offCurvePoints": 78,
+    "contours": 7,
+    "withinMetrics": true,
+    "roundtrip": "passed",
+    "hinting": "none; gasp smoothing only",
+    "pairs": []
+  }
+]
