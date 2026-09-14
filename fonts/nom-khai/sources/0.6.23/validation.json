@@ -1,0 +1,154 @@
+[
+  {
+    "character": "期",
+    "bounds": [
+      39,
+      -89,
+      880,
+      796
+    ],
+    "points": 158,
+    "offCurvePoints": 73,
+    "contours": 9,
+    "withinMetrics": true,
+    "roundtrip": "passed",
+    "hinting": "none; gasp smoothing only",
+    "pairs": []
+  },
+  {
+    "character": "安",
+    "bounds": [
+      59,
+      -92,
+      942,
+      806
+    ],
+    "points": 110,
+    "offCurvePoints": 60,
+    "contours": 3,
+    "withinMetrics": true,
+    "roundtrip": "passed",
+    "hinting": "none; gasp smoothing only",
+    "pairs": []
+  },
+  {
+    "character": "格",
+    "bounds": [
+      36,
+      -100,
+      984,
+      811
+    ],
+    "points": 153,
+    "offCurvePoints": 80,
+    "contours": 4,
+    "withinMetrics": true,
+    "roundtrip": "passed",
+    "hinting": "none; gasp smoothing only",
+    "pairs": []
+  },
+  {
+    "character": "仉",
+    "bounds": [
+      35,
+      -86,
+      960,
+      795
+    ],
+    "points": 77,
+    "offCurvePoints": 46,
+    "contours": 2,
+    "withinMetrics": true,
+    "roundtrip": "passed",
+    "hinting": "none; gasp smoothing only",
+    "pairs": []
+  },
+  {
+    "character": "妄",
+    "bounds": [
+      52,
+      -83,
+      952,
+      812
+    ],
+    "points": 125,
+    "offCurvePoints": 68,
+    "contours": 3,
+    "withinMetrics": true,
+    "roundtrip": "passed",
+    "hinting": "none; gasp smoothing only",
+    "pairs": []
+  },
+  {
+    "character": "條",
+    "bounds": [
+      28,
+      -98,
+      971,
+      807
+    ],
+    "points": 183,
+    "offCurvePoints": 94,
+    "contours": 3,
+    "withinMetrics": true,
+    "roundtrip": "passed",
+    "hinting": "none; gasp smoothing only",
+    "pairs": []
+  },
+  {
+    "character": "们",
+    "bounds": [
+      32,
+      -87,
+      907,
+      794
+    ],
+    "points": 98,
+    "offCurvePoints": 54,
+    "contours": 4,
+    "withinMetrics": true,
+    "roundtrip": "passed",
+    "hinting": "none; gasp smoothing only",
+    "pairs": []
+  },
+  {
+    "character": "𣩂",
+    "bounds": [
+      69,
+      -96,
+      931,
+      901
+    ],
+    "points": 235,
+    "offCurvePoints": 129,
+    "contours": 4,
+    "withinMetrics": true,
+    "roundtrip": "passed",
+    "hinting": "none; gasp smoothing only",
+    "pairs": [
+      {
+        "a": 0,
+        "b": 1,
+        "gap": 4.7,
+        "overlapArea": 0.0,
+        "rows": []
+      }
+    ]
+  },
+  {
+    "character": "剐",
+    "bounds": [
+      64,
+      -100,
+      886,
+      817
+    ],
+    "points": 148,
+    "offCurvePoints": 77,
+    "contours": 4,
+    "withinMetrics": true,
+    "roundtrip": "passed",
+    "hinting": "none; gasp smoothing only",
+    "pairs": []
+  }
+]
