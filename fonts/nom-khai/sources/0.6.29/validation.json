@@ -1,0 +1,194 @@
+[
+  {
+    "character": "手",
+    "bounds": [
+      33,
+      -103,
+      973,
+      811
+    ],
+    "points": 90,
+    "offCurvePoints": 50,
+    "contours": 1,
+    "withinMetrics": true,
+    "roundtrip": "passed",
+    "hinting": "none; gasp smoothing only",
+    "pairs": []
+  },
+  {
+    "character": "地",
+    "bounds": [
+      33,
+      -58,
+      972,
+      798
+    ],
+    "points": 148,
+    "offCurvePoints": 73,
+    "contours": 3,
+    "withinMetrics": true,
+    "roundtrip": "passed",
+    "hinting": "none; gasp smoothing only",
+    "pairs": []
+  },
+  {
+    "character": "卒",
+    "bounds": [
+      43,
+      -108,
+      957,
+      828
+    ],
+    "points": 134,
+    "offCurvePoints": 69,
+    "contours": 4,
+    "withinMetrics": true,
+    "roundtrip": "passed",
+    "hinting": "none; gasp smoothing only",
+    "pairs": []
+  },
+  {
+    "character": "拸",
+    "bounds": [
+      35,
+      -98,
+      930,
+      810
+    ],
+    "points": 176,
+    "offCurvePoints": 93,
+    "contours": 2,
+    "withinMetrics": true,
+    "roundtrip": "passed",
+    "hinting": "none; gasp smoothing only",
+    "pairs": []
+  },
+  {
+    "character": "渃",
+    "bounds": [
+      39,
+      -91,
+      957,
+      814
+    ],
+    "points": 186,
+    "offCurvePoints": 93,
+    "contours": 6,
+    "withinMetrics": true,
+    "roundtrip": "passed",
+    "hinting": "none; gasp smoothing only",
+    "pairs": []
+  },
+  {
+    "character": "万",
+    "bounds": [
+      65,
+      -100,
+      937,
+      706
+    ],
+    "points": 61,
+    "offCurvePoints": 33,
+    "contours": 1,
+    "withinMetrics": true,
+    "roundtrip": "passed",
+    "hinting": "none; gasp smoothing only",
+    "pairs": []
+  },
+  {
+    "character": "近",
+    "bounds": [
+      33,
+      -80,
+      968,
+      800
+    ],
+    "points": 133,
+    "offCurvePoints": 73,
+    "contours": 3,
+    "withinMetrics": true,
+    "roundtrip": "passed",
+    "hinting": "none; gasp smoothing only",
+    "pairs": []
+  },
+  {
+    "character": "否",
+    "bounds": [
+      52,
+      -102,
+      932,
+      753
+    ],
+    "points": 99,
+    "offCurvePoints": 51,
+    "contours": 4,
+    "withinMetrics": true,
+    "roundtrip": "passed",
+    "hinting": "none; gasp smoothing only",
+    "pairs": []
+  },
+  {
+    "character": "見",
+    "bounds": [
+      41,
+      -99,
+      956,
+      769
+    ],
+    "points": 77,
+    "offCurvePoints": 34,
+    "contours": 4,
+    "withinMetrics": true,
+    "roundtrip": "passed",
+    "hinting": "none; gasp smoothing only",
+    "pairs": []
+  },
+  {
+    "character": "玉",
+    "bounds": [
+      56,
+      -33,
+      952,
+      712
+    ],
+    "points": 79,
+    "offCurvePoints": 39,
+    "contours": 2,
+    "withinMetrics": true,
+    "roundtrip": "passed",
+    "hinting": "none; gasp smoothing only",
+    "pairs": []
+  },
+  {
+    "character": "立",
+    "bounds": [
+      48,
+      -38,
+      952,
+      804
+    ],
+    "points": 89,
+    "offCurvePoints": 49,
+    "contours": 3,
+    "withinMetrics": true,
+    "roundtrip": "passed",
+    "hinting": "none; gasp smoothing only",
+    "pairs": []
+  },
+  {
+    "character": "庬",
+    "bounds": [
+      32,
+      -82,
+      960,
+      834
+    ],
+    "points": 243,
+    "offCurvePoints": 143,
+    "contours": 4,
+    "withinMetrics": true,
+    "roundtrip": "passed",
+    "hinting": "none; gasp smoothing only",
+    "pairs": []
+  }
+]
